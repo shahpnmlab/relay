@@ -401,6 +401,8 @@ public static partial class DiagramLayoutComputer
 
         PlaceExternalConnections(result, nodeDimensions, external);
 
+        SimplifyUnobstructedEdges(result);
+
         // Compute actual bounding box
         double bbMaxX = 0, bbMaxY = 0;
         foreach (var node in result.Nodes)
@@ -673,7 +675,7 @@ public static partial class DiagramLayoutComputer
         dimDescs.Sort(StringComparer.Ordinal);
 
         // Invalidate saved layouts produced with the old position-preserving algorithm.
-        var raw = "external-connections-v2|" + string.Join(",", itemKeys) +
+        var raw = "external-connections-v3|" + string.Join(",", itemKeys) +
                   "|" + string.Join(",", edgeDescs) +
                   "|" + string.Join(",", dimDescs);
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(raw));
@@ -1001,6 +1003,8 @@ public static partial class DiagramLayoutComputer
         // Post-process: compact disconnected components
         PostProcessDefinitionComponents(result);
 
+        SimplifyUnobstructedEdges(result);
+
         // Compute actual bounding box
         double bbMaxX = 0, bbMaxY = 0;
         foreach (var node in result.Nodes)
@@ -1115,7 +1119,7 @@ public static partial class DiagramLayoutComputer
             .ToList();
 
         // Invalidate saved layouts produced with the old position-preserving algorithm.
-        var raw = "topology-v2|" + string.Join(",", itemKeys) +
+        var raw = "topology-v3|" + string.Join(",", itemKeys) +
                   "|" + string.Join(",", edgeDescs) +
                   "|" + string.Join(",", dimDescs);
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(raw));
