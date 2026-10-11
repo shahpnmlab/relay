@@ -675,7 +675,7 @@ public static partial class DiagramLayoutComputer
         dimDescs.Sort(StringComparer.Ordinal);
 
         // Invalidate saved layouts produced with the old position-preserving algorithm.
-        var raw = "external-connections-v3|" + string.Join(",", itemKeys) +
+        var raw = "external-connections-v4|" + string.Join(",", itemKeys) +
                   "|" + string.Join(",", edgeDescs) +
                   "|" + string.Join(",", dimDescs);
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(raw));
@@ -1119,7 +1119,7 @@ public static partial class DiagramLayoutComputer
             .ToList();
 
         // Invalidate saved layouts produced with the old position-preserving algorithm.
-        var raw = "topology-v3|" + string.Join(",", itemKeys) +
+        var raw = "topology-v4|" + string.Join(",", itemKeys) +
                   "|" + string.Join(",", edgeDescs) +
                   "|" + string.Join(",", dimDescs);
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(raw));

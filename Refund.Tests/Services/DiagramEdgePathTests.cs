@@ -79,6 +79,36 @@ public sealed class DiagramEdgePathTests
         }
     }
 
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public void ObstacleInsideEndpointBoundsOnlyPreservesHumpWhenItTouchesCurve(bool external, bool touchesCurve)
+    {
+        var layout = new DiagramLayout
+        {
+            Edges = [new() {
+                SourceJobId = 1, TargetJobId = 2,
+                SourceX = 100, SourceY = 200, TargetX = 400, TargetY = 100,
+                BendPoints = [(150, 20), (250, 20)]
+            }]
+        };
+        // The curve passes through (250,150), but clears the other rectangle
+        // even though both obstacles lie inside the overall endpoint bounds.
+        double x = touchesCurve ? 249.9 : 200;
+        double y = touchesCurve ? 149.9 : 105;
+        double size = touchesCurve ? 0.2 : 20;
+        if (external)
+            layout.ExternalConnections.Add(new() { X = x, Y = y, Width = size, Height = size });
+        else
+            layout.Nodes.Add(new() { ItemId = 3, X = x, Y = y, Width = size, Height = size });
+
+        DiagramLayoutComputer.SimplifyUnobstructedEdges(layout);
+
+        Assert.Equal(touchesCurve ? 2 : 0, layout.Edges[0].BendPoints.Count);
+    }
+
     [Fact]
     public void OrdinaryDependencyRetainsItsBezierCurve()
     {
