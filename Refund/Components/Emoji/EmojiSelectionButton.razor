@@ -13,7 +13,7 @@
             }
             else
             {
-                <FluentEmoji Value="emoji" Width="@(Size?.ToString())" fill="none"
+                <FluentEmoji Value="emoji" Width="@(Size.HasValue ? $"{Size.Value}px" : null)" fill="none"
                              OnClick="@(_ => OpenEmojiSelector())"/>
             }
         }
