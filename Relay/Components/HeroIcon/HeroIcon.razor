@@ -6,7 +6,7 @@
     }
     @if (emoji != null)
     {
-        <FluentEmoji Value="@emoji" Width="@Size.ToString()" fill="none"/>
+        <FluentEmoji Value="@emoji" Width="@($"{Size}px")" fill="none"/>
     }
     else if (IsImageSource(Value))
     {
