@@ -53,11 +53,18 @@
 
     private async Task OnBrowserButtonClick()
     {
+        string currentFolder = Session?.Space?.RootDirectory;
+        string currentPath = ValueT;
+        if (Directory.Exists(currentPath))
+            currentFolder = Path.GetFullPath(currentPath);
+        else if (File.Exists(currentPath))
+            currentFolder = Path.GetDirectoryName(Path.GetFullPath(currentPath));
+
         await FileBrowserDialog.Show(DialogService, this, HandleDialog, "Select a file", 
                                      selectionMode: FieldDescriptionT.SelectionMode,
                                      allowedExtensions: FieldDescriptionT.FileExtensions.Any()
                                                             ? FieldDescriptionT.FileExtensions.ToArray()
                                                             : null,
-                                     currentFolder: Session?.Space?.RootDirectory);
+                                     currentFolder: currentFolder);
     }
 }
