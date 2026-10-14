@@ -195,8 +195,8 @@ public static class WarpTools
         [JsonPropertyName("Junk")]
         public double? Junk { get; set; } // Junk value
         
-        // Filled from Warp's metadata object; currently absent from processed_items.json.
-        [JsonIgnore]
+        // Specimen thickness in angstroms; absent in older dataset summaries.
+        [JsonPropertyName("CtfSpecimenThicknessAngstrom")]
         public double? CtfSpecimenThicknessAngstrom { get; set; }
 
         [JsonPropertyName("Particles")]
@@ -280,8 +280,8 @@ public static class WarpTools
         [JsonPropertyName("CtfInclination")]
         public double? CtfInclination { get; set; }
         
-        // Filled from Warp's metadata object; currently absent from processed_items.json.
-        [JsonIgnore]
+        // Specimen thickness in angstroms; absent in older dataset summaries.
+        [JsonPropertyName("CtfSpecimenThicknessAngstrom")]
         public double? CtfSpecimenThicknessAngstrom { get; set; }
 
         // Particles

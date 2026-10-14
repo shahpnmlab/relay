@@ -22,10 +22,8 @@ public partial class Class2DSelectExpandedView : IDisposable
     private float[] _unselectedClassResolutions = null;
     private float[] _unselectedClassSizes = null;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
-        
         _expandedViewService.OnJobChanged += HandleJobChanged;
         _expandedViewService.OnJobUpdated += HandleJobUpdated;
         await HandleJobChanged(_expandedViewService.CurrentJob);

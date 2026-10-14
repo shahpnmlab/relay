@@ -16,10 +16,8 @@ public partial class ExtractParticles2DExpandedView : IAsyncDisposable
     private ThumbnailData _selectedThumbnail;
     private string _selectedName;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
-        
         _expandedViewService.OnJobChanged += HandleJobChanged;
         _expandedViewService.OnJobUpdated += HandleJobUpdated;
         await HandleJobChanged(_expandedViewService.CurrentJob);

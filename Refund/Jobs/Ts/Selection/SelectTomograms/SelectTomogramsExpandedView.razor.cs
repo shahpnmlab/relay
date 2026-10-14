@@ -53,9 +53,8 @@ public partial class SelectTomogramsExpandedView : IAsyncDisposable
 
     #region Lifecycle
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
 
         ExpandedViewService.OnJobChanged += HandleJobChanged;
         ExpandedViewService.OnJobUpdated += HandleJobUpdated;

@@ -83,10 +83,8 @@ public partial class ImportDataSetTsExpandedView : IAsyncDisposable
 
     #region Lifecycle Methods
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
-        
         ExpandedViewService.OnJobChanged += HandleJobChanged;
         ExpandedViewService.OnJobUpdated += HandleJobUpdated;
         await HandleJobChanged(ExpandedViewService.CurrentJob);

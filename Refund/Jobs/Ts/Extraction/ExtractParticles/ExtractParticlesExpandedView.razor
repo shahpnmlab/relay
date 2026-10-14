@@ -1,3 +1,4 @@
+@inherits Refund.Components.Jobs.ExpandedView.LoadingExpandedViewBase
 @using Refund.Components.ThumbnailPanel
 @using Refund.Components.TomogramViewer
 @using Refund.Components.SingleAxisScatter
@@ -5,6 +6,12 @@
 @using Warp
 @using Warp.Tools
 
+@if (IsInitializing)
+{
+    <Refund.Components.Jobs.ExpandedView.ExpandedViewLoading />
+}
+else
+{
 <div class="container">
     <div class="thumbnail-container">
         <ThumbnailPanel @ref="_tomogramThumbnailPanel"
@@ -62,3 +69,4 @@
         </FluentTabs>
     </div>
 </div>
+}

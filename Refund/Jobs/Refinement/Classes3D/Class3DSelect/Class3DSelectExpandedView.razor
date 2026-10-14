@@ -1,9 +1,14 @@
+@inherits Refund.Components.Jobs.ExpandedView.LoadingExpandedViewBase
 @using Refund.Components
 @using Refund.Components.IsosurfaceViewer
 
 @implements IAsyncDisposable
 
-@if (_job == null || _job.VisAvailableIteration < 0)
+@if (IsInitializing)
+{
+    <Refund.Components.Jobs.ExpandedView.ExpandedViewLoading />
+}
+else if (_job == null || _job.VisAvailableIteration < 0)
 {
     <FluentProgressRing Style="height: 70px; width: 70px;" />
 }

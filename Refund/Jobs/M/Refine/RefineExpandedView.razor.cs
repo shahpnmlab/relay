@@ -32,10 +32,8 @@ public partial class RefineExpandedView
     /// <summary>
     /// Initializes the component and sets up event handlers
     /// </summary>
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
-        
         // Subscribe to events from the expanded view service
         ExpandedViewService.OnJobChanged += HandleJobChanged;
         ExpandedViewService.OnJobUpdated += HandleJobUpdated;

@@ -109,10 +109,8 @@ public partial class CtfExpandedView : IAsyncDisposable
 
     #region Lifecycle Methods
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
-        
         ExpandedViewService.OnJobChanged += HandleJobChanged;
         ExpandedViewService.OnJobUpdated += HandleJobUpdated;
         await HandleJobChanged(ExpandedViewService.CurrentJob);
@@ -273,9 +271,6 @@ public partial class CtfExpandedView : IAsyncDisposable
                         Metadata = item
                     });
                     
-                    var tiltSeries = new TiltSeries(Path.Combine(_job.DirectoryPath, item.Path));
-                    item.CtfSpecimenThicknessAngstrom = tiltSeries.CTFSpecimenThicknessAngstrom > 0
-                        ? (double)tiltSeries.CTFSpecimenThicknessAngstrom : null;
                     if (item.CtfSpecimenThicknessAngstrom.HasValue)
                         pointsCtfThickness.Add(new ScatterPoint
                         {

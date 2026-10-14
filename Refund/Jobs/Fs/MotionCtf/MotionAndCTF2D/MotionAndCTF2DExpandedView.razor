@@ -1,10 +1,15 @@
+@inherits Refund.Components.Jobs.ExpandedView.LoadingExpandedViewBase
 @using Refund.Components.ThumbnailPanel
 @using Refund.Components.MicrographViewer
 @using Refund.Components.FourierSpace
 @using Refund.Components.SingleAxisScatter
 @using Refund.Components.Jobs
 
-@if (_job == null)
+@if (IsInitializing)
+{
+    <Refund.Components.Jobs.ExpandedView.ExpandedViewLoading />
+}
+else if (_job == null)
 {
     <FluentProgressRing Style="height: 70px; width: 70px;"/>
 }

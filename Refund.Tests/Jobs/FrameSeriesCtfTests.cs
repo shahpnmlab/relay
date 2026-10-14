@@ -45,19 +45,21 @@ public class FrameSeriesCtfTests : IDisposable
     }
 
     [Fact]
-    public async Task Overview_LoadsThicknessFromMovieMetadataAndRefreshesWithoutInventingMissingValues()
+    public async Task Overview_LoadsThicknessFromSummaryAndRefreshesWithoutReadingXml()
     {
         JobRegistry.EnsurePopulated();
         var job = new MotionAndCTF2D { Id = 12, Space = new Space { RootDirectory = _root } };
         Directory.CreateDirectory(job.RelayResultsDirectoryPath);
-        File.WriteAllText(job.ResProcessedItemsJson, JsonSerializer.Serialize(new[]
+        void WriteSummary(double thickness) => File.WriteAllText(job.ResProcessedItemsJson, JsonSerializer.Serialize(new[]
         {
-            new { Path = "fitted.mrc", Phase = 0.25 },
-            new { Path = "legacy.mrc", Phase = 0.0 },
-            new { Path = "missing.mrc", Phase = 0.0 },
-            new { Path = "zero.mrc", Phase = 0.0 }
+            new { Path = "fitted.mrc", Phase = 0.25, CtfSpecimenThicknessAngstrom = (double?)thickness },
+            new { Path = "legacy.mrc", Phase = 0.0, CtfSpecimenThicknessAngstrom = (double?)null },
+            new { Path = "missing.mrc", Phase = 0.0, CtfSpecimenThicknessAngstrom = (double?)null },
+            new { Path = "zero.mrc", Phase = 0.0, CtfSpecimenThicknessAngstrom = (double?)null }
         }));
-        var movie = new Movie(Path.Combine(job.DirectoryPath, "fitted.mrc")) { CTFSpecimenThicknessAngstrom = 1234.25M };
+        WriteSummary(1234.25);
+        // XML deliberately disagrees with the summary. Startup must not consult it.
+        var movie = new Movie(Path.Combine(job.DirectoryPath, "fitted.mrc")) { CTFSpecimenThicknessAngstrom = 999M };
         movie.SaveMeta();
         File.WriteAllText(job.FrameSeriesXmlFile("legacy.mrc"), "<Movie />");
         new Movie(Path.Combine(job.DirectoryPath, "zero.mrc")).SaveMeta();
@@ -74,8 +76,8 @@ public class FrameSeriesCtfTests : IDisposable
         Assert.Equal(0.25, items[0].Phase);
         Assert.All(items.Skip(1), item => Assert.Null(item.CtfSpecimenThicknessAngstrom));
 
-        movie.CTFSpecimenThicknessAngstrom = 987;
-        movie.SaveMeta();
+        File.Delete(movie.XMLPath);
+        WriteSummary(987);
         await Load(view);
         point = Assert.Single((List<ScatterPoint>)Field("_pointsCtfThickness").GetValue(view)!);
         Assert.Equal(987, point.Value);

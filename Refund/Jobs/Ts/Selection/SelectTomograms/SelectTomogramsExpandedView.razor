@@ -1,9 +1,14 @@
+@inherits Refund.Components.Jobs.ExpandedView.LoadingExpandedViewBase
 @using Refund.Components.ThumbnailPanel
 @using Refund.Components.TomogramViewerJs
 @using Refund.DataModel
 @using Microsoft.FluentUI.AspNetCore.Components
 
-@if (_job == null)
+@if (IsInitializing)
+{
+    <Refund.Components.Jobs.ExpandedView.ExpandedViewLoading />
+}
+else if (_job == null)
 {
     <span>No job to display</span>
 }

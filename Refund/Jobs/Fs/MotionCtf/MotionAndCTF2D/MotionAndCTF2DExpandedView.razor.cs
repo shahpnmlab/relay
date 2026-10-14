@@ -33,10 +33,8 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
         ? Path.Combine(_job.DirectoryPath, $"{Path.GetFileNameWithoutExtension(_selectedName)}.xml")
         : string.Empty;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
-        
         ExpandedViewService.OnJobChanged += HandleJobChanged;
         ExpandedViewService.OnJobUpdated += HandleJobUpdated;
         await HandleJobChanged(ExpandedViewService.CurrentJob);
@@ -132,9 +130,6 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
                 });
                 
                 var item = _processedItems[i];
-                var movie = new Warp.Movie(_job.FrameSeriesXmlFile(item.Path));
-                item.CtfSpecimenThicknessAngstrom = movie.CTFSpecimenThicknessAngstrom > 0
-                    ? (double)movie.CTFSpecimenThicknessAngstrom : null;
                 if (item.CtfSpecimenThicknessAngstrom.HasValue)
                     pointsCtfThickness.Add(new ScatterPoint
                     {

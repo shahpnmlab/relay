@@ -83,10 +83,8 @@ public partial class InitialReferenceExpandedView
     /// <summary>
     /// Initializes the component and sets up event handlers
     /// </summary>
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
-        
         // Subscribe to events from the expanded view service
         _expandedViewService.OnJobChanged += HandleJobChanged;
         _expandedViewService.OnJobUpdated += HandleJobUpdated;

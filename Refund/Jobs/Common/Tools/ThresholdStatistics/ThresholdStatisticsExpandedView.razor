@@ -1,7 +1,12 @@
+@inherits Refund.Components.Jobs.ExpandedView.LoadingExpandedViewBase
 @using Refund.Components.Histogram
 @using Refund.DataModel
 
-@if (_job == null)
+@if (IsInitializing)
+{
+    <Refund.Components.Jobs.ExpandedView.ExpandedViewLoading />
+}
+else if (_job == null)
 {
     <span>No job to display</span>
 }

@@ -50,10 +50,8 @@ public partial class Class3DSelectExpandedView
     /// <summary>
     /// Initializes the component by subscribing to job change events and loading the initial job data.
     /// </summary>
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        base.OnInitialized();
-        
         // Subscribe to job change and update events from the ExpandedJobViewService
         ExpandedViewService.OnJobChanged += HandleJobChanged;
         ExpandedViewService.OnJobUpdated += HandleJobUpdated;

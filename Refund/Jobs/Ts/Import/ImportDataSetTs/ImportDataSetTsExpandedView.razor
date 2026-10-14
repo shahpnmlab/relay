@@ -1,3 +1,4 @@
+@inherits Refund.Components.Jobs.ExpandedView.LoadingExpandedViewBase
 @using Refund.Components.ThumbnailPanel
 @using Refund.Components.MicrographViewer
 @using Refund.Components.FourierSpace
@@ -6,7 +7,11 @@
 @using Refund.Components
 @using Warp.Tools
 
-@if (_job == null)
+@if (IsInitializing)
+{
+    <Refund.Components.Jobs.ExpandedView.ExpandedViewLoading />
+}
+else if (_job == null)
 {
     <span>No job to display</span>
 }

@@ -42,9 +42,8 @@ public partial class ThresholdStatisticsExpandedView : IAsyncDisposable
 
     #region Lifecycle
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task InitializeViewAsync()
     {
-        await base.OnInitializedAsync();
 
         ExpandedViewService.OnJobChanged += HandleJobChanged;
         ExpandedViewService.OnJobUpdated += HandleJobUpdated;

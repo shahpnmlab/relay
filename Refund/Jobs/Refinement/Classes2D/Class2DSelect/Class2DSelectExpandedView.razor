@@ -1,3 +1,10 @@
+@inherits Refund.Components.Jobs.ExpandedView.LoadingExpandedViewBase
+@if (IsInitializing)
+{
+    <Refund.Components.Jobs.ExpandedView.ExpandedViewLoading />
+}
+else
+{
 ﻿@using Refund.Components.Class2DSelection
 
 @if (_job == null || _job.VisAvailableIteration < 0)
@@ -37,4 +44,5 @@ else
                           BorderColorSelected="transparent"
                           BorderWidthPx="0" />
     </div>
+}
 }
