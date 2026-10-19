@@ -108,6 +108,8 @@
 
     <FluentToastProvider Timeout="10_000" Position="ToastPosition.BottomLeft" />
     <FluentDialogProvider />
+    @* App menus use RelayMenu, but FluentTabs still creates FluentMenu internally for overflowing tabs. *@
+    <FluentMenuProvider />
     <FluentTooltipProvider />
     <FluentMessageBarProvider />
 </main>
