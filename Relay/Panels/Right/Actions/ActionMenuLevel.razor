@@ -44,13 +44,8 @@
             <RelayMenuItem Label="@action.Name" LabelStyle="@(action.IsDisabled ? "text-decoration: line-through;" : null)" Style="@GetItemStyle(action)">
                 <MenuItems>
                     <RelayMenuItem Label="I'm sure"
-                                    Style="color: var(--warning);">
-                        <MenuItems>
-                            <RelayMenuItem Label="Yes, I'm really sure"
-                                            OnClick="@action.Action"
-                                            Style="color: var(--error);" />
-                        </MenuItems>
-                    </RelayMenuItem>
+                                   OnClick="@action.Action"
+                                   Style="color: var(--error);" />
                 </MenuItems>
 
                 <ChildContent>

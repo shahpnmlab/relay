@@ -38,7 +38,8 @@ Check these behaviors in a browser:
 
 Also verify integration in Relay: list and diagram job-card menus, background job
 creation, port-connection menus, listing cards, queue cards, and action-panel
-buttons. Destructive actions retain the “I'm sure” → “Yes, I'm really sure”
-confirmation submenus; dismissing either level must leave the model unchanged.
+buttons. Destructive menu actions execute from the single “I'm sure” confirmation
+submenu; dismissing it must leave the model unchanged. Action-panel buttons retain
+their confirmation popover.
 Unavailable actions show an explanation submenu, with only their labels struck
 through (not icons or chevrons).
