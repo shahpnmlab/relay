@@ -15,7 +15,11 @@ function anchorController(target) {
     for (let element = target; element instanceof Element; element = element.parentElement) {
         if (element.getAttribute("data-relay-context") === "false") return null;
         for (const controller of controllers) {
-            if (controller.options.context && element.id && element.id === controller.options.anchor)
+            // Blazor removes DOM synchronously, but menu disposal crosses JS interop.
+            // An old controller can still be registered when a card with the same ID
+            // is rendered again. Never dispatch its click to the removed component.
+            if (controller.root.isConnected && controller.options.context &&
+                element.id && element.id === controller.options.anchor)
                 return controller;
         }
     }

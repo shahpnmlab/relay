@@ -3,6 +3,15 @@
 Runs the actual Relay Razor components and browser module with synthetic commands;
 no projects, users, jobs, or scientific data are loaded or modified.
 
+Run the browser module's targeting regression tests with Node.js:
+
+```sh
+node --test tests/Relay.MenuHarness/menu-targeting.test.mjs
+```
+
+These cover removed menus remaining registered until asynchronous component
+disposal finishes, including replacement cards that reuse the same anchor ID.
+
 ```sh
 ASPNETCORE_ENVIRONMENT=Development ASPNETCORE_URLS=http://localhost:5002 \
   dotnet run --project tests/Relay.MenuHarness
