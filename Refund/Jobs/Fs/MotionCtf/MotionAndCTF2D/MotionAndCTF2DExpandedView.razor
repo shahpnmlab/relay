@@ -24,8 +24,8 @@ else if (_allThumbnails != null && _allThumbnails.Any())
         
         <div style="position: relative; height: 100%;">
             
-            <div style="position: absolute; top: -0.75rem; right: 0; z-index: 1">
-                <FsMiniItem SelectedItem="@_selectedItem" ThumbnailSize="96" GetThumbnail="@(path => _job.VisThumbnail(path))" />
+            <div style="position: absolute; top: -0.75rem; right: 0">
+                <FsMiniItem ThumbnailSize="96" GetThumbnail="@(path => _job.VisThumbnail(path))" />
             </div>
 
             <FluentTabs @ref="_tabs" Style="height: 100%;">

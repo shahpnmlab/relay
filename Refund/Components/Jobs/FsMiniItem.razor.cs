@@ -8,11 +8,6 @@ namespace Refund.Components.Jobs;
 public partial class FsMiniItem : ComponentBase, IDisposable
 {
     [Parameter]
-    public WarpTools.MiniJsonFsItem? SelectedItem { get; set; }
-
-    private WarpTools.MiniJsonFsItem? DisplayItem => _item?.Metadata as WarpTools.MiniJsonFsItem ?? SelectedItem;
-
-    [Parameter]
     public int ThumbnailSize { get; set; }
     
     [Parameter]

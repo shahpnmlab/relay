@@ -23,7 +23,6 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
     private List<ThumbnailData> _allThumbnails = new();
     private ThumbnailData _selectedThumbnail;
     private string _selectedName;
-    private WarpTools.MiniJsonFsItem? _selectedItem;
     
     private List<ScatterPoint> _pointsDefocus = new();
     private List<ScatterPoint> _pointsCtfRes = new();
@@ -48,7 +47,6 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
             _job = motionAndCtf2D;
             _selectedThumbnail = null;
             _selectedName = null;
-            _selectedItem = null;
             await LoadData();
         }
         else
@@ -71,8 +69,7 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
             return;
 
         _selectedThumbnail = data;
-        _selectedItem = _processedItems[_allThumbnails.IndexOf(data)];
-        _selectedName = _selectedItem.Path;
+        _selectedName = _processedItems[_allThumbnails.IndexOf(data)].Path;
         await _tabs.SelectTabAsync("tab-details");
         StateHasChanged();
     }
@@ -86,8 +83,7 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
         
         int index = _processedItems.IndexOf(metadata);
         _selectedThumbnail = _allThumbnails[index];
-        _selectedItem = _processedItems[index];
-        _selectedName = _selectedItem.Path;
+        _selectedName = _processedItems[index].Path;
 
         await HighlightService.SetHighlight(this, -1, null);
         await _tabs.SelectTabAsync("tab-details");
@@ -103,7 +99,6 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
         {
             var processedItemsJson = await File.ReadAllTextAsync(_job.ResProcessedItemsJson);
             _processedItems = JsonSerializer.Deserialize<List<WarpTools.MiniJsonFsItem>>(processedItemsJson);
-            _selectedItem = _processedItems?.FirstOrDefault(item => item.Path == _selectedName);
 
             var thumbnails = new List<ThumbnailData>(_allThumbnails.Capacity);
             var pointsDefocus = new List<ScatterPoint>(_pointsDefocus.Capacity);
