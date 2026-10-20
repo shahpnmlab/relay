@@ -31,7 +31,7 @@
                         </h6>
                     }
                     <div class="right-panel-compact">
-                        <FluentTextInput Placeholder="Custom instance name"
+                        <RelayTextInput Placeholder="Custom instance name"
                                          Style="width: 100%; margin-top: 10px"
                                          Value="@_instance.Alias"
                                          ValueChanged="@HandleAliasChanged" />
@@ -103,7 +103,7 @@
                                 var prop = GetPropertyInfo(capturedSubJob, exposed.PropertyName);
                                 if (prop == null) { continue; }
 
-                                <UiFieldView Property="@prop"
+                                <UiFieldView @key="@((capturedSubJob, prop))" Property="@prop"
                                              Job="@capturedSubJob"
                                              IsDisabled="@isDisabled"
                                              CustomLabel="@exposed.CustomName"

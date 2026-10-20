@@ -67,7 +67,7 @@ function escapeHtml(text) {
  */
 function debounce(func, wait) {
     let timeout;
-    return function executedFunction(...args) {
+    const debounced = function executedFunction(...args) {
         const later = () => {
             clearTimeout(timeout);
             func(...args);
@@ -75,6 +75,8 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
+    debounced.cancel = () => clearTimeout(timeout);
+    return debounced;
 }
 
 /**
@@ -150,6 +152,7 @@ function createInstance(textareaElement, preElement, codeElement, dotNetRef) {
 
     // Set up blur handling for immediate notification when focus leaves the editor
     state.blurHandler = () => {
+        state.notifyBlazor.cancel();
         const value = textareaElement.value;
         dotNetRef.invokeMethodAsync('OnValueChanged', value);
     };
@@ -324,6 +327,9 @@ export function setCursorPosition(textareaElement, selectionStart, selectionEnd 
 export function cleanup(textareaElement) {
     const state = instances.get(textareaElement);
     if (!state) return;
+
+    state.notifyBlazor.cancel();
+    state.notifyCursorPosition.cancel();
 
     // Remove event listeners
     if (state.scrollHandler) {

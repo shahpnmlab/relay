@@ -3,7 +3,7 @@
 
 <RobustFluentNumberField
                    TValue="@(int?)"
-                   @bind-Value="@ValueT" 
+                   @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
                    Style="width: 100%;"
                    Class="borderless"
                    Placeholder="No value"
@@ -16,9 +16,7 @@
 {
     private UiIntNullable FieldDescriptionT => (UiIntNullable)FieldDescription ?? null;
 
-    private int? ValueT
-    {
-        get => Value == null ? null : (int?)Value;
-        set => ValueChanged.InvokeAsync(value);
-    }
+    private int? ValueT => EditingValue == null ? null : (int?)EditingValue;
+
+    private Task SetValueTAsync(int? value) => SetValueAsync(value);
 }

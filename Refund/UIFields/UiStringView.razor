@@ -1,8 +1,8 @@
 @namespace Refund.UIFields
 @inherits UiFieldViewBase
 
-<FluentTextInput Class="borderless"
-                 @bind-Value="@ValueT"
+<RelayTextInput Class="borderless"
+                 @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
                  Style="width: 100%"
                  Placeholder="No value"
                  Immediate="true"
@@ -12,9 +12,7 @@
 {
     private UiString FieldDescriptionT => (UiString)FieldDescription ?? null;
 
-    private string ValueT
-    {
-        get => (string)Value;
-        set => ValueChanged.InvokeAsync(value);
-    }
+    private string ValueT => (string)EditingValue ?? string.Empty;
+
+    private Task SetValueTAsync(string value) => SetValueAsync(value);
 }

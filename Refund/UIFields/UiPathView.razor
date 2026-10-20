@@ -10,7 +10,7 @@
 
 <FluentStack HorizontalGap="0">
     <div style="width: 100%">
-        <FluentTextInput @bind-Value="@ValueT"
+        <RelayTextInput @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
                          Class="borderless"
                          Immediate="true"
                          Style="width: 100%"
@@ -29,11 +29,9 @@
 {
     private UiPath FieldDescriptionT => (UiPath)FieldDescription ?? null;
 
-    private string ValueT
-    {
-        get => (string)Value;
-        set => ValueChanged.InvokeAsync(value);
-    }
+    private string ValueT => (string)EditingValue ?? string.Empty;
+
+    private Task SetValueTAsync(string value) => SetValueAsync(value);
     
     private async Task HandleDialog(DialogResult result)
     {
@@ -45,7 +43,7 @@
         {
             List<FileSystemItem> selectedItems = result.Value as List<FileSystemItem>;
             if (selectedItems.Any())
-                ValueT = selectedItems.First().Path;
+                await SetValueTAsync(selectedItems.First().Path);
             
             StateHasChanged();
         }

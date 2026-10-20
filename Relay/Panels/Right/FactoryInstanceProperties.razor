@@ -26,7 +26,7 @@
         <div class="property-panel">
             <div class="property-item">
                 <span class="property-title">Name</span>
-                <FluentTextInput Class="property-value"
+                <RelayTextInput Class="property-value"
                                  AutoComplete="off"
                                  Value="@FactoryInstance.Alias"
                                  ValueChanged="@HandleAliasChanged"/>
@@ -34,7 +34,7 @@
 
             <div class="property-item">
                 <span class="property-title">Notes</span>
-                <FluentTextArea Class="property-value"
+                <RelayTextArea Class="property-value"
                                 Height="72px"
                                 Value="@FactoryInstance.Notes"
                                 ValueChanged="@HandleNotesChanged"/>

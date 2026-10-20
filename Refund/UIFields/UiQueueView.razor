@@ -4,7 +4,7 @@
 @inject DataManager DataManager
 
 <FluentSelect TOption="SelectOption<string>" TValue="string" Class="borderless" Appearance="ListAppearance.Transparent"
-              @bind-Value="@ValueT"
+              @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
               Width="100%"
               Items="@Options"
               OptionText="@(o => o.Text)"
@@ -13,13 +13,11 @@
 
 @code
 {
-    private int CurrentId => Value is int i ? i : -1;
+    private int CurrentId => EditingValue is int i ? i : -1;
 
-    private string? ValueT
-    {
-        get => CurrentId.ToString();
-        set => ValueChanged.InvokeAsync(value != null ? int.Parse(value) : -1);
-    }
+    private string? ValueT => CurrentId.ToString();
+
+    private Task SetValueTAsync(string? value) => SetValueAsync(value != null ? int.Parse(value) : -1);
 
     private List<SelectOption<string>> Options
     {

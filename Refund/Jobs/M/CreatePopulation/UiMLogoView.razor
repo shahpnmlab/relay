@@ -9,7 +9,7 @@
 
 <FluentSlider
               TValue="@(int)"
-              @bind-Value="@ValueT" 
+              @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
               Style="width: 100%;"
               Min="-180"
               Max="180"
@@ -20,9 +20,7 @@
 {
     private UiMLogo FieldDescriptionT => (UiMLogo)FieldDescription ?? null;
 
-    private int ValueT
-    {
-        get => (int)Value;
-        set => ValueChanged.InvokeAsync(value);
-    }
+    private int ValueT => (int)EditingValue;
+
+    private Task SetValueTAsync(int value) => SetValueAsync(value);
 }

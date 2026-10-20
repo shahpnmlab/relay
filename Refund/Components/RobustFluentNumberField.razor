@@ -1,8 +1,10 @@
 @typeparam TValue where TValue : new()
+@inherits BufferedInputBase<TValue>
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
-<FluentNumberInput TValue="TValue"
-                   Value="@Value"
-                   ValueChanged="@ValueChanged"
+<FluentNumberInput @ref="_input" TValue="TValue"
+                   Value="@EditingValue"
+                   ValueChanged="@SetValueAsync"
                    Class="@Class"
                    Style="@Style"
                    Placeholder="@Placeholder"
@@ -11,4 +13,19 @@
                    Step="@ParseBound(Step, "Step")"
                    Immediate="@Immediate"
                    ImmediateDelay="@ImmediateDelay"
-                   Disabled="@Disabled" />
+                   StepButtons="NumberInputStepVisibility.Hidden"
+                   Disabled="@Disabled">
+    <EndTemplate>
+        @if (!Disabled && Convert.ToDouble(ParseBound(Step, "Step"), System.Globalization.CultureInfo.InvariantCulture) != 0)
+        {
+            <div class="relay-number-steps">
+                <button type="button" button-step="up" aria-label="Increase value">
+                    <FluentIcon Value="@(new Icons.Regular.Size16.ChevronUp())" />
+                </button>
+                <button type="button" button-step="down" aria-label="Decrease value">
+                    <FluentIcon Value="@(new Icons.Regular.Size16.ChevronDown())" />
+                </button>
+            </div>
+        }
+    </EndTemplate>
+</FluentNumberInput>

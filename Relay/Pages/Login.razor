@@ -58,7 +58,7 @@
                     <DataAnnotationsValidator/>
 
                     <div class="form-content">
-                        <FluentTextInput @bind-Value="_registrationModel.Username"
+                        <RelayTextInput @bind-Value="_registrationModel.Username"
                                          Label="Username"
                                          Required="true"
                                          Immediate="true"
@@ -66,13 +66,13 @@
                                          AutoComplete="off" />
                         <FluentValidationMessage For="@(() => _registrationModel.Username)"/>
 
-                        <FluentTextInput @bind-Value="_registrationModel.Name"
+                        <RelayTextInput @bind-Value="_registrationModel.Name"
                                          Label="Name"
                                          Required="true"
                                          Immediate="true"/>
                         <FluentValidationMessage For="@(() => _registrationModel.Name)"/>
 
-                        <FluentTextInput @bind-Value="_registrationModel.Email"
+                        <RelayTextInput @bind-Value="_registrationModel.Email"
                                          Label="Email"
                                          Required="true"
                                          Type="email"
@@ -80,7 +80,7 @@
                                          TextInputType="TextInputType.Email"/>
                         <FluentValidationMessage For="@(() => _registrationModel.Email)"/>
 
-                        <FluentTextInput @bind-Value="_registrationModel.Password"
+                        <RelayTextInput @bind-Value="_registrationModel.Password"
                                          Label="Password"
                                          Required="true"
                                          TextInputType="TextInputType.Password"/>
@@ -88,7 +88,7 @@
 
                         @if (!_isFirstUser)
                         {
-                            <FluentTextInput @bind-Value="_registrationModel.SecurityToken"
+                            <RelayTextInput @bind-Value="_registrationModel.SecurityToken"
                                              Label="Security Token"
                                              Required="true"
                                              AutoComplete="off" />
@@ -123,7 +123,7 @@
                     <DataAnnotationsValidator/>
 
                     <div class="form-content">
-                        <FluentTextInput @bind-Value="_loginModel.Username"
+                        <RelayTextInput @bind-Value="_loginModel.Username"
                                          Label="Username"
                                          Required="true"
                                          Immediate="true"
@@ -131,7 +131,7 @@
                                          AutoComplete="off"/>
                         <FluentValidationMessage For="@(() => _loginModel.Username)"/>
 
-                        <FluentTextInput @bind-Value="_loginModel.Password"
+                        <RelayTextInput @bind-Value="_loginModel.Password"
                                          Label="Password"
                                          Required="true"
                                          Immediate="true"

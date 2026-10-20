@@ -18,7 +18,7 @@
                         {
                             @if (IsPropertyVisible(property))
                             {
-                                <UiFieldView Property="@property" 
+                                <UiFieldView @key="@((Job, property))" Property="@property"
                                              ErrorMessage="@GetError(property.Name)" 
                                              Job="Job" 
                                              IsDisabled="@IsDisabled"
@@ -45,7 +45,7 @@
 
         @foreach (var category in Refund.DataModel.Job.TypeParameterCategories[Job.GetOriginalType()])
         {
-            <FluentAccordionItem Class="transparent" 
+            <FluentAccordionItem @key="@((Job, category.Key))" Class="transparent"
                                  Expanded="@(!IsGroupCollapsed(category.Key))" 
                                  ExpandedChanged="@(value => HandleGroupExpandedChanged(category.Key, value))">
                 <HeaderTemplate>
@@ -62,7 +62,7 @@
                             {
                                     var _propExposed = ShowExposureToggle && (IsPropertyExposed?.Invoke(property) == true);
                                     var _capturedProp = property;
-                                <UiFieldView Property="property"
+                                <UiFieldView @key="@((Job, property))" Property="property"
                                              ErrorMessage="@GetError(property.Name)"
                                              Job="Job"
                                              IsDisabled="@IsDisabled"
@@ -71,7 +71,7 @@
                                     <LabelExtra>
                                         @if (_propExposed && GetExposedPropertyName != null)
                                         {
-                                            <FluentTextInput Value="@GetExposedPropertyName(_capturedProp)"
+                                            <RelayTextInput Value="@GetExposedPropertyName(_capturedProp)"
                                                              ValueChanged="@(v => OnExposedPropertyNameChanged.InvokeAsync((_capturedProp, v)))"
                                                              Placeholder="Custom name"
                                                              Style="width: 100%; font-size: 0.8rem;" />

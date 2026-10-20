@@ -1,21 +1,19 @@
 ﻿@namespace Refund.UIFields
 @inherits UiFieldViewBase
 
-<FluentTextArea Class="borderless"
+<RelayTextArea Class="borderless"
                 Height="252px"
-                @bind-Value="@ValueT"
+                @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
                 Style="width: 100%"
                 Immediate="true"
                 Disabled="@IsDisabled">
-</FluentTextArea>
+</RelayTextArea>
 
 @code
 {
     private UiText FieldDescriptionT => (UiText)FieldDescription ?? null;
 
-    private string ValueT
-    {
-        get => (string)Value;
-        set => ValueChanged.InvokeAsync(value);
-    }
+    private string ValueT => (string)EditingValue ?? string.Empty;
+
+    private Task SetValueTAsync(string value) => SetValueAsync(value);
 }

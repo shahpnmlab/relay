@@ -40,7 +40,7 @@
         </TemplateColumn>
 
         <TemplateColumn Title="Username" Sortable="true" SortBy="@(GridSort<ReadOnlyUser>.ByAscending(x => x.Username))">
-            <FluentTextInput Class="user-field"
+            <RelayTextInput Class="user-field"
                             Style="width: 100%; margin-left: -9px;"
                             Value="@(GetFieldValue(context, nameof(ReadOnlyUser.Username)))"
                             ValueChanged="@(value => OnUsernameChanged(value, context))"
@@ -55,7 +55,7 @@
         </TemplateColumn>
 
         <TemplateColumn Title="Name" Sortable="true" SortBy="@(GridSort<ReadOnlyUser>.ByAscending(x => x.Name))">
-            <FluentTextInput Class="user-field"
+            <RelayTextInput Class="user-field"
                             Value="@(GetFieldValue(context, nameof(ReadOnlyUser.Name)))"
                             ValueChanged="@(value => OnNameChanged(value, context))"
                             Style="width: 100%; margin-left: -9px;"
@@ -70,7 +70,7 @@
         </TemplateColumn>
 
         <TemplateColumn Title="Email" Sortable="true" SortBy="@(GridSort<ReadOnlyUser>.ByAscending(x => x.Email))">
-            <FluentTextInput Class="user-field"
+            <RelayTextInput Class="user-field"
                             Value="@(GetFieldValue(context, nameof(ReadOnlyUser.Email)))"
                             ValueChanged="@(value => OnEmailChanged(value, context))"
                             Style="width: 100%; margin-left: -9px;"

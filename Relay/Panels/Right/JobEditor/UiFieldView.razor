@@ -34,7 +34,7 @@
             <FluentButton IconOnly="true" Appearance="ButtonAppearance.Transparent"
                           Title="Reset to default"
                           Style="height: 16px; min-height: 16px; min-width: 16px; width: 16px; padding: 0;"
-                          OnClick="@(async (_) => await HandleValueChanged(GetDefaultValue))">
+                          OnClick="@ResetValueAsync">
                 <FluentIcon Value="@(new Icons.Filled.Size16.Backspace())" />
             </FluentButton>
         }
@@ -54,7 +54,7 @@
                 { nameof(UiFieldViewBase.IsDisabled), IsDisabled }
             };
 
-            <DynamicComponent Type="@_uiField.ViewType" Parameters="@parameters"/>
+            <DynamicComponent @ref="_fieldComponent" @key="@((Job, Property))" Type="@_uiField.ViewType" Parameters="@parameters"/>
         }
     </div>
 

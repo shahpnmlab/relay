@@ -2,7 +2,7 @@
 @inherits UiFieldViewBase
 
 <FluentSelect TOption="SelectOption<string>" TValue="string" Class="borderless" Appearance="ListAppearance.Transparent"
-              @bind-Value="@ValueT"
+              @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
               Width="100%"
               Items="@Options"
               OptionText="@(i => i.Text)"
@@ -11,11 +11,9 @@
 
 @code
 {
-    private string? ValueT
-    {
-        get => (bool)Value ? "Yes" : "No";
-        set => ValueChanged.InvokeAsync(value == "Yes");
-    }
+    private string? ValueT => (bool)EditingValue ? "Yes" : "No";
+
+    private Task SetValueTAsync(string? value) => SetValueAsync(value == "Yes");
 
     private List<SelectOption<string>> Options => new()
     {

@@ -22,7 +22,7 @@
                     </h6>
                 }
                 <div class="right-panel-compact">
-                    <FluentTextInput Placeholder="Custom job name"
+                    <RelayTextInput Placeholder="Custom job name"
                                      Style="width: 100%; margin-top: 10px"
                                      Value="@_job.Alias"
                                      ValueChanged="@HandleJobAliasChanged" />
@@ -61,7 +61,7 @@
                                     width: 16px; height: 16px; border-radius: 8px; flex-shrink: 0;"></div>
                         @if (isExposed)
                         {
-                            <FluentTextInput Value="@GetExposedOutputPortName(_port)"
+                            <RelayTextInput Value="@GetExposedOutputPortName(_port)"
                                              ValueChanged="@(v => SetExposedOutputPortName(_port, v))"
                                              Placeholder="Custom name"
                                              Style="flex: 1; font-size: 0.8rem;" />

@@ -189,8 +189,14 @@ public partial class CodeEditor : InputBase<string>, IAsyncDisposable
     public async Task OnValueChanged(string newValue)
     {
         lastKnownValue = newValue;
-        CurrentValue = newValue;
+        if (Value == newValue)
+            return;
+
+        // InputBase.CurrentValue already invokes ValueChanged without awaiting it. Set the value
+        // here so this callback is awaited exactly once, and preserve the form notification.
+        Value = newValue;
         await ValueChanged.InvokeAsync(newValue);
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
     }
 
     /// <summary>

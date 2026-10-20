@@ -4,7 +4,7 @@
 @using Refund.Components.Emoji
 @inherits UiFieldViewBase
 
-<EmojiSelectionButton @bind-Glyph="ValueT"
+<EmojiSelectionButton @bind-Glyph:get="ValueT" @bind-Glyph:set="SetValueTAsync"
                       Size="144"
                       Disabled="@IsDisabled" />
 
@@ -15,16 +15,14 @@
     
     private UiEmoji FieldDescriptionT => (UiEmoji)FieldDescription ?? null;
 
-    private string ValueT
-    {
-        get => (string)Value;
-        set => ValueChanged.InvokeAsync(value);
-    }
+    private string ValueT => (string)EditingValue;
+
+    private Task SetValueTAsync(string value) => SetValueAsync(value);
 
     private async Task HandleProjectEmojiChanged(EmojiInfo emoji)
     {
         _isEmojiSelectorOpen = false;
-        ValueT = emoji.Glyph;
+        await SetValueTAsync(emoji.Glyph);
         StateHasChanged();
     }
 }

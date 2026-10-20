@@ -4,7 +4,7 @@
 
 <RobustFluentNumberField
                    Class="borderless"
-                   @bind-Value="@ValueT"
+                   @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
                    Style="width: 100%"
                    Placeholder="No value"
                    Min="@(FieldDescriptionT.Min.ToString(CultureInfo.InvariantCulture))"
@@ -16,9 +16,7 @@
 {
     private UiDecimal FieldDescriptionT => (UiDecimal)FieldDescription ?? null;
 
-    private decimal ValueT
-    {
-        get => (decimal)Value;
-        set => ValueChanged.InvokeAsync(value);
-    }
+    private decimal ValueT => (decimal)EditingValue;
+
+    private Task SetValueTAsync(decimal value) => SetValueAsync(value);
 }

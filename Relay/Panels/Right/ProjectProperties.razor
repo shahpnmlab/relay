@@ -20,7 +20,7 @@
             
             <div class="property-item">
                 <span class="property-title">Name</span>
-                <FluentTextInput Class="property-value"
+                <RelayTextInput Class="property-value"
                                  AutoComplete="off"
                                  Value="@project.Alias"
                                  ValueChanged="@HandleProjectAliasChanged" />
@@ -42,7 +42,7 @@
 
             <div class="property-item">
                 <span class="property-title">Notes</span>
-                <FluentTextArea Class="property-value"
+                <RelayTextArea Class="property-value"
                                 Height="112px"
                                 Value="@project.Notes" 
                                 ValueChanged="@HandleProjectNotesChanged" />

@@ -3,7 +3,7 @@
 @inherits UiFieldViewBase
 
 <FluentStack>
-    <RobustFluentNumberField @bind-Value="@ValueXT" 
+    <RobustFluentNumberField @bind-Value:get="ValueXT" @bind-Value:set="SetValueXTAsync"
                        Style="width: 25%"
                        Class="borderless"
                        Placeholder="No value"
@@ -13,7 +13,7 @@
                        Immediate="true"
                        Disabled="@IsDisabled" />
     
-    <RobustFluentNumberField @bind-Value="@ValueYT" 
+    <RobustFluentNumberField @bind-Value:get="ValueYT" @bind-Value:set="SetValueYTAsync"
                        Style="width: 25%"
                        Class="borderless"
                        Placeholder="No value"
@@ -23,7 +23,7 @@
                        Immediate="true" 
                        Disabled="@IsDisabled" />
     
-    <RobustFluentNumberField @bind-Value="@ValueZT"
+    <RobustFluentNumberField @bind-Value:get="ValueZT" @bind-Value:set="SetValueZTAsync"
                        Style="width: 25%"
                        Class="borderless"
                        Placeholder="No value"
@@ -33,7 +33,7 @@
                        Immediate="true" 
                        Disabled="@IsDisabled" />
     
-    <RobustFluentNumberField @bind-Value="@ValueWT"
+    <RobustFluentNumberField @bind-Value:get="ValueWT" @bind-Value:set="SetValueWTAsync"
                        Style="width: 25%"
                        Class="borderless"
                        Placeholder="No value"
@@ -48,27 +48,19 @@
 {
     private UiInt4 FieldDescriptionT => (UiInt4)FieldDescription ?? null;
 
-    private int ValueXT
-    {
-        get => ((int4)Value).X;
-        set => ValueChanged.InvokeAsync(new int4(value, ((int4)Value).Y, ((int4)Value).Z, ((int4)Value).W));
-    }
+    private int ValueXT => ((int4)EditingValue).X;
 
-    private int ValueYT
-    {
-        get => ((int4)Value).Y;
-        set => ValueChanged.InvokeAsync(new int4(((int4)Value).X, value, ((int4)Value).Z, ((int4)Value).W));
-    }
+    private Task SetValueXTAsync(int value) => SetValueAsync(new int4(value, ((int4)EditingValue).Y, ((int4)EditingValue).Z, ((int4)EditingValue).W));
+
+    private int ValueYT => ((int4)EditingValue).Y;
+
+    private Task SetValueYTAsync(int value) => SetValueAsync(new int4(((int4)EditingValue).X, value, ((int4)EditingValue).Z, ((int4)EditingValue).W));
     
-    private int ValueZT
-    {
-        get => ((int4)Value).Z;
-        set => ValueChanged.InvokeAsync(new int4(((int4)Value).X, ((int4)Value).Y, value, ((int4)Value).W));
-    }
+    private int ValueZT => ((int4)EditingValue).Z;
+
+    private Task SetValueZTAsync(int value) => SetValueAsync(new int4(((int4)EditingValue).X, ((int4)EditingValue).Y, value, ((int4)EditingValue).W));
     
-    private int ValueWT
-    {
-        get => ((int4)Value).W;
-        set => ValueChanged.InvokeAsync(new int4(((int4)Value).X, ((int4)Value).Y, ((int4)Value).Z, value));
-    }
+    private int ValueWT => ((int4)EditingValue).W;
+
+    private Task SetValueWTAsync(int value) => SetValueAsync(new int4(((int4)EditingValue).X, ((int4)EditingValue).Y, ((int4)EditingValue).Z, value));
 }

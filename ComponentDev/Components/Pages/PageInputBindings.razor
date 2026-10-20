@@ -1,0 +1,72 @@
+@page "/input-bindings"
+@using Refund.UIFields
+@using Refund.Components
+@using Warp.Tools
+@implements IDisposable
+
+<PageTitle>Input binding regression checks</PageTitle>
+<h1>Input binding regression checks</h1>
+<div style="display: grid; gap: 16px; max-width: 600px;">
+    <div id="binding-text"><UiStringView @ref="_textView" @key="_entity" Value="_text" DefaultValue="@("reset")" ValueChanged="SaveText" /></div>
+    <output id="binding-text-value">@_text</output>
+    <RelayTextInput Id="binding-standalone-text" Value="@_standaloneText" ValueChanged="@(value => _standaloneText = value)" Immediate="true" />
+    <RelayTextArea Id="binding-area" Value="@_areaText" ValueChanged="@(value => _areaText = value)" Immediate="true" />
+    <div id="binding-int2"><UiInt2View Value="_pair" FieldDescription="_pairDescription" ValueChanged="SavePair" /></div>
+    <output id="binding-int2-value">@_pair.X,@_pair.Y</output>
+    <div id="binding-int3"><UiInt3View Value="_triple" FieldDescription="_tripleDescription" ValueChanged="SaveTriple" /></div>
+    <output id="binding-int3-value">@_triple.X,@_triple.Y,@_triple.Z</output>
+    <FluentButton Id="binding-reset" OnClick="Reset">Reset</FluentButton>
+    <FluentButton Id="binding-switch" OnClick="Switch">Switch entity</FluentButton>
+    <FluentButton Id="binding-reject" OnClick="@(() => _reject = !_reject)">Toggle rejection</FluentButton>
+    <output id="binding-rejected">@_reject</output>
+</div>
+
+@code {
+    private string _text;
+    private UiStringView _textView;
+    private string _standaloneText;
+    private string _areaText;
+    private object _entity = new();
+    private int2 _pair = new(10, 20);
+    private int3 _triple = new(10, 20, 30);
+    private readonly UiInt2 _pairDescription = new("pair", "Pair", min: -100, max: 100);
+    private readonly UiInt3 _tripleDescription = new("triple", "Triple", min: -100, max: 100);
+    private readonly CancellationTokenSource _stop = new();
+    private bool _reject;
+
+    protected override void OnInitialized() => _ = RenderWhileEditing();
+
+    private async Task RenderWhileEditing()
+    {
+        try
+        {
+            using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(25));
+            while (await timer.WaitForNextTickAsync(_stop.Token))
+                await InvokeAsync(StateHasChanged);
+        }
+        catch (OperationCanceledException) { }
+    }
+
+    private async Task SaveText(object value)
+    {
+        var entity = _entity;
+        await Task.Delay(400);
+        if (!_reject && ReferenceEquals(entity, _entity)) _text = (string)value;
+    }
+
+    private async Task SavePair(object value)
+    {
+        await Task.Delay(400);
+        if (!_reject) _pair = (int2)value;
+    }
+
+    private async Task SaveTriple(object value)
+    {
+        await Task.Delay(400);
+        if (!_reject) _triple = (int3)value;
+    }
+
+    private async Task Reset() { await _textView.ResetValueAsync(); _pair = new(10, 20); _triple = new(10, 20, 30); }
+    private void Switch() { _entity = new(); _text = "other entity"; }
+    public void Dispose() { _stop.Cancel(); _stop.Dispose(); }
+}

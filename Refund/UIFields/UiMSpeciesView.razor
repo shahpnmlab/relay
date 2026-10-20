@@ -4,7 +4,7 @@
 @if (AdditionalData is List<MSpecies> { Count: > 0 } species)
 {
     <FluentRadioGroup Class="borderless"
-                      @bind-Value="@ValueT"
+                      @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
                       Orientation="Orientation.Vertical"
                       Disabled="@IsDisabled">
         @foreach (var s in species)
@@ -20,9 +20,7 @@ else
 
 @code
 {
-    private int? ValueT
-    {
-        get => (int?)Value;
-        set => ValueChanged.InvokeAsync(value);
-    }
+    private int? ValueT => (int?)EditingValue;
+
+    private Task SetValueTAsync(int? value) => SetValueAsync(value);
 }

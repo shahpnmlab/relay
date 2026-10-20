@@ -59,7 +59,7 @@
     
     @if (_selectedQueue != null)
     {
-        <div class="editor-main">
+        <div @key="_selectedQueue" class="editor-main">
             <div class="script-editor">
                 <span style="font-weight: bold;">Submission script template</span>
                 
@@ -99,7 +99,7 @@
                         <div class="settings-form">
                             <div class="settings-field">
                                 <span>Queue name</span>
-                                <FluentTextInput Value="@_selectedQueue.Alias"
+                                <RelayTextInput Value="@_selectedQueue.Alias"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.Alias)))"/>
                             </div>
 
@@ -141,7 +141,7 @@
                                     }
                                 </div>
                                 
-                                <FluentTextInput Value="@_selectedQueue.SendCommmandTemplate"
+                                <RelayTextInput Value="@_selectedQueue.SendCommmandTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.SendCommmandTemplate)))" />
                             </div>
 
@@ -159,7 +159,7 @@
                                     }
                                 </div>
                                 
-                                <FluentTextInput Value="@_selectedQueue.SubmitJobTemplate"
+                                <RelayTextInput Value="@_selectedQueue.SubmitJobTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.SubmitJobTemplate)))" />
                             </div>
 
@@ -177,7 +177,7 @@
                                     }
                                 </div>
                                 
-                                <FluentTextInput Value="@_selectedQueue.StatusJobTemplate"
+                                <RelayTextInput Value="@_selectedQueue.StatusJobTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.StatusJobTemplate)))" />
                             </div>
 
@@ -196,7 +196,7 @@
                                     }
                                 </div>
 
-                                <FluentTextInput Value="@_selectedQueue.TerminalStatusJobTemplate"
+                                <RelayTextInput Value="@_selectedQueue.TerminalStatusJobTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.TerminalStatusJobTemplate)))" />
                             </div>
 
@@ -214,7 +214,7 @@
                                     }
                                 </div>
                                 
-                                <FluentTextInput Value="@_selectedQueue.AbortJobTemplate"
+                                <RelayTextInput Value="@_selectedQueue.AbortJobTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.AbortJobTemplate)))" />
                             </div>
 
@@ -233,7 +233,7 @@
                                     </span>
                                 </div>
 
-                                <FluentTextInput Value="@_selectedQueue.ListJobsTemplate"
+                                <RelayTextInput Value="@_selectedQueue.ListJobsTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.ListJobsTemplate)))" />
                             </div>
 
@@ -253,7 +253,7 @@
                                     }
                                 </div>
 
-                                <FluentTextInput Value="@_selectedQueue.CancelManyJobsTemplate"
+                                <RelayTextInput Value="@_selectedQueue.CancelManyJobsTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.CancelManyJobsTemplate)))" />
                             </div>
                             }
@@ -315,11 +315,11 @@
                                 var variable = _variable;
 
                                 <div class="custom-variable-row">
-                                    <FluentTextInput Value="@variable.Key"
+                                    <RelayTextInput Value="@variable.Key"
                                                      ValueChanged="@(newValue => HandleCustomVariableKeyChanged(variable.Key, newValue))"/>
-                                    <FluentTextInput Value="@variable.Value.description"
+                                    <RelayTextInput Value="@variable.Value.description"
                                                      ValueChanged="@(newValue => HandleCustomVariableDescriptionChanged(variable.Key, newValue))"/>
-                                    <FluentTextInput Value="@variable.Value.defaultValue"
+                                    <RelayTextInput Value="@variable.Value.defaultValue"
                                                      ValueChanged="@(newValue => HandleCustomVariableValueChanged(variable.Key, newValue))"/>
 
                                     <ConfirmButton
@@ -335,13 +335,13 @@
                         <div class="settings-form">
                             <div class="settings-field">
                                 <span>Custom shell</span>
-                                <FluentTextInput Value="@_selectedQueue.CustomShell"
+                                <RelayTextInput Value="@_selectedQueue.CustomShell"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.CustomShell)))" />
                             </div>
 
                             <div class="settings-field">
                                 <span>Custom shell arguments</span>
-                                <FluentTextInput Value="@_selectedQueue.CustomShellArguments"
+                                <RelayTextInput Value="@_selectedQueue.CustomShellArguments"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.CustomShellArguments)))" />
                             </div>
 
@@ -355,37 +355,37 @@
                                         <span style="font-family: monospace;">accepted as (\w+)</span>.
                                     </div>
 
-                                    <FluentTextInput Value="@_selectedQueue.JobIdParseRegex"
+                                    <RelayTextInput Value="@_selectedQueue.JobIdParseRegex"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobIdParseRegex)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Pending)</span>
-                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplatePending"
+                                    <RelayTextInput Value="@_selectedQueue.JobStatusParseTemplatePending"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplatePending)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Running)</span>
-                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplateRunning"
+                                    <RelayTextInput Value="@_selectedQueue.JobStatusParseTemplateRunning"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplateRunning)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Failed)</span>
-                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplateFailed"
+                                    <RelayTextInput Value="@_selectedQueue.JobStatusParseTemplateFailed"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplateFailed)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Succeeded)</span>
-                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplateSucceeded"
+                                    <RelayTextInput Value="@_selectedQueue.JobStatusParseTemplateSucceeded"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplateSucceeded)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Canceled)</span>
-                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplateCanceled"
+                                    <RelayTextInput Value="@_selectedQueue.JobStatusParseTemplateCanceled"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplateCanceled)))" />
                                 </div>
                             }

@@ -35,7 +35,7 @@
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         @if (isExposed && GetExposedPortName != null)
                         {
-                            <FluentTextInput Value="@GetExposedPortName(_portIn)"
+                            <RelayTextInput Value="@GetExposedPortName(_portIn)"
                                              ValueChanged="@(v => OnExposedPortNameChanged.InvokeAsync((_portIn, v)))"
                                              Placeholder="Custom name"
                                              Style="flex: 1; font-size: 0.8rem;" />

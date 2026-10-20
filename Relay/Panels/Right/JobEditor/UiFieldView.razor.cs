@@ -20,6 +20,12 @@ namespace Relay.Panels.Right.JobEditor;
 /// </remarks>
 public partial class UiFieldView
 {
+    private DynamicComponent _fieldComponent;
+
+    private Task ResetValueAsync() => _fieldComponent?.Instance is UiFieldViewBase field
+        ? field.ResetValueAsync()
+        : HandleValueChanged(GetDefaultValue);
+
     /// <summary>
     /// Gets or sets the reflection property info for the job parameter.
     /// </summary>

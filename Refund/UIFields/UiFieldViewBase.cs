@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Refund.Components;
 
 namespace Refund.UIFields;
 
@@ -8,8 +9,11 @@ namespace Refund.UIFields;
 /// Provides common parameters and functionality needed by all field types, enabling consistent
 /// editing experience and a clean separation between field data and its visual representation.
 /// </summary>
-public abstract class UiFieldViewBase : ComponentBase
+public abstract class UiFieldViewBase : BufferedInputBase<object>
 {
+    /// <summary>Order an explicit reset after in-flight edits so an older save cannot undo it.</summary>
+    public Task ResetValueAsync() => IsDisabled ? Task.CompletedTask : SetValueAsync(DefaultValue);
+
     [Parameter] public string Class { get; set; }
 
     /// <summary>
@@ -18,12 +22,6 @@ public abstract class UiFieldViewBase : ComponentBase
     [Parameter]
     public virtual UiFieldBase FieldDescription { get; set; }
     
-    /// <summary>
-    /// The current value of the field that should be displayed and can be edited
-    /// </summary>
-    [Parameter]
-    public virtual object Value { get; set; }
-
     /// <summary>
     /// The default value to use when no value is provided or when resetting to defaults
     /// </summary>
@@ -35,12 +33,6 @@ public abstract class UiFieldViewBase : ComponentBase
     /// </summary>
     [Parameter]
     public virtual object AdditionalData { get; set; }
-
-    /// <summary>
-    /// Event callback that should be triggered when the field value changes, propagating the change back to the parent
-    /// </summary>
-    [Parameter]
-    public virtual EventCallback<object> ValueChanged { get; set; }
 
     /// <summary>
     /// Error message to display if the current value is invalid

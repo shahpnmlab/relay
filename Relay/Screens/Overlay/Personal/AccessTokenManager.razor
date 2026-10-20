@@ -19,7 +19,7 @@
             @if (_createdRawToken == null)
             {
                 <strong>New personal access token</strong>
-                <FluentTextInput @bind-Value="_newName" Placeholder="Name (e.g. Claude on my laptop)" Style="width:100%;" AutoComplete="off" />
+                <RelayTextInput @bind-Value="_newName" Placeholder="Name (e.g. Claude on my laptop)" Style="width:100%;" AutoComplete="off" />
                 <div style="display:flex; gap:16px; flex-wrap:wrap;">
                     <div style="display:flex; flex-direction:column; gap:4px;">
                         <span style="font-size:12px; opacity:0.8;">Projects</span>
@@ -52,7 +52,7 @@
                     This is the only time the token will be shown. Store it somewhere safe.
                 </span>
                 <div style="display:flex; gap:8px; align-items:center;">
-                    <FluentTextInput Value="@_createdRawToken" ReadOnly="true" Style="flex:1;" />
+                    <RelayTextInput Value="@_createdRawToken" ReadOnly="true" Style="flex:1;" />
                     <FluentButton IconStart="@(new Icons.Regular.Size16.Copy())" OnClick="CopyToken">Copy</FluentButton>
                 </div>
                 <div style="display:flex; gap:8px; justify-content:flex-end;">

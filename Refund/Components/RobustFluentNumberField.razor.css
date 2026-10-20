@@ -1,0 +1,27 @@
+.relay-number-steps {
+    display: flex;
+    flex-direction: column;
+    height: 30px;
+    justify-content: center;
+}
+
+.relay-number-steps button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15px;
+    width: 20px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.relay-number-steps button:hover {
+    background: var(--colorNeutralBackground1Hover);
+}
+
+.relay-number-steps button:active {
+    background: var(--colorNeutralBackground1Pressed);
+}

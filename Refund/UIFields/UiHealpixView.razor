@@ -1,7 +1,7 @@
 ﻿@namespace Refund.UIFields
 @inherits UiFieldViewBase
 
-<FluentSelect TOption="SelectOption<string>" TValue="string" @bind-Value="@ValueT"
+<FluentSelect TOption="SelectOption<string>" TValue="string" @bind-Value:get="ValueT" @bind-Value:set="SetValueTAsync"
               Class="borderless" Appearance="ListAppearance.Transparent"
               Width="100%"
               Items="@Options"
@@ -27,9 +27,7 @@
 
     private UiHealpix FieldDescriptionT => (UiHealpix)FieldDescription ?? null;
 
-    private string ValueT
-    {
-        get => Options[(int)Value].Value;
-        set => ValueChanged.InvokeAsync(value == null ? 0 : int.Parse(value));
-    }
+    private string ValueT => Options[(int)EditingValue].Value;
+
+    private Task SetValueTAsync(string value) => SetValueAsync(value == null ? 0 : int.Parse(value));
 }

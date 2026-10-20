@@ -54,7 +54,7 @@ try{
  for(let i=0;i<5;i++)await slider.press('ArrowRight',{delay:20});
  await page.waitForTimeout(1000);assert.equal(await page.locator('#migration-slider-value').innerText(),'30');
  console.log('PASS slider keyboard updates');
- const disabled=page.locator('fluent-text-input[disabled] input');
+ const disabled=page.locator('fluent-text-input[disabled][inputmode="numeric"] input');
  assert.equal(await disabled.inputValue(),'1.25');console.log('PASS disabled fractional number');
  await page.locator('fluent-button').filter({hasText:'Choose an option'}).click();
  await page.locator('fluent-popover-b[opened="true"] fluent-option').filter({hasText:'Second'}).click();

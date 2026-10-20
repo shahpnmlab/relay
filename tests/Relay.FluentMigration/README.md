@@ -33,6 +33,24 @@ Use `CHROMIUM_EXECUTABLE` to select an already installed Chrome/Chromium instead
 of the Playwright browser download. `PLAYWRIGHT_MODULE` optionally selects an
 existing Playwright module installation.
 
+## Input binding regression checks
+
+After building, run `npm run test:bindings` from this directory. This uses ports
+5141/5142, the same 300 ms network round trip, a parent render every 25 ms, and
+400 ms asynchronous model updates. It covers initially null text, cursor editing,
+standalone text inputs and textareas, int2/int3 step buttons while focused,
+preserving sibling coordinates, rejected updates, resets, and switching entities.
+Numeric arithmetic tests also cover decimal precision, large integers, bounds,
+partial input, scientific notation, and localized number formats.
+
+The job views await binding callbacks and retain a whole local draft while a
+commit is pending. Superseded queued assignments are skipped. Field keys follow
+job/property identity. The shared text adapters normalize null to empty text so
+Fluent's focused-value snapshot has a stable initial value. Numeric step buttons
+edit the live browser text and send native input/change events through Fluent's
+mask, binding, and validation, avoiding its focused display freeze for server-side
+step buttons.
+
 ## Remaining upstream input issue
 
 The default checks use v5's 200 ms browser debounce. Short or zero delays can
