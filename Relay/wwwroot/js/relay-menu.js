@@ -11,6 +11,21 @@ const submenu = item => item?.getAttribute('aria-controls')
     ? document.getElementById(item.getAttribute('aria-controls')) : null;
 const clamp = (value, min, max) => Math.max(min, Math.min(value, Math.max(min, max)));
 
+function updateArrows(surface) {
+    const scroll = surface.querySelector('.relay-menu-scroll');
+    const arrows = [...surface.children].filter(el => el.matches('[data-scroll]'));
+    const style = getComputedStyle(surface);
+    const chromeHeight = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth']
+        .reduce((total, property) => total + (parseFloat(style[property]) || 0), 0);
+    // Measure against the arrow-free capacity, not the current surface height.
+    // Firefox can report a small intrinsic overflow even for an unconstrained
+    // menu; toggling the two strips would otherwise trigger a resize loop.
+    const overflowing = scroll.scrollHeight > parseFloat(style.maxHeight) - chromeHeight + 1;
+    arrows.forEach(arrow => { arrow.hidden = !overflowing; });
+    arrows[0].disabled = scroll.scrollTop <= 1;
+    arrows[1].disabled = scroll.scrollTop + scroll.clientHeight >= scroll.scrollHeight - 1;
+}
+
 function anchorController(target) {
     for (let element = target; element instanceof Element; element = element.parentElement) {
         if (element.getAttribute("data-relay-context") === "false") return null;
@@ -142,15 +157,6 @@ export function initialize(id, dotnet) {
         if (row.top < viewport.top) scroll.scrollTop -= viewport.top - row.top;
         else if (row.bottom > viewport.bottom) scroll.scrollTop += row.bottom - viewport.bottom;
         updateArrows(surface);
-    }
-    function updateArrows(surface) {
-        const scroll = surface.querySelector('.relay-menu-scroll');
-        const arrows = [...surface.children].filter(el => el.matches('[data-scroll]'));
-        // Keep both strips allocated while overflowing so rows don't jump at the ends.
-        const overflowing = scroll.scrollHeight > surface.clientHeight - 6 + 1;
-        arrows.forEach(arrow => { arrow.hidden = !overflowing; });
-        arrows[0].disabled = scroll.scrollTop <= 1;
-        arrows[1].disabled = scroll.scrollTop + scroll.clientHeight >= scroll.scrollHeight - 1;
     }
     function bounds() {
         const viewport = window.visualViewport;
