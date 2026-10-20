@@ -246,3 +246,24 @@ This shared rule covers both tilt viewers and the M logo parameter slider.
 tomogram controls, sharing explicit layout, neutral background, border and text
 colors. Their particle/brush/coordinate fields use theme surfaces rather than
 hard-coded white backgrounds.
+
+### Tooltip direction audit against v4
+
+All 15 explicit FluentTooltip instances were compared with the pre-migration
+source, rather than checking only that they compile with a Positioning enum.
+V4's logical `Start` means the preceding side: it maps to v5 `Before`, not
+`AboveStart` (which means above, aligned to the starting edge). This corrects the
+job editor field-help tooltip. The complete direction inventory is:
+
+| Tooltip owner | Preferred direction |
+| --- | --- |
+| Job editor field help; right-panel actions | Before (left in LTR) |
+| Five left sidebar actions | After |
+| Three expanded-view log buttons | After |
+| Listing card header; activity calendar date; recent activity time | Above |
+| Recent activity calendar details | Before |
+| Queue delete explanation | Native default, unchanged from v4 |
+
+Popover owners and wrapper defaults were also rechecked against the existing
+placement inventory. The job viewer close button now uses Transparent appearance,
+matching the shared overlay close action; transparent fill alone leaves a border.

@@ -5,7 +5,7 @@
     padding: 3px;
     box-sizing: border-box;
     min-width: min(180px, calc(100vw - 16px));
-    max-width: calc(100vw - 16px);
+    max-width: min(360px, calc(100vw - 16px));
     max-height: calc(100dvh - 16px);
     width: max-content;
     overflow: hidden;
@@ -14,6 +14,7 @@
     background: var(--colorNeutralBackground1, #fff);
     color: var(--colorNeutralForeground1, #222);
     box-shadow: 0 6px 18px #0004;
+    --relay-menu-item-inset: 10px;
     font: inherit;
     font-size: 14px;
     user-select: none;
@@ -34,7 +35,7 @@
     justify-content: space-between;
     gap: 16px;
     min-height: 26px;
-    padding: 3px 10px;
+    padding: 3px var(--relay-menu-item-inset);
     box-sizing: border-box;
     border-radius: 3px;
     cursor: default;
@@ -68,4 +69,17 @@
 @media (forced-colors: active) {
     .relay-menu-item[data-active], .relay-menu-item:focus-visible { outline: 1px solid Highlight; }
     .relay-menu-item[aria-disabled="true"] { color: GrayText; opacity: 1; }
+}
+
+/* Headings share the row inset, independent of whether rows have icons.
+   Their text must not determine the menu's intrinsic width. */
+.relay-menu-heading {
+    display: block;
+    contain: inline-size;
+    padding: 3px var(--relay-menu-item-inset);
+    font-size: 0.75rem;
+    opacity: 0.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

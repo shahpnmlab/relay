@@ -63,7 +63,7 @@ public partial class JobTypeMenu : ComponentBase
 
     [Parameter] public double? X { get; set; }
     [Parameter] public double? Y { get; set; }
-    [Parameter] public string Width { get; set; } = "300px";
+    [Parameter] public string Width { get; set; } = "max-content";
 
     /// <summary>
     /// Event callback that is invoked when a job type is selected from the menu.

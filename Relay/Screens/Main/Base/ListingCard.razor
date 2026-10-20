@@ -66,9 +66,7 @@
 
 <RelayMenu Anchor="@CardId" ContextMenu="true"
             OpenChanged="HandleContextMenu">
-    <span class="menu-context-title" title="@Item.QualifiedName">
-        @Item.QualifiedName
-    </span>
+    <RelayMenuHeader Text="@Item.QualifiedName" />
     <FluentDivider />
 
     @if (_contextMenuActions != null)

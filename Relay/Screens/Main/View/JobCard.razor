@@ -344,9 +344,7 @@
              @onmouseup:stopPropagation="true">
             <RelayMenu Anchor="@CardDomId" ContextMenu="true"
                         OpenChanged="HandleContextMenu">
-                <span class="menu-context-title" title="@_contextMenuHeader">
-                    @_contextMenuHeader
-                </span>
+                <RelayMenuHeader Text="@_contextMenuHeader" />
                 <FluentDivider />
 
                 @if (_contextMenuActions != null)

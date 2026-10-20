@@ -7,8 +7,10 @@
 
 .visualization-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* Center only when both viewers fit; overflow must start at a reachable edge. */
+    justify-content: safe center;
+    align-items: safe center;
+    overflow: auto;
     gap: 1rem;
     padding: 1rem;
 }

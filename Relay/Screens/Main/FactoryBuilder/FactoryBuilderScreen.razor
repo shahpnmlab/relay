@@ -42,9 +42,7 @@
         {
             <RelayMenu Open="@_cardContextMenuOpen" X="@_cardContextMenuX" Y="@_cardContextMenuY"
                          OpenChanged="@(v => { if (!v) CloseCardContextMenu(); })">
-                <span class="menu-context-title" title="@_cardContextMenuHeader">
-                    @_cardContextMenuHeader
-                </span>
+                <RelayMenuHeader Text="@_cardContextMenuHeader" />
                 <FluentDivider />
                 <ActionMenuLevel Actions="_cardContextMenuActions"/>
             </RelayMenu>

@@ -8,21 +8,15 @@
     
         @if (Type == MenuType.CreateFromPort)
         {
-            <span style="font-size: 0.75rem; padding-left: 1rem; padding-right: 1rem; opacity: 0.5;">
-                Create and connect job
-            </span>
+            <RelayMenuHeader Text="Create and connect job" />
         }
         else if (Type == MenuType.CreateFromType || PortFilter == null)
         {
-            <span style="font-size: 0.75rem; padding-left: 1rem; padding-right: 1rem; opacity: 0.5;">
-                Create
-            </span>
+            <RelayMenuHeader Text="Create" />
         }
         else if (Type == MenuType.ConnectToPort)
         {
-            <span style="font-size: 0.75rem; padding-left: 1rem; padding-right: 1rem; opacity: 0.5;">
-                Connect to
-            </span>
+            <RelayMenuHeader Text="Connect to" />
         }
     <FluentDivider />
     

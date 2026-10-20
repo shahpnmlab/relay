@@ -79,13 +79,3 @@ html, body {
     overflow-y: auto;
     overflow-x: hidden;
 }
-.menu-context-title {
-    display: block;
-    max-width: 250px;
-    padding: 0 1rem;
-    font-size: 0.75rem;
-    opacity: 0.5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}

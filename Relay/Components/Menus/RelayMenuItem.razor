@@ -6,7 +6,13 @@
          aria-controls="@(MenuItems != null ? _submenuId : null)"
          aria-describedby="@(!string.IsNullOrEmpty(DisabledBecause) ? _descriptionId : null)"
          title="@(DisabledBecause ?? Label)" @onclick="HandleClick">
-        <span class="relay-menu-label"><span style="@LabelStyle">@Label</span>@ChildContent</span>
+        <span class="relay-menu-label">
+            @if (!string.IsNullOrEmpty(Label))
+            {
+                <span style="@LabelStyle">@Label</span>
+            }
+            @ChildContent
+        </span>
         @if (MenuItems != null)
         {
             <span class="relay-menu-chevron" aria-hidden="true">›</span>
