@@ -17,7 +17,7 @@
 }
 
 .space-row:hover {
-    background-color: var(--neutral-layer-2);
+    background-color: var(--colorNeutralBackground2);
 }
 
 .space-name {
@@ -26,7 +26,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: var(--accent-fill-rest);
+    color: var(--colorBrandForeground1);
 }
 
 .space-row:hover .space-name {
@@ -35,7 +35,7 @@
 
 .meta {
     font-size: 12px;
-    color: var(--neutral-foreground-hint);
+    color: var(--colorNeutralForeground3);
     white-space: nowrap;
 }
 
@@ -46,7 +46,7 @@
 
 .empty-text {
     font-size: 12px;
-    color: var(--neutral-foreground-hint);
+    color: var(--colorNeutralForeground3);
 }
 
 .members {

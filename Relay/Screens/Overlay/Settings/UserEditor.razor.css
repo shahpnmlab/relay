@@ -3,11 +3,6 @@
     margin-top: 4px;
 }
 
-fluent-text-field.user-field::part(root) {
-    cursor: pointer !important;
-    border: none !important;
-}
-
 .token-actions {
     display: flex;
     gap: 1rem;

@@ -33,7 +33,7 @@ public partial class HomeScreen : ListingScreenLogic<ReadOnlyProject>
 
     protected override async Task OnCreateDialogClosedAsync(DialogResult result)
     {
-        if (result.Data is CreateProjectDialogResult { Success: true } createResult)
+        if (result.Value is CreateProjectDialogResult { Success: true } createResult)
         {
             await Session.NavigateToAsync(new NavigationRequest
             {

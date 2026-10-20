@@ -3,8 +3,8 @@
     height: 16px;
     border-radius: 8px;
     position:  relative;
-    background-color: var(--neutral-fill-layer-rest);
-    border: 2px solid var(--neutral-fill-layer-rest);
+    background-color: var(--colorNeutralBackground1);
+    border: 2px solid var(--colorNeutralBackground1);
 }
 
 .port-dot.enabled{
@@ -12,7 +12,7 @@
 }
 
 .port-dot.enabled:hover {
-    outline: 2px solid var(--neutral-base-color);
+    outline: 2px solid var(--colorNeutralForeground1);
 }
 
 .port-dot.disabled {
@@ -28,7 +28,7 @@
     line-height: 16px;
     font-size: 9pt;
     border-radius: 4px;
-    background-color: var(--neutral-fill-layer-rest);
+    background-color: var(--colorNeutralBackground1);
     text-wrap: nowrap;
     z-index: 99;
     padding: 0 2px 2px;
@@ -55,7 +55,7 @@
     right: 0;
     padding: 2px 8px;
     background: linear-gradient(to right,
-        rgb(from var(--neutral-fill-layer-rest) r g b / 85%) 66.7%,
+        rgb(from var(--colorNeutralBackground1) r g b / 85%) 66.7%,
         transparent 100%);
     font-size: 0.75rem;
     white-space: nowrap;

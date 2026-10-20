@@ -81,7 +81,7 @@ public sealed class MRefineExpandedViewTests
         public ViewHarness()
         {
             JobRegistry.EnsurePopulated();
-            var session = new RelaySession(null!, null!, null!, null!);
+            var session = new RelaySession(null!, null!, null!, null!, null!);
             var expandedView = new ExpandedJobViewService(null!, session, NullLogger<ExpandedJobViewService>.Instance);
             var services = new ServiceCollection();
             services.AddLogging();
@@ -91,6 +91,7 @@ public sealed class MRefineExpandedViewTests
             services.AddSingleton<IJSRuntime, NoJsRuntime>();
             services.AddSingleton<IComponentActivator>(_activator);
             _services = services.BuildServiceProvider();
+            _activator.Services = _services;
             _renderer = new HtmlRenderer(_services, _services.GetRequiredService<ILoggerFactory>());
         }
 
@@ -123,7 +124,7 @@ public sealed class MRefineExpandedViewTests
         });
 
         public Task UpdateAsync() => _renderer.Dispatcher.InvokeAsync(() => InvokeViewAsync("HandleJobUpdated"));
-        public Task SelectAsync(string id) => _renderer.Dispatcher.InvokeAsync(() => Tabs.GoToTabAsync(id));
+        public Task SelectAsync(string id) => _renderer.Dispatcher.InvokeAsync(() => Tabs.SelectTabAsync(id));
         public Task<string> HtmlAsync() => _renderer.Dispatcher.InvokeAsync(() => _html!());
 
         private Task InvokeViewAsync(string method, params object[] args) =>
@@ -141,12 +142,13 @@ public sealed class MRefineExpandedViewTests
 
     private sealed class RecordingActivator : IComponentActivator
     {
+        public IServiceProvider Services { get; set; } = null!;
         public RefineExpandedView? View { get; private set; }
         public FluentTabs? Tabs { get; private set; }
 
         public IComponent CreateInstance(Type componentType)
         {
-            var component = (IComponent)Activator.CreateInstance(componentType)!;
+            var component = (IComponent)ActivatorUtilities.CreateInstance(Services, componentType);
             if (component is RefineExpandedView view) View = view;
             if (component is FluentTabs tabs) Tabs = tabs;
             return component;

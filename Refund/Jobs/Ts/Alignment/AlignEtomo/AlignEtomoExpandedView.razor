@@ -38,7 +38,7 @@ else if (_allTsThumbnails != null && _allTsThumbnails.Any())
             <FluentTabs @ref="_tabs"
                         Style="height: 100%;">
                 <FluentTab Id="@OverviewTabId"
-                           Label="Overview"
+                           Header="Overview"
                            Style="padding-top: 1rem;">
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
 
@@ -80,7 +80,7 @@ else if (_allTsThumbnails != null && _allTsThumbnails.Any())
                 </FluentTab>
 
                 <FluentTab Id="@TsTabId"
-                           Label="Tilt series details" 
+                           Header="Tilt series details"
                            Style="height: 100%; padding-top: 1rem;">
                     @if (_selectedTsThumbnail != null)
                     {

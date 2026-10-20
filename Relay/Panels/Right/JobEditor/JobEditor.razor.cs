@@ -92,7 +92,7 @@ public partial class JobEditor : ComponentBase, IDisposable
     /// Gets or sets the toast service for showing notifications.
     /// </summary>
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     
     /// <summary>
@@ -265,7 +265,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't remove connection: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't remove connection: {exc.Message}");
         }
     }
 
@@ -291,7 +291,7 @@ public partial class JobEditor : ComponentBase, IDisposable
             }
             catch (Exception exc)
             {
-                ToastService.ShowError($"Couldn't update parameter: {exc.Message}");
+                _ = ToastService.ShowErrorToastAsync($"Couldn't update parameter: {exc.Message}");
             }
         }
     }
@@ -324,7 +324,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Failed to queue job: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Failed to queue job: {ex.Message}");
         }
         finally
         {
@@ -376,7 +376,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't remove connection: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't remove connection: {exc.Message}");
         }
     }
 
@@ -403,7 +403,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't remove external connection: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't remove external connection: {exc.Message}");
         }
     }
 
@@ -531,7 +531,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update exposure: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update exposure: {exc.Message}");
         }
     }
 
@@ -552,7 +552,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update name: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update name: {exc.Message}");
         }
     }
 
@@ -582,7 +582,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update port name: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update port name: {exc.Message}");
         }
     }
 
@@ -612,7 +612,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update port name: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update port name: {exc.Message}");
         }
     }
 
@@ -661,7 +661,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update port exposure: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update port exposure: {exc.Message}");
         }
     }
 
@@ -694,7 +694,7 @@ public partial class JobEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update port exposure: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update port exposure: {exc.Message}");
         }
     }
 

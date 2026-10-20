@@ -5,7 +5,7 @@
 @using Refund.Components.Jobs
 @using Relay.Screens.Main.View
 @inject ViewDragDropService DragDrop
-@inherits FluentComponentBase
+@inherits ComponentBase
 
 <div style="display: inline-flex; width: max-content; align-items: center; column-gap: 8px;">
     <a href="/" data-relay-navigation="true"
@@ -14,9 +14,8 @@
         <FluentButton Id="Home"
                       IconStart="@(new Icons.Regular.Size24.Home())"
                       Appearance="@((Session.Project == null && Session.CurrentOverlay == OverlayScreenType.None) ?
-                                        Appearance.Accent :
-                                        null)"
-                      BackgroundColor="@((Session.Project == null && Session.CurrentOverlay == OverlayScreenType.None) ? null : "transparent")"
+                                        ButtonAppearance.Primary :
+                                        ButtonAppearance.Subtle)"
                       Title="Home">
         </FluentButton>
     </a>
@@ -29,7 +28,7 @@
                        ListWidth="200"
                        ListHeight="300"
                        ButtonMinWidth="100"
-                       ButtonAppearance="@(Session.Space == null ? Appearance.Accent : Appearance.Outline)"
+                       ButtonAppearance="@(Session.Space == null ? ButtonAppearance.Primary : ButtonAppearance.Outline)"
                        Href="@RelaySession.BuildUrl(new() { ProjectId = Session.Project.Id })"
                        HrefSelector="@(id => RelaySession.BuildUrl(new() { ProjectId = int.Parse(id) }))"
                        OnClick="@(async args => await HandleBreadcrumbClick(args, new() { ProjectId = Session.Project.Id }))"
@@ -44,7 +43,7 @@
                            ListWidth="200"
                            ListHeight="300"
                            ButtonMinWidth="100"
-                           ButtonAppearance="@(Session.View == null && Session.FactoryDefinition == null ? Appearance.Accent : Appearance.Outline)"
+                           ButtonAppearance="@(Session.View == null && Session.FactoryDefinition == null ? ButtonAppearance.Primary : ButtonAppearance.Outline)"
                            Href="@RelaySession.BuildUrl(new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id })"
                            HrefSelector="@(id => RelaySession.BuildUrl(new() { ProjectId = Session.Project.Id, SpaceId = int.Parse(id) }))"
                            OnClick="@(async args => await HandleBreadcrumbClick(args, new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id }))"
@@ -57,7 +56,7 @@
                                TValue="@(string)"
                                ButtonLabel="@Session.FactoryDefinition.QualifiedName"
                                ListWidth="200" ListHeight="300" ButtonMinWidth="100"
-                               ButtonAppearance="Appearance.Accent"
+                               ButtonAppearance="ButtonAppearance.Primary"
                                OnClick="@(async args => await HandleBreadcrumbClick(args, new() {
                                    ProjectId = Session.Project.Id,
                                    SpaceId = Session.Space.Id,
@@ -74,7 +73,7 @@
                                ListWidth="200"
                                ListHeight="300"
                                ButtonMinWidth="100"
-                               ButtonAppearance="@(Session.Folder == null && Session.Job == null && Session.FactoryInstance == null ? Appearance.Accent : Appearance.Outline)"
+                               ButtonAppearance="@(Session.Folder == null && Session.Job == null && Session.FactoryInstance == null ? ButtonAppearance.Primary : ButtonAppearance.Outline)"
                                Href="@RelaySession.BuildUrl(new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id, ViewId = Session.View.Id })"
                                HrefSelector="@(id => RelaySession.BuildUrl(new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id, ViewId = int.Parse(id) }))"
                                OnClick="@(async args => await HandleBreadcrumbClick(args, new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id, ViewId = Session.View.Id }))"
@@ -93,7 +92,7 @@
                                        ListWidth="200"
                                        ListHeight="300"
                                        ButtonMinWidth="80"
-                                       ButtonAppearance="@(crumb.Id == Session.FolderId && Session.Job == null && Session.FactoryInstance == null ? Appearance.Accent : Appearance.Outline)"
+                                       ButtonAppearance="@(crumb.Id == Session.FolderId && Session.Job == null && Session.FactoryInstance == null ? ButtonAppearance.Primary : ButtonAppearance.Outline)"
                                        OnClick="@(async args => await HandleBreadcrumbClick(args, new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id, ViewId = Session.View.Id, FolderId = crumb.Id }))"
                                        OnOptionSelected="@(async id => await OnFolderValueChange(int.Parse(id)))"
                                        Options="@(GetSiblingFolders(crumb).Select(f => (f.Id.ToString(), f.Alias)))"/>
@@ -106,7 +105,7 @@
                                    TValue="@(string)"
                                    ButtonLabel="@($"FI{Session.FactoryInstance.Id}: {Session.FactoryInstance.Definition?.Alias ?? ""}")"
                                    ListWidth="200" ListHeight="300" ButtonMinWidth="100"
-                                   ButtonAppearance="Appearance.Accent"
+                                   ButtonAppearance="ButtonAppearance.Primary"
                                    OnClick="@(async args => await HandleBreadcrumbClick(args, new() {
                                        ProjectId = Session.Project.Id,
                                        SpaceId = Session.Space.Id,
@@ -126,7 +125,7 @@
                                    ListWidth="300"
                                    ListHeight="300"
                                    ButtonMinWidth="100"
-                                   ButtonAppearance="Appearance.Accent"
+                                   ButtonAppearance="ButtonAppearance.Primary"
                                    Href="@RelaySession.BuildUrl(new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id, ViewId = Session.View.Id, FolderId = Session.FolderId, JobId = Session.Job.Id })"
                                    HrefSelector="@(job => RelaySession.BuildUrl(new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id, ViewId = Session.View.Id, FolderId = Session.FolderId, JobId = job?.Id }))"
                                    OnClick="@(async args => await HandleBreadcrumbClick(args, new() { ProjectId = Session.Project.Id, SpaceId = Session.Space.Id, ViewId = Session.View.Id, FolderId = Session.FolderId, JobId = Session.Job.Id }))"

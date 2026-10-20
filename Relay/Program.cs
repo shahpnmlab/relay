@@ -3,7 +3,6 @@ using Autofac.Extensions.DependencyInjection;
 using Blazored.LocalStorage;
 using CommandLine;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 using Microsoft.IdentityModel.Logging;
 using Refund.Configuration;
 using Refund.Configuration.Constants;
@@ -135,8 +134,16 @@ var authConfig = builder.Configuration.GetSection(CommonConstants.Authentication
                         .LoadAuthenticationConfiguration();
 
 // Add FluentUI components
-builder.Services.AddFluentUIComponents();
-builder.Services.AddScoped<ITooltipService, TooltipService>();
+builder.Services.AddFluentUIComponents(options =>
+{
+    options.Toast.Lifetime = TimeSpan.FromSeconds(10);
+    options.DefaultStyles.FluentFieldClass = null;
+    options.Toast.Position = ToastPosition.BottomStart;
+    options.DefaultValues.For<FluentStack>().Set(p => p.HorizontalGap, "10px");
+    options.DefaultValues.For<FluentStack>().Set(p => p.VerticalGap, "10px");
+    options.DefaultValues.For<FluentBadge>().Set(p => p.Color, BadgeColor.Informative);
+    options.DefaultValues.For<FluentBadge>().Set(p => p.Shape, BadgeShape.Rounded);
+});
 
 // Register application services
 

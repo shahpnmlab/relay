@@ -3,11 +3,11 @@
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
 <style>
-    fluent-text-field.user-field::part(root) {
+    fluent-field.user-field fluent-text-input::part(root) {
         cursor: pointer !important;
         border: none !important;
     }
-    fluent-text-field.user-field::part(control) {
+    fluent-field.user-field fluent-text-input::part(control) {
         cursor: pointer !important;
     }
 </style>
@@ -18,15 +18,14 @@
         <h6>Registration Tokens:</h6>
         
         <FluentButton OnClick="GenerateToken"
-                      Appearance="Appearance.Accent">
+                      Appearance="ButtonAppearance.Primary">
             Generate New Token
         </FluentButton>
 
         <ConfirmButton OnClick="InvalidateTokens"
-                       Position="ConfirmationPosition.Right"
                        Color="var(--error)"
                        BackgroundColor="transparent"
-                       Appearance="@Appearance.Outline">
+                       Appearance="@ButtonAppearance.Outline">
             Invalidate All Tokens
         </ConfirmButton>
     </div>
@@ -41,7 +40,7 @@
         </TemplateColumn>
 
         <TemplateColumn Title="Username" Sortable="true" SortBy="@(GridSort<ReadOnlyUser>.ByAscending(x => x.Username))">
-            <FluentTextField Class="user-field"
+            <FluentTextInput Class="user-field"
                             Style="width: 100%; margin-left: -9px;"
                             Value="@(GetFieldValue(context, nameof(ReadOnlyUser.Username)))"
                             ValueChanged="@(value => OnUsernameChanged(value, context))"
@@ -56,7 +55,7 @@
         </TemplateColumn>
 
         <TemplateColumn Title="Name" Sortable="true" SortBy="@(GridSort<ReadOnlyUser>.ByAscending(x => x.Name))">
-            <FluentTextField Class="user-field"
+            <FluentTextInput Class="user-field"
                             Value="@(GetFieldValue(context, nameof(ReadOnlyUser.Name)))"
                             ValueChanged="@(value => OnNameChanged(value, context))"
                             Style="width: 100%; margin-left: -9px;"
@@ -71,7 +70,7 @@
         </TemplateColumn>
 
         <TemplateColumn Title="Email" Sortable="true" SortBy="@(GridSort<ReadOnlyUser>.ByAscending(x => x.Email))">
-            <FluentTextField Class="user-field"
+            <FluentTextInput Class="user-field"
                             Value="@(GetFieldValue(context, nameof(ReadOnlyUser.Email)))"
                             ValueChanged="@(value => OnEmailChanged(value, context))"
                             Style="width: 100%; margin-left: -9px;"
@@ -85,16 +84,15 @@
             }
         </TemplateColumn>
 
-        <TemplateColumn Title="Role" Style="overflow: visible;" Align="@Align.Center" Width="110px"
+        <TemplateColumn Title="Role" Style="overflow: visible;" Align="@DataGridCellAlignment.Center" Width="170px"
                        Sortable="true" SortBy="@(GridSort<ReadOnlyUser>.ByAscending(x => x.Role))">
 
-            <FluentSelect Class="user-field"
+            <FluentSelect TOption="string" TValue="string" Class="user-field"
                          Value="@(context.Role.ToString())"
                          ValueChanged="@(value => OnRoleChanged(value, context))"
                          Items="_roles"
-                         Width="100px"
+                         Width="160px"
                          Placeholder="Please select a role"
-                         Position="SelectPosition.Below"
                          Disabled="@(context == Session.User)"/>
 
             @if (HasErrors(context, nameof(ReadOnlyUser.Role)))
@@ -104,22 +102,20 @@
                 </div>
             }
         </TemplateColumn>
-        <TemplateColumn Align="@Align.End" Width="180px">
+        <TemplateColumn Align="@DataGridCellAlignment.End" Width="180px">
             <div style="display: flex; gap: 0.5rem;">
                 <ConfirmButton aria-label="Reset password"
                                Title="Reset password"
                                IconEnd="@(new Icons.Regular.Size16.Key().WithColor("var(--error)"))"
                                OnClick="@(() => ResetPassword(context))"
                                Style="margin-right: 8px;"
-                               Disabled="@(context == Session.User)"
-                               Position="ConfirmationPosition.Bottom"/>
+                               Disabled="@(context == Session.User)"/>
 
                 <ConfirmButton aria-label="Delete user"
                                Title="Delete user"
                                IconEnd="@(new Icons.Regular.Size16.Delete().WithColor("var(--error)"))"
                                OnClick="@(() => DeleteUser(context))"
-                               Disabled="@(context == Session.User)"
-                               Position="ConfirmationPosition.Bottom"/>
+                               Disabled="@(context == Session.User)"/>
             </div>
         </TemplateColumn>
     </FluentDataGrid>

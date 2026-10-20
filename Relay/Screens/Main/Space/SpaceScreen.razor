@@ -7,7 +7,7 @@
 
 <div style="width: 100%; height: 100%; display: flex; flex-direction: column;">
     <FluentTabs Style="height: 100%;" Class="tab-h100">
-        <FluentTab Label="Views">
+        <FluentTab Header="Views">
             <ListingScreen TItem="ReadOnlyView"
                            Title="@GetTitle()"
                            CreateButtonText="@GetCreateButtonText()"
@@ -23,11 +23,11 @@
             </ListingScreen>
         </FluentTab>
 
-        <FluentTab Label="Factory Definitions">
+        <FluentTab Header="Factory Definitions">
             <div class="fd-tab">
                 <div class="fd-header">
                     <h4>Factory Definitions</h4>
-                    <FluentButton Appearance="Appearance.Accent"
+                    <FluentButton Appearance="ButtonAppearance.Primary"
                                   IconStart="@(new Icons.Regular.Size16.Add())"
                                   OnClick="HandleCreateFactory">
                         New factory

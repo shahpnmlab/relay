@@ -18,6 +18,7 @@ public partial class FilteredListbox<TValue>
     /// Current filter text entered by user in the search box.
     /// </summary>
     private string _filterText = string.Empty;
+    private bool _hasSelection;
 
     /// <summary>
     /// Gets or sets the currently selected option value.
@@ -102,6 +103,8 @@ public partial class FilteredListbox<TValue>
     /// <param name="value">The value of the selected option</param>
     private async Task OnValueChanged(TValue value)
     {
+        if (_hasSelection && EqualityComparer<TValue>.Default.Equals(SelectedOption, value)) return;
+        _hasSelection = true;
         SelectedOption = value;
         if (SelectedOptionChanged.HasDelegate)
             await SelectedOptionChanged.InvokeAsync(value);

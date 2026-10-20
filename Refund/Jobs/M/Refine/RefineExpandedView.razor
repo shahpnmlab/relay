@@ -12,11 +12,12 @@ else if (_job == null)
 }
 else if (_job.VisAvailableIteration >= 0)
 {
-    <FluentTabs @key="_job.DirectoryPath" Class="species-tabs" @bind-ActiveTabId="_activeSpeciesTabId">
+    var tabJob = _job;
+    <FluentTabs @key="tabJob.DirectoryPath" Class="species-tabs" ActiveTabId="@_activeSpeciesTabId" ActiveTabIdChanged="@(id => SetActiveSpeciesTab(tabJob, id))">
         @foreach (var species in _job.GetPopulation(0).Species.OrderBy(s => s.Name, StringComparer.Ordinal))
         {
             <FluentTab @key="species.Name" Id="@SpeciesTabId(species.Name)"
-                       Label="@species.Name" DeferredLoading="true">
+                       Header="@species.Name" DeferredLoading="true">
                 <div class="species-visualizations">
                     @if (File.Exists(species.DenoisedMapPath))
                     {

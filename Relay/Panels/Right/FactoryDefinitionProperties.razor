@@ -14,7 +14,7 @@
 
             @if (IsLocked)
             {
-                <FluentBadge Appearance="Appearance.Lightweight" Color="Color.Warning">
+                <FluentBadge Appearance="BadgeAppearance.Ghost" Color="BadgeColor.Warning">
                     Read-only — instances exist
                 </FluentBadge>
             }
@@ -23,7 +23,7 @@
         <div class="property-panel">
             <div class="property-item">
                 <span class="property-title">Name</span>
-                <FluentTextField Class="property-value"
+                <FluentTextInput Class="property-value"
                                  AutoComplete="off"
                                  Value="@definition.Alias"
                                  ValueChanged="@HandleAliasChanged"/>

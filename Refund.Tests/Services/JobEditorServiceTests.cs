@@ -13,7 +13,7 @@ public class JobEditorServiceTests
     [InlineData(true)]
     public async Task ClosingEditorCanOverlapSubscriptionCleanup(bool dispose)
     {
-        await using var session = new RelaySession(new TestNavigationManager(), null!, null!, null!);
+        await using var session = new RelaySession(new TestNavigationManager(), null!, null!, null!, null!);
         using var editor = new JobEditorService(null!, session);
         var subscriptions = (List<GroupEventSubscription>)typeof(JobEditorService)
             .GetField("_subscriptions", BindingFlags.Instance | BindingFlags.NonPublic)!

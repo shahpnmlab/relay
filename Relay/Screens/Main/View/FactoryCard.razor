@@ -10,7 +10,7 @@
      id="@($"factory-{(Mode == FactoryCardMode.Instance ? $"fi-{Instance?.Id}" : $"fd-{Definition?.Id}")}")"
      style="width: @(DiagramMode ? DiagramWidth : VisualProvider.GetWidth(1))px;
             height: @(DiagramMode ? DiagramHeight : VisualProvider.GetHeight(HeightSquares))px;
-            @(Mode == FactoryCardMode.Instance && Instance?.ColorTag != null ? $"background-color: color-mix(in srgb, {Instance.ColorTag} 40%, var(--neutral-fill-layer-rest));" : "")"
+            @(Mode == FactoryCardMode.Instance && Instance?.ColorTag != null ? $"background-color: color-mix(in srgb, {Instance.ColorTag} 40%, var(--colorNeutralBackground1));" : "")"
      @onclick:stopPropagation="true" @onclick="HandleClick"
      @ondblclick:stopPropagation="true" @ondblclick="HandleDoubleClick"
      @onmouseover="@(() => _showTooltips = true)"
@@ -46,7 +46,7 @@
                 @foreach (var edge in cardLayout.Edges)
                 {
                     <path d="@GetCardEdgePath(edge)" fill="none"
-                          stroke="var(--neutral-foreground-rest)" stroke-width="1" opacity="0.4"/>
+                          stroke="var(--colorNeutralForeground1)" stroke-width="1" opacity="0.4"/>
                 }
                 @foreach (var node in cardLayout.Nodes)
                 {
@@ -114,7 +114,7 @@
     @if (!DiagramMode)
     {
         <RelayMenu Anchor="@($"factory-{(Mode == FactoryCardMode.Instance ? $"fi-{Instance?.Id}" : $"fd-{Definition?.Id}")}")"
-                    Trigger="MouseButton.Right"
+                    ContextMenu="true"
                     OpenChanged="HandleContextMenu">
             <span style="font-size: 0.75rem; padding: 0 1rem; opacity: 0.5;
                         display: block; max-width: 250px; overflow: hidden;

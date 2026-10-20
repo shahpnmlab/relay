@@ -6,7 +6,7 @@
     @if (_isLoading)
     {
         <div class="loading-overlay">
-            <FluentProgressRing Style="width: 70px; height: 70px;" />
+            <FluentSpinner Size="SpinnerSize.Huge" Style="width: 70px; height: 70px;" />
         </div>
     }
     else
@@ -16,23 +16,23 @@
             <div class="tilt-slider-container">
                 <div>Current tilt: @_tiltAngles[_currentTiltIndex].ToString("F1") °</div>
                 <FluentSlider TValue="int"
-                              Embedded="true"
                               Min="0"
                               Max="@(Math.Max(0, _tiltCount - 1))"
                               Step="1"
                               Value="@_currentTiltIndex"
-                              ValueChanged="HandleTiltIndexChanged"
-                              Immediate="true">
-                    <FluentSliderLabel Position="0">
+                              ValueChanged="HandleTiltIndexChanged">
+</FluentSlider>
+<div class="slider-labels">
+                    <span>
                         @_tiltAngles.First().ToString("F1") °
-                    </FluentSliderLabel>
-                    <FluentSliderLabel Position="@_zeroTiltIndex">
+                    </span>
+                    <span>
                         @_tiltAngles[_zeroTiltIndex].ToString("F1") °
-                    </FluentSliderLabel>
-                    <FluentSliderLabel Position="@(_tiltAngles.Length - 1)">
+                    </span>
+                    <span>
                         @_tiltAngles.Last().ToString("F1") °
-                    </FluentSliderLabel>
-                </FluentSlider>
+                    </span>
+                </div>
             </div>
         }
 

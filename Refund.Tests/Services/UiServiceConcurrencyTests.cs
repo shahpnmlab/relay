@@ -329,7 +329,7 @@ public class UiServiceConcurrencyTests
             return new Fixture
             {
                 DirectoryPath = directory, Manager = manager, View = view, A = a, B = b,
-                Session = new RelaySession(new TestNavigationManager(), null!, null!, manager)
+                Session = new RelaySession(new TestNavigationManager(), null!, null!, manager, null!)
             };
         }
 

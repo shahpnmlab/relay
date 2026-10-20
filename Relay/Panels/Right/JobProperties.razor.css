@@ -29,7 +29,7 @@
     top: 12px;
     bottom: -4px;
     width: 2px;
-    background-color: var(--accent-fill-rest);
+    background-color: var(--colorBrandBackground);
 }
 
 /* Circle dots for each timeline item */
@@ -41,8 +41,8 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--accent-fill-rest);
-    border: 2px solid var(--fill-color);
+    background-color: var(--colorBrandBackground);
+    border: 2px solid var(--colorNeutralBackground1);
     z-index: 1;
 }
 
@@ -56,19 +56,19 @@
 }
 
 .timeline-event-text {
-    color: var(--neutral-foreground-rest);
+    color: var(--colorNeutralForeground1);
     font-weight: 500;
 }
 
 .timeline-event-timestamp {
-    color: var(--neutral-foreground-hint);
+    color: var(--colorNeutralForeground3);
     font-size: 12px;
     margin-left: 8px;
 }
 
 .timeline-event-author {
     font-size: 12px;
-    color: var(--neutral-foreground-hint);
+    color: var(--colorNeutralForeground3);
     display: flex;
     align-items: center;
     gap: 4px;
@@ -76,7 +76,7 @@
 
 .timeline-expand-link {
     cursor: pointer;
-    color: var(--accent-fill-rest);
+    color: var(--colorBrandForeground1);
     text-decoration: none;
     font-size: 12px;
     padding: 4px 0;
@@ -92,7 +92,7 @@
     top: 0;
     bottom: 0;
     width: 0;
-    border-left: 2px dashed var(--accent-fill-rest);
+    border-left: 2px dashed var(--colorBrandBackground);
 }
 
 /* Extend line from expand link to next timeline item */
@@ -103,7 +103,7 @@
     bottom: -16px;
     height: 20px;
     width: 2px;
-    background-color: var(--accent-fill-rest);
+    background-color: var(--colorBrandBackground);
 }
 
 .timeline-expand-link:hover {

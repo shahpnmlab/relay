@@ -28,7 +28,7 @@ public partial class JobPreviewTooltip : ComponentBase, IDisposable
     /// Preferred tooltip position; null lets the tooltip pick the best one.
     /// </summary>
     [Parameter]
-    public TooltipPosition? Position { get; set; }
+    public Positioning? Position { get; set; }
 
     /// <summary>
     /// Suffix that keeps the preview card's DOM IDs unique on the page.
@@ -72,7 +72,7 @@ public partial class JobPreviewTooltip : ComponentBase, IDisposable
         }
     }
 
-    private Task HandleDismissed() => OnDismissed.InvokeAsync();
+    private Task HandleOpenedChanged(bool opened) => opened ? Task.CompletedTask : OnDismissed.InvokeAsync();
 
     public void Dispose()
     {

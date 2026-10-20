@@ -8,8 +8,10 @@ namespace Refund.UIFields;
 /// Provides common parameters and functionality needed by all field types, enabling consistent
 /// editing experience and a clean separation between field data and its visual representation.
 /// </summary>
-public abstract class UiFieldViewBase : FluentComponentBase
+public abstract class UiFieldViewBase : ComponentBase
 {
+    [Parameter] public string Class { get; set; }
+
     /// <summary>
     /// The field attribute metadata that describes how this field should be displayed
     /// </summary>

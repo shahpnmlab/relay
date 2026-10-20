@@ -9,10 +9,10 @@
     max-height: calc(100dvh - 16px);
     width: max-content;
     overflow: hidden;
-    border: 1px solid var(--neutral-stroke-rest, #666);
+    border: 1px solid var(--colorNeutralStroke1, #666);
     border-radius: 5px;
-    background: var(--neutral-layer-floating, var(--neutral-layer-1, #fff));
-    color: var(--neutral-foreground-rest, #222);
+    background: var(--colorNeutralBackground1, #fff);
+    color: var(--colorNeutralForeground1, #222);
     box-shadow: 0 6px 18px #0004;
     font: inherit;
     font-size: 14px;
@@ -41,9 +41,9 @@
     outline: none;
 }
 .relay-menu-item[data-active], .relay-menu-item:focus-visible {
-    background: var(--neutral-fill-stealth-hover, #e5e5e5);
+    background: var(--colorSubtleBackgroundHover, #e5e5e5);
 }
-.relay-menu-item:focus-visible { outline: 1px solid var(--accent-fill-rest, #0078d4); outline-offset: -1px; }
+.relay-menu-item:focus-visible { outline: 1px solid var(--colorBrandBackground, #0078d4); outline-offset: -1px; }
 .relay-menu-item[aria-disabled="true"] { opacity: .5; }
 .relay-menu-label { display: flex; align-items: center; gap: 8px; min-width: 0; overflow-wrap: anywhere; }
 .relay-menu-label > [slot="start"] { order: -1; flex-shrink: 0; }
@@ -55,13 +55,13 @@
     padding: 0;
     border: 0;
     border-radius: 2px;
-    background: var(--neutral-fill-stealth-rest, transparent);
+    background: var(--colorSubtleBackground, transparent);
     color: inherit;
     font: inherit;
     line-height: 20px;
     cursor: default;
 }
-.relay-menu-scroll-arrow:not(:disabled):hover { background: var(--neutral-fill-stealth-hover, #e5e5e5); }
+.relay-menu-scroll-arrow:not(:disabled):hover { background: var(--colorSubtleBackgroundHover, #e5e5e5); }
 .relay-menu-scroll-arrow:disabled { color: transparent; }
 .relay-menu-scroll-arrow[hidden] { display: none; }
 .relay-menu-description { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }

@@ -22,7 +22,7 @@
                     </h6>
                 }
                 <div class="right-panel-compact">
-                    <FluentTextField Placeholder="Custom job name"
+                    <FluentTextInput Placeholder="Custom job name"
                                      Style="width: 100%; margin-top: 10px"
                                      Value="@_job.Alias"
                                      ValueChanged="@HandleJobAliasChanged" />
@@ -61,7 +61,7 @@
                                     width: 16px; height: 16px; border-radius: 8px; flex-shrink: 0;"></div>
                         @if (isExposed)
                         {
-                            <FluentTextField Value="@GetExposedOutputPortName(_port)"
+                            <FluentTextInput Value="@GetExposedOutputPortName(_port)"
                                              ValueChanged="@(v => SetExposedOutputPortName(_port, v))"
                                              Placeholder="Custom name"
                                              Style="flex: 1; font-size: 0.8rem;" />
@@ -70,8 +70,8 @@
                         {
                             <span style="flex: 1; font-size: 0.85rem;">@_port.Alias</span>
                         }
-                        <FluentButton BackgroundColor="transparent" Color="transparent"
-                                      Style="height: 16px;"
+                        <FluentButton IconOnly="true" Appearance="ButtonAppearance.Transparent"
+                                      Style="height: 16px; min-height: 16px; min-width: 16px; width: 16px; padding: 0;"
                                       Title="@(isExposed ? "Hide from instance editor" : "Expose in instance editor")"
                                       OnClick="() => ToggleOutputPortExposure(_port, !isExposed)">
                             <FluentIcon Value="@(isExposed ? iconExposedFilled : iconExposedRegular)" />
@@ -126,7 +126,7 @@
                 </FluentButton>
                 @if (typeof(ILocalJob).IsAssignableFrom(_job.GetOriginalType()))
                 {
-                    <FluentButton Appearance="Appearance.Accent"
+                    <FluentButton Appearance="ButtonAppearance.Primary"
                                   Disabled="@(_isQueueing || HasAnyValidationErrors())"
                                   Loading="@_isQueueing"
                                   IconStart="@(new Icons.Filled.Size20.Play())"
@@ -140,12 +140,12 @@
                     var compatibleQueues = DataManager.ClusterQueues.Where(q => (q.QueueType & _job.QueueType) != 0);
 
                     <ListboxButton TValue="@(ReadOnlyJobQueue)" ButtonLabel="Run"
+                                   ListPosition="Positioning.AboveStart"
                                    ListHeight="300"
                                    ButtonDisabled="@(_isQueueing || HasAnyValidationErrors())"
                                    ButtonLoading="@_isQueueing"
-                                   ButtonAppearance="Appearance.Accent"
+                                   ButtonAppearance="ButtonAppearance.Primary"
                                    OnOptionSelected="HandleClusterQueueSelected"
-                                   ListVerticalPosition="VerticalPosition.Top"
                                    IsFiltered="false"
                                    Options="@(compatibleQueues.Select(q => (q, q.QualifiedName)))"
                                    ButtonIconStart="@(new Icons.Filled.Size20.Play())"

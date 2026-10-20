@@ -10,7 +10,7 @@
 
 <FluentStack HorizontalGap="0">
     <div style="width: 100%">
-        <FluentTextField @bind-Value="@ValueT"
+        <FluentTextInput @bind-Value="@ValueT"
                          Class="borderless"
                          Immediate="true"
                          Style="width: 100%"
@@ -41,9 +41,9 @@
         {
             return;
         }
-        if (result.Data is not null)
+        if (result.Value is not null)
         {
-            List<FileSystemItem> selectedItems = result.Data as List<FileSystemItem>;
+            List<FileSystemItem> selectedItems = result.Value as List<FileSystemItem>;
             if (selectedItems.Any())
                 ValueT = selectedItems.First().Path;
             

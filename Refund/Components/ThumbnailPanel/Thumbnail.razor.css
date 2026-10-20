@@ -20,9 +20,9 @@
     top: 0;
     left: 0;
     background: transparent;
-    border: 3px solid var(--accent-fill-rest);
+    border: 3px solid var(--colorBrandBackground);
     box-sizing: border-box;
-    box-shadow: 0 0 4px var(--accent-fill-rest);
+    box-shadow: 0 0 4px var(--colorBrandBackground);
 }
 
 .thumbnail-number {

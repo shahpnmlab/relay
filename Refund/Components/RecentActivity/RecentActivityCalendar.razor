@@ -21,7 +21,7 @@
             {
                 var day = week.AddDays(i);
                 var id = $"week-day-{idPostfix++}";
-                var currentMonthColor = DateTime.Now.Month == day.Month ? Color.Accent : Color.Disabled;
+                var currentMonthColor = DateTime.Now.Month == day.Month ? Color.Primary : Color.Disabled;
 
                 if(day < _startDataRange || day > _endDataRange)
                 {
@@ -46,7 +46,7 @@
                         </g>
                     </svg>
 
-                    <FluentTooltip Anchor="@id" Position="TooltipPosition.Left">
+                    <FluentTooltip Anchor="@id" Positioning="Positioning.Before">
                         @if(_activitiesByDate.TryGetValue(day, out var value))
                         {
                             foreach(var job in value)

@@ -17,77 +17,52 @@
 
         <FluentButton id="buttonQueues"
                       IconStart="@(new Icons.Regular.Size24.BuildingFactory())"
-                      Appearance="@(Session.CurrentOverlay == OverlayScreenType.Queues ? Appearance.Accent : null)"
-                      BackgroundColor="@(Session.CurrentOverlay == OverlayScreenType.Queues ? null : "transparent")"
+                      Appearance="@(Session.CurrentOverlay == OverlayScreenType.Queues ? ButtonAppearance.Primary : ButtonAppearance.Subtle)"
                       OnClick="OnQueuesButtonClick"
                       Title="Queues">
         </FluentButton>
-        <FluentTooltip Anchor="buttonQueues" Position="TooltipPosition.Right">Queues</FluentTooltip>
+        <FluentTooltip Anchor="buttonQueues" Positioning="Positioning.After">Queues</FluentTooltip>
 
         <FluentButton id="buttonPersonal"
                       IconStart="@(new Icons.Regular.Size24.Person())"
-                      Appearance="@(Session.CurrentOverlay == OverlayScreenType.Personal ? Appearance.Accent : null)"
-                      BackgroundColor="@(Session.CurrentOverlay == OverlayScreenType.Personal ? null : "transparent")"
+                      Appearance="@(Session.CurrentOverlay == OverlayScreenType.Personal ? ButtonAppearance.Primary : ButtonAppearance.Subtle)"
                       OnClick="OnPersonalButtonClick"
                       Title="Personal settings">
         </FluentButton>
-        <FluentTooltip Anchor="buttonPersonal" Position="TooltipPosition.Right">Personal settings</FluentTooltip>
+        <FluentTooltip Anchor="buttonPersonal" Positioning="Positioning.After">Personal settings</FluentTooltip>
 
         @if (Session.User.Role == UserRole.Admin)
         {
             <FluentButton id="buttonSettings"
                           IconStart="@(new Icons.Regular.Size24.Settings())"
-                          Appearance="@(Session.CurrentOverlay == OverlayScreenType.Settings ? Appearance.Accent : null)"
-                          BackgroundColor="@(Session.CurrentOverlay == OverlayScreenType.Settings ? null : "transparent")"
+                          Appearance="@(Session.CurrentOverlay == OverlayScreenType.Settings ? ButtonAppearance.Primary : ButtonAppearance.Subtle)"
                           OnClick="OnSettingsButtonClick"
                           Title="Settings">
             </FluentButton>
 
-            <FluentTooltip Anchor="buttonSettings" Position="TooltipPosition.Right">Settings</FluentTooltip>
+            <FluentTooltip Anchor="buttonSettings" Positioning="Positioning.After">Settings</FluentTooltip>
         }
 
         <FluentButton id="buttonBrowseFiles"
                       IconStart="@(new Icons.Regular.Size24.FolderOpen())"
-                      BackgroundColor="transparent"
+                      Appearance="ButtonAppearance.Subtle"
                       OnClick="OnBrowseFilesClick"
                       Title="Browse Files">
         </FluentButton>
-        <FluentTooltip Anchor="buttonBrowseFiles" Position="TooltipPosition.Right">Browse Files</FluentTooltip>
+        <FluentTooltip Anchor="buttonBrowseFiles" Positioning="Positioning.After">Browse Files</FluentTooltip>
     </div>
 
     <FluentButton id="buttonSignOut"
                   IconStart="@(new Icons.Regular.Size24.SignOut())"
-                  Appearance="Appearance.Outline"
+                  Appearance="ButtonAppearance.Outline"
                   OnClick="@(() => _isSignOutOpen = !_isSignOutOpen)"
                   Title="Sign out"
                   Style="margin-bottom: 8px;">
     </FluentButton>
-    <FluentTooltip Anchor="buttonSignOut" Position="TooltipPosition.Right">Sign out</FluentTooltip>
+    <FluentTooltip Anchor="buttonSignOut" Positioning="Positioning.After">Sign out</FluentTooltip>
 </div>
 
-<div class="popover-no-padding popover-no-shadow">
-    <FluentPopover AnchorId="buttonSignOut"
-                   @bind-Open="_isSignOutOpen"
-                   HorizontalPosition="HorizontalPosition.Right"
-                   VerticalPosition="VerticalPosition.Center"
-                   HorizontalInset="false"
-                   Style="background-color: transparent;">
-        <Body>
-            <div style="display: flex; flex-wrap: nowrap; align-items: center;">
-
-                <svg style="width: 12px; height: 14px; fill: var(--error);"
-                     viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 12 0 L 0 7 L 12 14 Z" />
-                </svg>
-
-                <div style="border-radius: 4px; background-color: var(--error);">
-                    <FluentButton BackgroundColor="var(--error)"
-                                  Color="var(--neutral-fill-rest)"
-                                  OnClick="@Logout">
-                        Sign out
-                    </FluentButton>
-                </div>
-            </div>
-        </Body>
-    </FluentPopover>
-</div>
+<ConfirmationPopover AnchorId="buttonSignOut" @bind-Opened="_isSignOutOpen"
+                     PreferBefore="false" OnConfirm="Logout">
+    Sign out
+</ConfirmationPopover>

@@ -30,21 +30,21 @@ public partial class ToggleIcon : ComponentBase
         if (IconToggled != _iconToggled)
         {
             _iconToggled = IconToggled;
-            _iconToggledActive = ((Icon)Activator.CreateInstance(IconToggled.GetType())).WithColor(Color.Accent);
+            _iconToggledActive = ((Icon)Activator.CreateInstance(IconToggled.GetType())).WithColor(Color.Primary);
             _iconToggledDisabled = ((Icon)Activator.CreateInstance(IconToggled.GetType())).WithColor(Color.Disabled);
         }
         
         if (IconNeutral != _iconNeutral)
         {
             _iconNeutral = IconNeutral;
-            _iconNeutralActive = ((Icon)Activator.CreateInstance(IconNeutral.GetType())).WithColor(Color.Accent);
+            _iconNeutralActive = ((Icon)Activator.CreateInstance(IconNeutral.GetType())).WithColor(Color.Primary);
             _iconNeutralDisabled = ((Icon)Activator.CreateInstance(IconNeutral.GetType())).WithColor(Color.Disabled);
         }
         
         base.OnParametersSet();
     }
 
-    private Appearance ButtonAppearance => IsToggled ? Appearance.Accent : Appearance.Neutral;
+    private ButtonAppearance ButtonAppearance => IsToggled ? ButtonAppearance.Primary : ButtonAppearance.Default;
     
     private Icon _iconToggledActive;
     private Icon _iconToggledDisabled;

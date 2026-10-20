@@ -10,7 +10,7 @@ namespace Relay.Screens.Main.Home;
 /// Dialog component for creating a new project in the application.
 /// Used by HomeScreen to create projects that will be immediately navigated to.
 /// </summary>
-public partial class CreateProjectDialog : IDialogContentComponent<CreateProjectDialogParameters>
+public partial class CreateProjectDialog : ComponentBase
 {
     /// <summary>
     /// The current relay session providing user context and navigation capabilities.
@@ -28,7 +28,7 @@ public partial class CreateProjectDialog : IDialogContentComponent<CreateProject
     /// Reference to the parent dialog instance.
     /// </summary>
     [CascadingParameter] 
-    public FluentDialog Dialog { get; set; }
+    public IDialogInstance Dialog { get; set; }
     
     /// <summary>
     /// Dialog parameters (currently empty but maintained for pattern consistency).
@@ -96,15 +96,16 @@ public partial class CreateProjectDialog : IDialogContentComponent<CreateProject
     {
         var parameters = new CreateProjectDialogParameters();
 
-        await dialogService.ShowDialogAsync<CreateProjectDialog>(parameters,
-                                                                 new DialogParameters
-                                                                 {
-                                                                     Title = "Create new project",
-                                                                     Modal = true,
-                                                                     PreventScroll = true,
-                                                                     ShowDismiss = true,
-                                                                     OnDialogResult = dialogService.CreateDialogCallback(callbackReceiver, callbackHandler)
-                                                                 });
+        var options = new DialogOptions
+        {
+            Modal = true,
+            Parameters = new Dictionary<string, object?> { [nameof(Content)] = parameters },
+        };
+        options.Header.Title = "Create new project";
+        options.Header.CloseAction.Visible = true;
+        options.Header.CloseAction.OnClickAsync = dialog => dialog.CancelAsync();
+        var result = await dialogService.ShowDialogAsync<CreateProjectDialog>(options);
+        await EventCallback.Factory.Create(callbackReceiver, callbackHandler).InvokeAsync(result);
     }
 }
 

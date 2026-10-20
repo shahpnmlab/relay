@@ -54,7 +54,7 @@ public partial class ProjectScreen : ListingScreenLogic<ReadOnlySpace>
 
     protected override async Task OnCreateDialogClosedAsync(DialogResult result)
     {
-        if (result.Data is CreateSpaceDialogResult { Success: true } createResult)
+        if (result.Value is CreateSpaceDialogResult { Success: true } createResult)
         {
             await Session.NavigateToAsync(new NavigationRequest
             {

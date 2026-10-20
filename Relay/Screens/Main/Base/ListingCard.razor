@@ -34,7 +34,7 @@
         </span>
 
         <span class="listing-card-chevron">
-            <FluentIcon Value="@(new Icons.Regular.Size16.ChevronRight())" Color="Color.Neutral"/>
+            <FluentIcon Value="@(new Icons.Regular.Size16.ChevronRight())" Color="Color.Default"/>
         </span>
     </a>
 
@@ -42,7 +42,7 @@
     {
         <FluentTooltip Anchor="@HeaderId"
                        MaxWidth="500px"
-                       Position="TooltipPosition.Top">
+                       Positioning="Positioning.Above">
             <div style="width: 450px;">
                 @Item.Notes
             </div>
@@ -64,7 +64,7 @@
     }
 </div>
 
-<RelayMenu Anchor="@CardId" Trigger="MouseButton.Right"
+<RelayMenu Anchor="@CardId" ContextMenu="true"
             OpenChanged="HandleContextMenu">
     <span class="menu-context-title" title="@Item.QualifiedName">
         @Item.QualifiedName

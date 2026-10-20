@@ -36,7 +36,7 @@ public partial class ExtractParticlesExpandedView : IAsyncDisposable
     private ExpandedJobViewService ExpandedViewService { get; set; }
 
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     [Inject]
     private ILogger<ExtractParticlesExpandedView> Logger { get; set; }
@@ -183,7 +183,7 @@ public partial class ExtractParticlesExpandedView : IAsyncDisposable
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error loading tomogram data");
-            ToastService.ShowError($"Error loading tomogram data: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Error loading tomogram data: {ex.Message}");
         }
 
         _allTomogramThumbnails = thumbnails;
@@ -307,7 +307,7 @@ public partial class ExtractParticlesExpandedView : IAsyncDisposable
 
         // Navigate to details tab
         if (_tabs != null)
-            await _tabs.GoToTabAsync(DetailsTabId);
+            await _tabs.SelectTabAsync(DetailsTabId);
 
         await InvokeAsync(StateHasChanged);
     }

@@ -1,3 +1,4 @@
+using Refund.Components;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -15,6 +16,9 @@ namespace Refund.Components.FileBrowser;
 /// </summary>
 public partial class FileBrowser : ComponentBase, IAsyncDisposable
 {
+    private readonly string _controlPrefix = $"file-browser-{Guid.NewGuid():N}";
+    private string ControlId(string name) => $"{_controlPrefix}-{name}";
+
     [Inject]
     private IJSRuntime JSRuntime { get; set; }
     
@@ -397,7 +401,7 @@ public partial class FileBrowser : ComponentBase, IAsyncDisposable
     /// <summary>
     /// List of available sorting options for file system items.
     /// </summary>
-    private static List<Option<string>> SortOptions { get; } = new()
+    private static List<SelectOption<string>> SortOptions { get; } = new()
     {
         new() { Value = "Name", Text = "Name" },
         new() { Value = "Size", Text = "Size" },
@@ -407,7 +411,7 @@ public partial class FileBrowser : ComponentBase, IAsyncDisposable
     /// <summary>
     /// The currently selected sort option.
     /// </summary>
-    private Option<string> SelectedSortOption = SortOptions.First();
+    private SelectOption<string> SelectedSortOption = SortOptions.First();
     
     /// <summary>
     /// The current sort option value.
@@ -446,7 +450,7 @@ public partial class FileBrowser : ComponentBase, IAsyncDisposable
     /// Handles changes to the selected sort option.
     /// </summary>
     /// <param name="e">The newly selected sort option</param>
-    private void OnSortOptionChanged(Option<string> e)
+    private void OnSortOptionChanged(SelectOption<string> e)
     {
         SelectedSortOption = e;
     }
@@ -900,66 +904,40 @@ public partial class FileBrowser : ComponentBase, IAsyncDisposable
     /// Service for displaying toast notifications.
     /// </summary>
     [Inject]
-    IToastService ToastService { get; set; }
+    INotificationService ToastService { get; set; }
     
     /// <summary>
     /// Dictionary tracking files currently being uploaded and their toast notifications.
     /// The key is the file name, and the value is the toast parameters for the upload progress.
     /// </summary>
-    private Dictionary<string, ToastParameters<ProgressToastContent>> filesBeingUploaded = new();
+    private readonly Dictionary<string, UploadProgressState> filesBeingUploaded = new();
     
-    /// <summary>
-    /// Creates and displays a toast notification for a file being uploaded.
-    /// </summary>
-    /// <param name="fileName">The name of the file being uploaded</param>
     private void AddUploadToast(string fileName)
     {
-        if (filesBeingUploaded.ContainsKey(fileName))
-            return;
-        
-        var toast = new ToastParameters<ProgressToastContent>
+        if (filesBeingUploaded.ContainsKey(fileName)) return;
+        var state = new UploadProgressState(fileName);
+        filesBeingUploaded.Add(fileName, state);
+        _ = ToastService.ShowToastAsync<UploadProgressToast>(new ToastOptions
         {
-            Id = fileName,
-            Intent = ToastIntent.Upload,
+            Id = state.Id,
+            Intent = ToastIntent.Progress,
             Title = "Uploading file",
-            Timeout = 0, // No timeout, will be closed manually
-            Content = new ProgressToastContent
-            {
-                Details = fileName,
-                Progress = 0,
-            },
-        };
-        
-        ToastService.ShowProgressToast(toast);
-
-        filesBeingUploaded.Add(fileName, toast);
+            Lifetime = TimeSpan.Zero,
+            Parameters = new Dictionary<string, object?> { [nameof(UploadProgressToast.State)] = state }
+        });
     }
     
-    /// <summary>
-    /// Updates the progress display in a file upload toast notification.
-    /// </summary>
-    /// <param name="fileName">The name of the file being uploaded</param>
-    /// <param name="progress">The current upload progress percentage (0-100)</param>
     private void UpdateUploadToast(string fileName, int progress)
     {
-        if (filesBeingUploaded.ContainsKey(fileName))
-        {
-            filesBeingUploaded[fileName].Content.Progress = progress;
-            ToastService.UpdateToast(fileName, filesBeingUploaded[fileName]);
-        }
+        if (filesBeingUploaded.TryGetValue(fileName, out var state))
+            state.Update(progress);
     }
     
-    /// <summary>
-    /// Removes a toast notification for a completed or failed file upload.
-    /// </summary>
-    /// <param name="fileName">The name of the file whose upload has completed or failed</param>
     private void RemoveUploadToast(string fileName)
     {
-        if (filesBeingUploaded.ContainsKey(fileName))
-        {
-            filesBeingUploaded.Remove(fileName);
-            ToastService.CloseToast(fileName);
-        }
+        if (filesBeingUploaded.Remove(fileName, out var state) &&
+            ToastService.GetToastInstance(state.Id) is { } toast)
+            _ = toast.CloseAsync();
     }
 
     /// <summary>

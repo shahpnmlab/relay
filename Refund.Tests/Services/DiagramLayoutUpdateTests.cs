@@ -475,7 +475,7 @@ public sealed class DiagramLayoutUpdateTests
         var folder = await fixture.Manager.CreateFolder(fixture.User, fixture.View, "Factory folder");
         var instance = await fixture.CreateFactoryAsync(folder);
         var job = instance.SubJobs.First();
-        await using var session = new RelaySession(new TestNavigationManager(), null!, null!, fixture.Manager);
+        await using var session = new RelaySession(new TestNavigationManager(), null!, null!, fixture.Manager, null!);
         if (initialContext == 1)
             await session.NavigateToAsync(new NavigationRequest
             {

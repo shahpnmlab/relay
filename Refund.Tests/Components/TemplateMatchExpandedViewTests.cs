@@ -79,7 +79,7 @@ public class TemplateMatchExpandedViewTests
         public ViewHarness()
         {
             JobRegistry.EnsurePopulated();
-            var session = new RelaySession(null!, null!, null!, null!);
+            var session = new RelaySession(null!, null!, null!, null!, null!);
             var services = new ServiceCollection();
             services.AddLogging();
             services.AddFluentUIComponents();
@@ -88,6 +88,7 @@ public class TemplateMatchExpandedViewTests
             services.AddSingleton<IJSRuntime, NoJsRuntime>();
             services.AddSingleton<IComponentActivator>(_activator);
             _services = services.BuildServiceProvider();
+            _activator.Services = _services;
             _renderer = new HtmlRenderer(_services, _services.GetRequiredService<ILoggerFactory>());
         }
 
@@ -113,10 +114,11 @@ public class TemplateMatchExpandedViewTests
 
     private sealed class RecordingActivator : IComponentActivator
     {
+        public IServiceProvider Services { get; set; } = null!;
         public TemplateMatchExpandedView? View { get; private set; }
         public IComponent CreateInstance(Type type)
         {
-            var component = (IComponent)Activator.CreateInstance(type)!;
+            var component = (IComponent)ActivatorUtilities.CreateInstance(Services, type);
             if (component is TemplateMatchExpandedView view) View = view;
             return component;
         }

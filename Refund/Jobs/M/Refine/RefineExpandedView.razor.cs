@@ -17,6 +17,13 @@ public partial class RefineExpandedView
     private ReadOnlyRefine _job;
     private string _activeSpeciesTabId;
 
+    private void SetActiveSpeciesTab(ReadOnlyRefine job, string? id)
+    {
+        // Ignore selection callbacks raised while the previous job's tabs are disposed.
+        if (job == _job && !string.IsNullOrEmpty(id)) _activeSpeciesTabId = id;
+    }
+
+
     private static string SpeciesTabId(string speciesName) => $"species-{Uri.EscapeDataString(speciesName)}";
 
     private void InitializeSpeciesTab()

@@ -1,3 +1,4 @@
+using Refund.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons;
@@ -277,17 +278,17 @@ public partial class Class2DSelection
     /// Sorting helps researchers identify the most promising classes based on different
     /// criteria such as resolution (quality) or size (particle distribution).
     /// </summary>
-    private static List<Option<string>> SortOptions { get; } = new()
+    private static List<SelectOption<string>> SortOptions { get; } = new()
     {
-        new Option<string> { Value = "ID", Text = "ID" },
-        new Option<string> { Value = "Resolution", Text = "Resolution" },
-        new Option<string> { Value = "Size", Text = "Size" }
+        new SelectOption<string> { Value = "ID", Text = "ID" },
+        new SelectOption<string> { Value = "Resolution", Text = "Resolution" },
+        new SelectOption<string> { Value = "Size", Text = "Size" }
     };
 
     /// <summary>
     /// Currently selected sort option.
     /// </summary>
-    private Option<string> SelectedSortOption = SortOptions.First();
+    private SelectOption<string> SelectedSortOption = SortOptions.First();
     
     /// <summary>
     /// Gets the current sort option value for use in sorting logic.
@@ -326,7 +327,7 @@ public partial class Class2DSelection
     /// Handles sort option selection changes from the dropdown.
     /// </summary>
     /// <param name="e">The newly selected sort option</param>
-    private void OnSortOptionChanged(Option<string> e)
+    private void OnSortOptionChanged(SelectOption<string> e)
     {
         SelectedSortOption = e;
     }

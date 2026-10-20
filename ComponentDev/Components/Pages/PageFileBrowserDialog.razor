@@ -23,9 +23,9 @@
             await Task.Run(() => Console.WriteLine("Dialog cancelled"));
             return;
         }
-        if (result.Data is not null)
+        if (result.Value is not null)
         {
-            List<FileSystemItem> selectedItems = result.Data as List<FileSystemItem>;
+            List<FileSystemItem> selectedItems = result.Value as List<FileSystemItem>;
             await Task.Run(() =>
             {
                 foreach (var item in selectedItems)

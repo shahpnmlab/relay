@@ -20,7 +20,7 @@ public partial class FactoryInstanceProperties : ComponentBase, IDisposable
     private RelaySession Session { get; set; }
 
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     private List<GroupEventSubscription> _subscriptions = new();
     private ReadOnlyFactoryInstance _fi;
@@ -56,7 +56,7 @@ public partial class FactoryInstanceProperties : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update name: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update name: {exc.Message}");
         }
     }
 
@@ -70,7 +70,7 @@ public partial class FactoryInstanceProperties : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update notes: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update notes: {exc.Message}");
         }
     }
 

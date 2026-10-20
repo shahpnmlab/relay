@@ -14,7 +14,7 @@ namespace Relay.Screens.Overlay.Settings;
 public partial class QueueEditor
 {
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     private ReadOnlyClusterQueue _selectedQueue;
     private readonly List<GroupEventSubscription> _subscriptions = new();
@@ -124,7 +124,7 @@ public partial class QueueEditor
         }
         catch (InvalidOperationException exc)
         {
-            ToastService.ShowError(exc.Message);
+            _ = ToastService.ShowErrorToastAsync(exc.Message);
         }
     }
 
@@ -136,7 +136,7 @@ public partial class QueueEditor
         }
         catch (InvalidOperationException exc)
         {
-            ToastService.ShowError(exc.Message);
+            _ = ToastService.ShowErrorToastAsync(exc.Message);
             return;
         }
 
@@ -358,7 +358,7 @@ public partial class QueueEditor
         }
         catch (InvalidOperationException exc)
         {
-            ToastService.ShowError(exc.Message);
+            _ = ToastService.ShowErrorToastAsync(exc.Message);
             await InvokeAsync(StateHasChanged);
         }
     }

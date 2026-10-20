@@ -19,12 +19,12 @@
 }
 
 .iteration-item:hover {
-    background-color: var(--neutral-fill-hover);
+    background-color: var(--colorNeutralBackground1Hover);
 }
 
 .iteration-item.selected {
-    background-color: var(--accent-fill-rest);
-    color: var(--foreground-on-accent-rest);
+    background-color: var(--colorBrandBackground);
+    color: var(--colorNeutralForegroundOnBrand);
 }
 
 .iteration-item-unavailable {
@@ -51,7 +51,7 @@
     padding-bottom: 0.5rem;
     text-align: center;
     align-content: center;
-    color: var(--neutral-foreground-rest);
+    color: var(--colorNeutralForeground1);
 }
 
 .iteration-dots {
@@ -66,5 +66,5 @@
 }
 
 .dot.selected {
-    color: var(--foreground-on-accent-rest);
+    color: var(--colorNeutralForegroundOnBrand);
 }

@@ -9,25 +9,21 @@
 
     <div class="top-bar-actions">
         <div class="current-user">
-            <FluentIcon Value="@(new Icons.Regular.Size20.Person())" />
+            <FluentIcon Value="@(new Icons.Regular.Size20.Person().WithColor("var(--colorBrandForeground1)"))" />
             <span title="@Session.User.Name">@Session.User.Name</span>
         </div>
 
-        <FluentButton Id="Theme"
+        <FluentButton Appearance="ButtonAppearance.Transparent" Id="Theme"
                       IconEnd="@(Session.ColorTheme == ColorTheme.Light ?
                                      new Icons.Regular.Size20.WeatherSunny().WithColor(Color.Warning) :
                                      new Icons.Regular.Size20.WeatherMoon())"
-                      BackgroundColor="transparent"
-                      Color="transparent"
                       Title="@(Session.ColorTheme == ColorTheme.Light ?
                                    "Switch to dark theme" :
                                    "Switch to light theme")"
                       OnClick="OnThemeButtonClick">
         </FluentButton>
 
-        <FluentButton IconEnd="@(new Icons.Regular.Size20.PanelRight())"
-                      BackgroundColor="transparent"
-                      Color="transparent"
+        <FluentButton Appearance="ButtonAppearance.Transparent" IconEnd="@(new Icons.Regular.Size20.PanelRight())"
                       Title="@(Session.IsRightPanelExpanded() ? "Collapse right panel" : "Expand right panel")"
                       Style="margin-right: 8px;"
                       OnClick="OnToggleRightPanel">

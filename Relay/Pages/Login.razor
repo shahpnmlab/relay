@@ -32,7 +32,7 @@
         <div class="sso-card">
             <h2>Relay nice to see you!</h2>
             
-            <FluentButton Appearance="Appearance.Accent"
+            <FluentButton Appearance="ButtonAppearance.Primary"
                           OnClick="@(() => NavigationManager.NavigateTo("/start-sso", forceLoad: true))">
                 Sign in via SSO
             </FluentButton>
@@ -45,7 +45,7 @@
 
             @if (!string.IsNullOrEmpty(_errorMessage))
             {
-                <FluentMessageBar Intent="MessageIntent.Error"
+                <FluentMessageBar Intent="MessageBarIntent.Error"
                                   Title="@(_isRegistering ? "Registration failed" : "Sign in failed")"
                                   Style="margin-bottom: 1rem;">
                     @_errorMessage
@@ -58,7 +58,7 @@
                     <DataAnnotationsValidator/>
 
                     <div class="form-content">
-                        <FluentTextField @bind-Value="_registrationModel.Username"
+                        <FluentTextInput @bind-Value="_registrationModel.Username"
                                          Label="Username"
                                          Required="true"
                                          Immediate="true"
@@ -66,29 +66,29 @@
                                          AutoComplete="off" />
                         <FluentValidationMessage For="@(() => _registrationModel.Username)"/>
 
-                        <FluentTextField @bind-Value="_registrationModel.Name"
+                        <FluentTextInput @bind-Value="_registrationModel.Name"
                                          Label="Name"
                                          Required="true"
                                          Immediate="true"/>
                         <FluentValidationMessage For="@(() => _registrationModel.Name)"/>
 
-                        <FluentTextField @bind-Value="_registrationModel.Email"
+                        <FluentTextInput @bind-Value="_registrationModel.Email"
                                          Label="Email"
                                          Required="true"
                                          Type="email"
                                          Immediate="true"
-                                         TextFieldType="TextFieldType.Email"/>
+                                         TextInputType="TextInputType.Email"/>
                         <FluentValidationMessage For="@(() => _registrationModel.Email)"/>
 
-                        <FluentTextField @bind-Value="_registrationModel.Password"
+                        <FluentTextInput @bind-Value="_registrationModel.Password"
                                          Label="Password"
                                          Required="true"
-                                         TextFieldType="TextFieldType.Password"/>
+                                         TextInputType="TextInputType.Password"/>
                         <FluentValidationMessage For="@(() => _registrationModel.Password)"/>
 
                         @if (!_isFirstUser)
                         {
-                            <FluentTextField @bind-Value="_registrationModel.SecurityToken"
+                            <FluentTextInput @bind-Value="_registrationModel.SecurityToken"
                                              Label="Security Token"
                                              Required="true"
                                              AutoComplete="off" />
@@ -99,14 +99,14 @@
                             @if (!_isFirstUser)
                             {
                                 <FluentButton Type="ButtonType.Button"
-                                              Appearance="Appearance.Outline"
+                                              Appearance="ButtonAppearance.Outline"
                                               OnClick="@(() => _isRegistering = false)">
                                     Back to Login
                                 </FluentButton>
                             }
 
                             <FluentButton Type="ButtonType.Submit"
-                                          Appearance="Appearance.Accent"
+                                          Appearance="ButtonAppearance.Primary"
                                           Loading="@_isLoading">
                                 @(_isFirstUser ? "Create Admin Account" : "Create Account")
                             </FluentButton>
@@ -123,7 +123,7 @@
                     <DataAnnotationsValidator/>
 
                     <div class="form-content">
-                        <FluentTextField @bind-Value="_loginModel.Username"
+                        <FluentTextInput @bind-Value="_loginModel.Username"
                                          Label="Username"
                                          Required="true"
                                          Immediate="true"
@@ -131,7 +131,7 @@
                                          AutoComplete="off"/>
                         <FluentValidationMessage For="@(() => _loginModel.Username)"/>
 
-                        <FluentTextField @bind-Value="_loginModel.Password"
+                        <FluentTextInput @bind-Value="_loginModel.Password"
                                          Label="Password"
                                          Required="true"
                                          Immediate="true"
@@ -144,7 +144,7 @@
 
                         <div class="button-row">
                             <FluentButton Type="ButtonType.Submit"
-                                          Appearance="Appearance.Accent"
+                                          Appearance="ButtonAppearance.Primary"
                                           Loading="@_isLoading">
                                 Sign in
                             </FluentButton>
@@ -157,7 +157,7 @@
             {
                 <div class="mode-switch">
                     <FluentButton OnClick="@(() => _isRegistering = true)"
-                                  Appearance="Appearance.Stealth">
+                                  Appearance="ButtonAppearance.Subtle">
                         Need an account? Register here
                     </FluentButton>
                 </div>

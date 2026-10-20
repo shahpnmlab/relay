@@ -45,7 +45,7 @@ public partial class JobLine : IDisposable, IHandleEvent
     /// Determines the position of the preview tooltip relative to the job line.
     /// </summary>
     [Parameter]
-    public TooltipPosition PreviewPosition { get; set; } = TooltipPosition.Right;
+    public Positioning PreviewPosition { get; set; } = Positioning.After;
 
     /// <summary>
     /// Font size for text in the job line.

@@ -60,8 +60,8 @@
 
 .right-panel-compact {
     font-size: 10pt;
-    --type-ramp-base-line-height: 10pt;
-    --design-unit: 3.5;
+    --lineHeightBase300: 10pt;
+    --fontSizeBase300: 10pt;
 }
 .job-editor-heading {
     overflow-wrap: anywhere;

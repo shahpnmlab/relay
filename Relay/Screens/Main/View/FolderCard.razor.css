@@ -1,7 +1,7 @@
 .folder-card {
     border-radius: 8px;
-    background: var(--neutral-layer-2);
-    border: 1px solid var(--neutral-stroke-rest);
+    background: var(--colorNeutralBackground2);
+    border: 1px solid var(--colorNeutralStroke1);
     position: relative;
     user-select: none;
 }

@@ -95,7 +95,7 @@ public partial class JobProperties : ComponentBase, IDisposable
     /// Gets or sets the toast service for showing notifications.
     /// </summary>
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     [Inject]
     private IDialogService DialogService { get; set; }
@@ -235,7 +235,7 @@ public partial class JobProperties : ComponentBase, IDisposable
     private async Task HandlePathCopyClicked()
     {
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", Jobs.First().DirectoryPath);
-        ToastService.ShowSuccess("Path copied to clipboard", timeout: 1000);
+        _ = ToastService.ShowSuccessToastAsync("Path copied to clipboard", lifetime: 1);
     }
 
     private async Task HandleBrowseFolderClicked()

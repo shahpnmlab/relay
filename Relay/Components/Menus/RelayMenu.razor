@@ -11,7 +11,7 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string Label { get; set; } = "Actions";
     [Parameter] public string Anchor { get; set; }
-    [Parameter] public MouseButton? Trigger { get; set; }
+    [Parameter] public bool ContextMenu { get; set; }
     [Parameter] public bool Open { get; set; }
     [Parameter] public EventCallback<bool> OpenChanged { get; set; }
     [Parameter] public double? X { get; set; }
@@ -53,7 +53,7 @@
             finally { _initializing = false; }
         }
         if (!_disposed && _controller != null)
-            await _controller.InvokeVoidAsync("update", _open, new { anchor = Anchor, context = Trigger == MouseButton.Right, x = X, y = Y });
+            await _controller.InvokeVoidAsync("update", _open, new { anchor = Anchor, context = ContextMenu, x = X, y = Y });
     }
 
     [JSInvokable]

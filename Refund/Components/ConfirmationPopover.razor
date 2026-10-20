@@ -1,0 +1,25 @@
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="popover-no-padding popover-no-shadow">
+    <RelayPopover AnchorId="@AnchorId" Opened="@Opened" OpenedChanged="@OpenedChanged"
+                  Position="@(PreferBefore ? Positioning.Before : Positioning.After)" Gap="12" Class="confirmation-popover">
+        @if (Opened)
+        {
+            <div class="confirmation-callout">
+                <FluentButton Class="confirmation-action" BackgroundColor="var(--relay-confirmation-background)"
+                              Color="white" OnClick="@OnConfirm">
+                    @ChildContent
+                </FluentButton>
+            </div>
+        }
+    </RelayPopover>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string AnchorId { get; set; } = "";
+    [Parameter] public bool Opened { get; set; }
+    [Parameter] public EventCallback<bool> OpenedChanged { get; set; }
+    [Parameter] public bool PreferBefore { get; set; } = true;
+    [Parameter] public EventCallback<MouseEventArgs> OnConfirm { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

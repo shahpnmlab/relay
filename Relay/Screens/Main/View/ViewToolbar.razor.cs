@@ -1,3 +1,4 @@
+using Refund.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Refund.Services;
@@ -29,18 +30,18 @@ public partial class ViewToolbar : ComponentBase, IDisposable
     [Parameter]
     public bool IsBrowseMode { get; set; }
 
-    private static readonly List<Option<string>> SortOptions = new()
+    private static readonly List<SelectOption<string>> SortOptions = new()
     {
-        new Option<string> { Text = "Custom", Value = nameof(JobSortCriterion.Custom) },
-        new Option<string> { Text = "ID", Value = nameof(JobSortCriterion.Id) },
-        new Option<string> { Text = "Last Modified", Value = nameof(JobSortCriterion.LastModified) },
-        new Option<string> { Text = "Status", Value = nameof(JobSortCriterion.Status) },
-        new Option<string> { Text = "Type", Value = nameof(JobSortCriterion.Type) },
-        new Option<string> { Text = "Name", Value = nameof(JobSortCriterion.Name) },
-        new Option<string> { Text = "Color", Value = nameof(JobSortCriterion.Color) },
+        new SelectOption<string> { Text = "Custom", Value = nameof(JobSortCriterion.Custom) },
+        new SelectOption<string> { Text = "ID", Value = nameof(JobSortCriterion.Id) },
+        new SelectOption<string> { Text = "Last Modified", Value = nameof(JobSortCriterion.LastModified) },
+        new SelectOption<string> { Text = "Status", Value = nameof(JobSortCriterion.Status) },
+        new SelectOption<string> { Text = "Type", Value = nameof(JobSortCriterion.Type) },
+        new SelectOption<string> { Text = "Name", Value = nameof(JobSortCriterion.Name) },
+        new SelectOption<string> { Text = "Color", Value = nameof(JobSortCriterion.Color) },
     };
 
-    private Option<string> SelectedSortOption =>
+    private SelectOption<string> SelectedSortOption =>
         SortOptions.FirstOrDefault(o => o.Value == SortingService.Criterion.ToString())
         ?? SortOptions[0];
 
@@ -64,7 +65,7 @@ public partial class ViewToolbar : ComponentBase, IDisposable
         InvokeAsync(StateHasChanged);
     }
 
-    private async Task OnSortOptionChanged(Option<string>? option)
+    private async Task OnSortOptionChanged(SelectOption<string>? option)
     {
         if (option?.Value != null && Enum.TryParse<JobSortCriterion>(option.Value, out var criterion))
         {

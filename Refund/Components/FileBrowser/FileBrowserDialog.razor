@@ -1,7 +1,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components
 
 
-<FluentDialogBody>
+<FluentDialogBody Style="height: 100%;">
     <FileBrowser SelectionMode="@Content.SelectionMode"
                  ShowFiles="@Content.ShowFiles"
                  ShowFolders="@Content.ShowFolders"
@@ -13,7 +13,3 @@
                  ShowSelectionButtons="@Content.ShowSelectionButtons"
                  CurrentFolderChanged="@HandleCurrentFolderChanged" />
 </FluentDialogBody>
-
-<FluentDialogFooter>
-    
-</FluentDialogFooter>

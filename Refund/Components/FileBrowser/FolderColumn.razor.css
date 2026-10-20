@@ -26,7 +26,7 @@
 }
 
 .item.selected {
-    background-color: var(--accent-fill-rest);
+    background-color: var(--colorBrandBackground);
     color: white;
 }
 

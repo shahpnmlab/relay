@@ -30,7 +30,7 @@
                     <svg viewBox="-8 -8 @F(layout.GraphWidth + 16) @F(layout.GraphHeight + 16)" aria-hidden="true">
                         @foreach (var edge in layout.Edges)
                         {
-                            <path d="@GetEdgePath(edge)" fill="none" stroke="var(--neutral-foreground-rest)" stroke-width="1" opacity="0.4" />
+                            <path d="@GetEdgePath(edge)" fill="none" stroke="var(--colorNeutralForeground1)" stroke-width="1" opacity="0.4" />
                         }
                     </svg>
                     @foreach (var node in layout.Nodes)

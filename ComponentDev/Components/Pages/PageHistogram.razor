@@ -12,13 +12,13 @@
             <FluentSwitch @bind-Value="rangeSelectionEnabled" Label="Range Selection" />
             <FluentSwitch @bind-Value="disabled" Label="Disabled" />
             
-            <FluentNumberField TValue="@(int)" Value="@bins" Min="5" Max="50" ValueChanged="@OnBinsChanged" Label="Number of Bins" />
+            <FluentNumberInput TValue="@(int)" Value="@bins" Min="5" Max="50" ValueChanged="@OnBinsChanged" Label="Number of Bins" />
             
-            <FluentNumberField TValue="@(decimal)" @bind-Value="minRange" Min="-100" Max="100" Label="Min Range" />
-            <FluentNumberField TValue="@(decimal)" @bind-Value="maxRange" Min="-100" Max="100" Label="Max Range" />
+            <FluentNumberInput TValue="@(decimal)" @bind-Value="minRange" Min="-100" Max="100" Label="Min Range" />
+            <FluentNumberInput TValue="@(decimal)" @bind-Value="maxRange" Min="-100" Max="100" Label="Max Range" />
             
-            <FluentNumberField TValue="@(decimal)" @bind-Value="stepSize" Min="0" Max="10" Label="Step Size" />
-            <FluentNumberField TValue="@(int)" @bind-Value="minGap" Min="0" Max="10" Label="Min Gap (steps)" />
+            <FluentNumberInput TValue="@(decimal)" @bind-Value="stepSize" Min="0" Max="10" Label="Step Size" />
+            <FluentNumberInput TValue="@(int)" @bind-Value="minGap" Min="0" Max="10" Label="Min Gap (steps)" />
         </FluentStack>
     </div>
     

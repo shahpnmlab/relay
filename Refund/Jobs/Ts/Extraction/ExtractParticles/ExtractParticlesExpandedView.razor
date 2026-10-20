@@ -26,7 +26,7 @@ else
                     Style="height: 100%;">
             
             <FluentTab Id="@OverviewTabId" 
-                       Label="Overview" 
+                       Header="Overview"
                        Style="padding-top: 1rem;">
                 <div style="display: flex; flex-direction: column; gap: 1.5rem; height: 100%;">
                     @{
@@ -48,7 +48,7 @@ else
                 </div>
             </FluentTab>
 
-            <FluentTab Id="@DetailsTabId" Label="Details" Style="height: 100%; padding-top: 1rem;">
+            <FluentTab Id="@DetailsTabId" Header="Details" Style="height: 100%; padding-top: 1rem;">
                 <div class="tomogram-viewer-container">
                     @if (_selectedTomogramPath != null)
                     {

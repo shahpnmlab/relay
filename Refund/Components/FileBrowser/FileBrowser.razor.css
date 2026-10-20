@@ -24,6 +24,13 @@
     padding-bottom: 5px;
 }
 
+.toolbar-left,
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
 .columns-container {
     display: flex;
     overflow-x: auto;
@@ -53,12 +60,12 @@
 .save-file-input {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    border-top: 1px solid var(--neutral-stroke-rest);
-    background: var(--neutral-layer-1);
+    border-top: 1px solid var(--colorNeutralStroke1);
+    background: var(--colorNeutralBackground1);
 }
 
 .error-message {
-    color: var(--error-foreground);
+    color: var(--colorPaletteRedForeground1);
     font-size: 0.875rem;
     margin-top: 0.5rem;
 }

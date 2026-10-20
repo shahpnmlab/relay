@@ -29,14 +29,14 @@ public partial class ToggleButton : ComponentBase
         if (Icon != _icon)
         {
             _icon = Icon;
-            IconNeutral = ((Icon)Activator.CreateInstance(Icon.GetType())).WithColor(Color.Accent);
-            IconToggled = ((Icon)Activator.CreateInstance(Icon.GetType())).WithColor(Color.Fill);
+            IconNeutral = ((Icon)Activator.CreateInstance(Icon.GetType())).WithColor(Color.Primary);
+            IconToggled = ((Icon)Activator.CreateInstance(Icon.GetType())).WithColor("var(--colorNeutralForegroundOnBrand)");
         }
         
         base.OnParametersSet();
     }
 
-    private Appearance ButtonAppearance => IsToggled ? Appearance.Accent : Appearance.Neutral;
+    private ButtonAppearance ButtonAppearance => IsToggled ? ButtonAppearance.Primary : ButtonAppearance.Default;
     
     private Icon IconToggled;
     private Icon IconNeutral;

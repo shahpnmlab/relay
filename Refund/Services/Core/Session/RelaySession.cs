@@ -30,7 +30,8 @@ public class RelaySession : IAsyncDisposable
 {
     private readonly NavigationManager _navigationManager;
     private readonly IJSRuntime _jsRuntime;
-    private readonly IToastService _toastService;
+    private readonly INotificationService _toastService;
+    private readonly IThemeService _themeService;
     private readonly DataManager.DataManager _dataManager;
     private DotNetObjectReference<RelaySession> _objectReference;
     
@@ -270,11 +271,12 @@ public class RelaySession : IAsyncDisposable
     /// <param name="jsRuntime">The JavaScript runtime for interop.</param>
     /// <param name="toastService">The toast notification service.</param>
     /// <param name="dataManager">The data manager to access application data.</param>
-    public RelaySession(NavigationManager navigationManager, IJSRuntime jsRuntime, IToastService toastService, DataManager.DataManager dataManager)
+    public RelaySession(NavigationManager navigationManager, IJSRuntime jsRuntime, INotificationService toastService, DataManager.DataManager dataManager, IThemeService themeService)
     {
         _navigationManager = navigationManager;
         _jsRuntime = jsRuntime;
         _toastService = toastService;
+        _themeService = themeService;
         _dataManager = dataManager;
         _objectReference = DotNetObjectReference.Create(this);
 
@@ -327,6 +329,7 @@ public class RelaySession : IAsyncDisposable
         // Get initial system theme preference (this resets on each session start)
         bool isDarkMode = await _jsRuntime.InvokeAsync<bool>("relaySessionInterop.getSystemThemePreference");
         ColorTheme = isDarkMode ? ColorTheme.Dark : ColorTheme.Light;
+        await _themeService.SetThemeAsync(isDarkMode ? ThemeMode.Dark : ThemeMode.Light);
         _hasManualThemeOverride = false; // Reset manual override flag on session start
         
         // Process initial URL to set navigation state
@@ -466,6 +469,7 @@ public class RelaySession : IAsyncDisposable
         if (ColorTheme != theme)
         {
             ColorTheme = theme;
+            await _themeService.SetThemeAsync(theme == ColorTheme.Dark ? ThemeMode.Dark : ThemeMode.Light);
             await OnThemeChanged.InvokeAllAsync();
         }
     }
@@ -823,7 +827,7 @@ public class RelaySession : IAsyncDisposable
 
         if (currentUrl != desiredUrl)
         {
-            _toastService.ShowError($"Couldn't find requested page. Redirecting to {desiredUrl}");
+            _ = _toastService.ShowErrorToastAsync($"Couldn't find requested page. Redirecting to {desiredUrl}");
             _navigationManager.NavigateTo(desiredUrl);
         }
     }

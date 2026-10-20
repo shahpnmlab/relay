@@ -6,19 +6,24 @@
     padding: 0.25rem 1rem;
     flex-shrink: 0;
     border-top-left-radius: 6px;
-    background-color: var(--neutral-fill-layer-rest);
-    border-bottom: 1px solid var(--neutral-stroke-rest);
+    background-color: var(--colorNeutralBackground1);
+    border-bottom: 1px solid var(--colorNeutralStroke1);
 }
 
 .toolbar-label {
     font-size: 0.8rem;
-    color: var(--neutral-foreground-hint);
+    color: var(--colorNeutralForeground3);
     margin-right: 2px;
+}
+
+.view-toolbar ::deep fluent-field,
+.view-toolbar ::deep fluent-button {
+    flex-shrink: 0;
 }
 
 .toolbar-separator {
     width: 1px;
     height: 20px;
-    background-color: var(--neutral-stroke-rest);
+    background-color: var(--colorNeutralStroke1);
     margin: 0 8px;
 }

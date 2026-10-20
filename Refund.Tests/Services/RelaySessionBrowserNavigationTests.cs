@@ -35,7 +35,7 @@ public class RelaySessionBrowserNavigationTests
             var view = await manager.CreateView(user, space);
             var job = await manager.CreateJob(user, view, new Note().TypeGuid);
             var navigation = new BrowserNavigationManager();
-            await using var session = new RelaySession(navigation, null!, null!, manager);
+            await using var session = new RelaySession(navigation, null!, null!, manager, null!);
             using var expanded = new ExpandedJobViewService(manager, session,
                 NullLogger<ExpandedJobViewService>.Instance);
 

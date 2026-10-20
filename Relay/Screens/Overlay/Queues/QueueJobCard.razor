@@ -22,7 +22,7 @@
     
     <div style="display: flex; flex-wrap: wrap;">
         <span>@Job.GetMostRecentEvent(EventType.Created).Timestamp.ToString("yyyy-MM-dd HH:mm"),&nbsp;</span>
-        <span style="display: flex; flex-wrap: nowrap;">by&nbsp;<FluentBadge>@Job.GetMostRecentEvent(EventType.Created).Author.Name</FluentBadge></span>
+        <span style="display: flex; flex-wrap: nowrap;">by&nbsp;<FluentBadge Class="author-badge">@Job.GetMostRecentEvent(EventType.Created).Author.Name</FluentBadge></span>
     </div>
     
     <div style="display: flex; flex-wrap: nowrap; align-items: center; gap: 3px;">
@@ -138,14 +138,14 @@
                  @onmouseup:stopPropagation="true"
                  @ondblclick:stopPropagation="true">
                 <span>Workers</span>
-                <FluentButton Appearance="Appearance.Neutral"
+                <FluentButton Appearance="ButtonAppearance.Default"
                               Disabled="@(!CanResizePool || desiredSize <= 1)"
                               aria-label="Decrease worker pool size"
                               OnClick="@(() => ChangePoolSize(-1))">
                     −
                 </FluentButton>
                 <span class="pool-size-value" aria-live="polite">@desiredSize</span>
-                <FluentButton Appearance="Appearance.Neutral"
+                <FluentButton Appearance="ButtonAppearance.Default"
                               Disabled="@(!CanResizePool || desiredSize == int.MaxValue)"
                               aria-label="Increase worker pool size"
                               OnClick="@(() => ChangePoolSize(1))">
@@ -155,7 +155,7 @@
         }
     }
 
-    <RelayMenu Anchor="@($"job-card-{_id}")" Trigger="MouseButton.Right"
+    <RelayMenu Anchor="@($"job-card-{_id}")" ContextMenu="true"
                 OpenChanged="HandleContextMenu">
         <span style="font-size: 0.75rem; padding: 0 1rem; opacity: 0.5; max-width: 200px;">
             @Job.QualifiedName

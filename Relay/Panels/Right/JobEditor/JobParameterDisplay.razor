@@ -6,12 +6,12 @@
                                                                                                 IsPropertyVisible(p)))
         {
             <FluentAccordionItem Class="transparent" Expanded="true">
-                <HeadingTemplate>
+                <HeaderTemplate>
                     <div style="display: flex; flex-wrap: nowrap; align-items: center; font-weight: bold;">
-                        <FluentLabel Typo="Typography.H6">Favorites&nbsp;</FluentLabel>
+                        <h6>Favorites&nbsp;</h6>
                         <FluentIcon Value="@(new Icons.Filled.Size20.Heart())" />
                     </div>
-                </HeadingTemplate>
+                </HeaderTemplate>
                 <ChildContent>
                     <FluentStack Orientation="Orientation.Vertical" VerticalGap="16" Style="width: 100%; margin-bottom: 0px">
                         @foreach (var property in Refund.DataModel.Job.TypeParameters[Job.GetOriginalType()].Where(p => IsFavorite(p.Name)))
@@ -27,8 +27,8 @@
                                         @if (!IsDisabled)
                                         {
                                             var isFavorite = IsFavorite(property.Name);
-                                            <FluentButton BackgroundColor="transparent" Color="transparent"
-                                                          Style="height: 16px;"
+                                            <FluentButton IconOnly="true" Appearance="ButtonAppearance.Transparent"
+                                                          Style="height: 16px; min-height: 16px; min-width: 16px; width: 16px; padding: 0;"
                                                           Title="@(isFavorite ? "Remove from favorites" : "Add to favorites")"
                                                           OnClick="() => HandleFavoriteToggle(property.Name)">
                                                 <FluentIcon Value="@(isFavorite ? iconHeartFilled : iconHeartRegular)" />
@@ -48,11 +48,11 @@
             <FluentAccordionItem Class="transparent" 
                                  Expanded="@(!IsGroupCollapsed(category.Key))" 
                                  ExpandedChanged="@(value => HandleGroupExpandedChanged(category.Key, value))">
-                <HeadingTemplate>
-                    <FluentLabel Typo="Typography.H6" Style="font-weight: bold;">
+                <HeaderTemplate>
+                    <h6 Style="font-weight: bold;">
                         @category.Key
-                    </FluentLabel>
-                </HeadingTemplate>
+                    </h6>
+                </HeaderTemplate>
                 <ChildContent>
                     <FluentStack Orientation="Orientation.Vertical" VerticalGap="16" Style="width: 100%; margin-bottom: 0px">
                         @foreach (var property in category.Value)
@@ -71,7 +71,7 @@
                                     <LabelExtra>
                                         @if (_propExposed && GetExposedPropertyName != null)
                                         {
-                                            <FluentTextField Value="@GetExposedPropertyName(_capturedProp)"
+                                            <FluentTextInput Value="@GetExposedPropertyName(_capturedProp)"
                                                              ValueChanged="@(v => OnExposedPropertyNameChanged.InvokeAsync((_capturedProp, v)))"
                                                              Placeholder="Custom name"
                                                              Style="width: 100%; font-size: 0.8rem;" />
@@ -80,8 +80,8 @@
                                     <FavoriteFragment>
                                         @if (ShowExposureToggle)
                                         {
-                                            <FluentButton BackgroundColor="transparent" Color="transparent"
-                                                          Style="height: 16px;"
+                                            <FluentButton IconOnly="true" Appearance="ButtonAppearance.Transparent"
+                                                          Style="height: 16px; min-height: 16px; min-width: 16px; width: 16px; padding: 0;"
                                                           Title="@(_propExposed ? "Hide from instance editor" : "Expose in instance editor")"
                                                           OnClick="() => OnExposureToggled.InvokeAsync((property, !_propExposed))">
                                                 <FluentIcon Value="@(_propExposed ? iconExposedFilled : iconExposedRegular)" />
@@ -90,8 +90,8 @@
                                         else if (!IsDisabled && !HideFavorites)
                                         {
                                             var isFavorite = IsFavorite(property.Name);
-                                            <FluentButton BackgroundColor="transparent" Color="transparent"
-                                                          Style="height: 16px;"
+                                            <FluentButton IconOnly="true" Appearance="ButtonAppearance.Transparent"
+                                                          Style="height: 16px; min-height: 16px; min-width: 16px; width: 16px; padding: 0;"
                                                           Title="@(isFavorite ? "Remove from favorites" : "Add to favorites")"
                                                           OnClick="() => HandleFavoriteToggle(property.Name)">
                                                 <FluentIcon Value="@(isFavorite ? iconHeartFilled : iconHeartRegular)" />

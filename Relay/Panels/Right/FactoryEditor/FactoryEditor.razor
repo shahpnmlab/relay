@@ -31,7 +31,7 @@
                         </h6>
                     }
                     <div class="right-panel-compact">
-                        <FluentTextField Placeholder="Custom instance name"
+                        <FluentTextInput Placeholder="Custom instance name"
                                          Style="width: 100%; margin-top: 10px"
                                          Value="@_instance.Alias"
                                          ValueChanged="@HandleAliasChanged" />
@@ -62,9 +62,9 @@
                                 </svg>
                             </div>
                             <FluentStack Orientation="Orientation.Vertical" VerticalGap="2" Style="flex: 1;">
-                                <FluentLabel Typo="Typography.H6">
+                                <h6>
                                     <span>@(!string.IsNullOrWhiteSpace(exposedPort.CustomName) ? exposedPort.CustomName : realPort.Alias) (@realPort.Edges.Count / @GetPortRequirementText(realPort))</span>
-                                </FluentLabel>
+                                </h6>
                                 <div style="font-size: 10pt; font-weight: 500;">
                                     @foreach (var _edge in realPort.Edges)
                                     {
@@ -73,8 +73,7 @@
                                             <div>J@($"{edge.Source.Job.Id}")→@(edge.Source.Alias)</div>
                                             @if (!isDisabled)
                                             {
-                                                <FluentButton BackgroundColor="transparent"
-                                                              Color="transparent"
+                                                <FluentButton Appearance="ButtonAppearance.Transparent"
                                                               OnClick="() => HandlePortEdgeRemoved(edge)">
                                                     <FluentIcon Value="@(new Icons.Filled.Size16.Delete())"></FluentIcon>
                                                 </FluentButton>
@@ -97,7 +96,7 @@
                 var capturedSubJob = subJob;
 
                 <FluentAccordion>
-                    <FluentAccordionItem Heading="@(isDisabled ? $"{subJob.QualifiedName} ({subJob.Status})" : subJob.QualifiedName)" Expanded="true">
+                    <FluentAccordionItem Header="@(isDisabled ? $"{subJob.QualifiedName} ({subJob.Status})" : subJob.QualifiedName)" Expanded="true">
                         <FluentStack Orientation="Orientation.Vertical" VerticalGap="16" Style="width: 100%; margin-bottom: 0px">
                             @foreach (var exposed in group)
                             {
@@ -126,7 +125,7 @@
                 </FluentButton>
                 @if (IsAllLocal)
                 {
-                    <FluentButton Appearance="Appearance.Accent"
+                    <FluentButton Appearance="ButtonAppearance.Primary"
                                   Style="width: 100%;"
                                   Disabled="@(!CanQueue)"
                                   IconStart="@(new Icons.Filled.Size20.Play())"
@@ -136,7 +135,7 @@
                 }
                 else
                 {
-                    <FluentButton Appearance="Appearance.Accent"
+                    <FluentButton Appearance="ButtonAppearance.Primary"
                                   Style="width: 100%;"
                                   Disabled="@(!CanQueue)"
                                   IconStart="@(new Icons.Filled.Size20.Play())"

@@ -57,7 +57,7 @@ public partial class FactoryEditor : ComponentBase, IDisposable
     /// Gets or sets the toast service for showing notifications.
     /// </summary>
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     /// <summary>
     /// Initializes the component and sets up event subscriptions.
@@ -145,7 +145,7 @@ public partial class FactoryEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update name: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update name: {exc.Message}");
         }
     }
 
@@ -168,7 +168,7 @@ public partial class FactoryEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update parameter: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update parameter: {exc.Message}");
         }
     }
 
@@ -187,7 +187,7 @@ public partial class FactoryEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't remove edge: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't remove edge: {exc.Message}");
         }
     }
 
@@ -218,7 +218,7 @@ public partial class FactoryEditor : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't run {_instance.QualifiedName}: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't run {_instance.QualifiedName}: {exc.Message}");
         }
     }
 

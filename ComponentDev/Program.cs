@@ -13,7 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddFluentUIComponents();
+builder.Services.AddFluentUIComponents(options =>
+{
+    options.DefaultStyles.FluentFieldClass = null;
+    options.DefaultValues.For<FluentBadge>().Set(p => p.Color, BadgeColor.Informative);
+    options.DefaultValues.For<FluentBadge>().Set(p => p.Shape, BadgeShape.Rounded);
+});
 
 builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
@@ -37,6 +42,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+app.MapStaticAssets();
 app.UseAntiforgery();
 
 app.MapRazorPages();

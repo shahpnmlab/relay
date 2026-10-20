@@ -66,7 +66,7 @@ public partial class Breadcrumbs : IDisposable
     /// <summary>
     /// CSS styles for the dropdown elements.
     /// </summary>
-    private string GetStyles => "border-radius: 6px;border: 1px solid var(--Secondary-500, #2E77D0);background: var(--Color, #FFF);max-width: 175px;min-width: 175px;";
+    private string GetStyles => "border-radius: 6px;border: 1px solid var(--colorBrandStroke1);background: var(--colorNeutralBackground1);max-width: 175px;min-width: 175px;";
 
     /// <summary>
     /// Initializes the component, sets up event subscriptions, and loads initial data.

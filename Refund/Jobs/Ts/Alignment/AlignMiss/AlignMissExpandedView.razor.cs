@@ -25,7 +25,7 @@ public partial class AlignMissExpandedView : IAsyncDisposable
     [Inject] private DataManager DataManager { get; set; }
     [Inject] private ExpandedJobViewService ExpandedViewService { get; set; }
     [Inject] private ScatterHighlightService HighlightService { get; set; }
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
     [Inject] private ILogger<AlignMissExpandedView> Logger { get; set; }
 
     #endregion
@@ -407,7 +407,7 @@ public partial class AlignMissExpandedView : IAsyncDisposable
         _zeroTiltIndex = ts.IndicesSortedDose.First();
         
         await HighlightService.SetHighlight(this, -1, null);
-        await _tabs.GoToTabAsync(TsTabId);
+        await _tabs.SelectTabAsync(TsTabId);
         if (scrollToItem)
             await _tsThumbnailPanel.SetSelectedThumbnailAsync(_selectedTsThumbnail);
         

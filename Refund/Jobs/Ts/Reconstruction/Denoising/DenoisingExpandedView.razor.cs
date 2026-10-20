@@ -20,7 +20,7 @@ public partial class DenoisingExpandedView : IAsyncDisposable
     [Inject] private RelaySession Session { get; set; }
     [Inject] private DataManager DataManager { get; set; }
     [Inject] private ExpandedJobViewService ExpandedViewService { get; set; }
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
     [Inject] private ILogger<DenoisingExpandedView> Logger { get; set; }
 
     #endregion
@@ -135,7 +135,7 @@ public partial class DenoisingExpandedView : IAsyncDisposable
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error loading tomogram data for job {JobId}", _job?.Id);
-            ToastService.ShowError($"Error loading tomogram data: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Error loading tomogram data: {ex.Message}");
         }
     }
 

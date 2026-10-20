@@ -7,32 +7,27 @@ namespace Refund.Components.FileBrowser;
 /// Dialog component that wraps the FileBrowser component for use in a modal dialog.
 /// Provides a convenient way to display a file browser in a modal dialog.
 /// </summary>
-public partial class FileBrowserDialog : ComponentBase, IDialogContentComponent<FileBrowserDialogParameters>
+public partial class FileBrowserDialog : ComponentBase
 {
     /// <summary>
     /// Reference to the FluentDialog that contains this component.
     /// </summary>
     [CascadingParameter]
-    public FluentDialog? Dialog { get; set; }
+    public IDialogInstance? Dialog { get; set; }
     
     /// <summary>
     /// Handles the selection confirmation event from the file browser.
     /// Closes the dialog with the selected items as the result.
     /// </summary>
     /// <param name="selectedItems">The list of selected items</param>
-    private void SelectionConfirmed(List<FileSystemItem> selectedItems)
-    {
-        Dialog?.CloseAsync(selectedItems);
-    }
+    private Task SelectionConfirmed(List<FileSystemItem> selectedItems) =>
+        Dialog?.CloseAsync(selectedItems) ?? Task.CompletedTask;
     
     /// <summary>
     /// Handles the selection cancellation event from the file browser.
     /// Cancels the dialog without a result.
     /// </summary>
-    private void SelectionCanceled()
-    {
-        Dialog?.CancelAsync();
-    }
+    private Task SelectionCanceled() => Dialog?.CancelAsync() ?? Task.CompletedTask;
 
     /// <summary>
     /// Handles folder navigation changes from the file browser.
@@ -90,21 +85,18 @@ public partial class FileBrowserDialog : ComponentBase, IDialogContentComponent<
             OnCurrentFolderChanged = onCurrentFolderChanged
         };
 
-        await dialogService.ShowDialogAsync<FileBrowserDialog>(parameters,
-                                                               new DialogParameters()
-                                                               {
-                                                                   OnDialogResult = dialogService.CreateDialogCallback(callbackReceiver,
-                                                                                                                       callbackHandler),
-                                                                   Title = title,
-                                                                   Width = "min(1050px, calc(100vw - 32px))",
-                                                                   Height = "min(696px, calc(100vh - 32px))",
-                                                                   TrapFocus = true,
-                                                                   Modal = true,
-                                                                   PreventScroll = true,
-                                                                   PrimaryAction = null,
-                                                                   SecondaryAction = null,
-                                                                   ShowDismiss = true
-                                                               });
+        var options = new DialogOptions
+        {
+            Modal = true,
+            Parameters = new Dictionary<string, object?> { [nameof(Content)] = parameters },
+            Width = "min(1050px, calc(100vw - 32px))",
+            Height = "min(696px, calc(100vh - 32px))",
+        };
+        options.Header.Title = title;
+        options.Header.CloseAction.Visible = true;
+        options.Header.CloseAction.OnClickAsync = dialog => dialog.CancelAsync();
+        var result = await dialogService.ShowDialogAsync<FileBrowserDialog>(options);
+        await EventCallback.Factory.Create(callbackReceiver, callbackHandler).InvokeAsync(result);
     }
 }
 

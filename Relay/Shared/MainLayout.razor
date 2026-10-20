@@ -17,14 +17,11 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 <main>
-    <FluentDesignTheme Mode="@(Session.ColorTheme == ColorTheme.Light ?
-                                   DesignThemeModes.Light :
-                                   DesignThemeModes.Dark)" />
 
     @if (!_initialized)
     {
         <div class="loading-container">
-            <FluentProgressRing />
+            <FluentSpinner />
         </div>
     }
     else
@@ -106,10 +103,5 @@
         </div>
     }
 
-    <FluentToastProvider Timeout="10_000" Position="ToastPosition.BottomLeft" />
-    <FluentDialogProvider />
-    @* App menus use RelayMenu, but FluentTabs still creates FluentMenu internally for overflowing tabs. *@
-    <FluentMenuProvider />
-    <FluentTooltipProvider />
-    <FluentMessageBarProvider />
+    <FluentProviders />
 </main>

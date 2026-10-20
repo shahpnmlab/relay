@@ -1,0 +1,221 @@
+/* Relay's visual baseline is Fluent v4, not the v5 webLight/webDark defaults.
+   Keep these tokens on html: canvas/diagram code reads root computed styles.
+   :has gives these rules precedence over the theme service's adopted html rule.
+   Dark resting colors were measured from the production screenshot after ICC
+   conversion to sRGB. Hover/pressed colors below are Relay-owned derivatives,
+   not a claim to reproduce FAST's context-dependent palette recipes exactly. */
+html:has(body) {
+    --error: #bc2f32;
+    --fontFamilyBase: "Segoe UI Variable", "Segoe UI", sans-serif;
+    --colorBrandBackground: var(--relay-accent-fill);
+    --colorBrandBackgroundHover: color-mix(in srgb, var(--relay-accent-fill), var(--relay-accent-interaction) 8%);
+    --colorBrandBackgroundPressed: color-mix(in srgb, var(--relay-accent-fill), var(--relay-accent-interaction) 16%);
+    --colorBrandBackgroundSelected: var(--colorBrandBackgroundPressed);
+    --colorBrandForeground1: var(--relay-accent-foreground);
+    --colorBrandForeground2: var(--relay-accent-foreground);
+    --colorBrandForegroundLink: var(--relay-accent-foreground);
+    --colorBrandForegroundLinkHover: var(--colorBrandBackgroundHover);
+    --colorBrandForegroundLinkPressed: var(--colorBrandBackgroundPressed);
+    --colorBrandForegroundLinkSelected: var(--relay-accent-foreground);
+    --colorBrandStroke1: var(--relay-accent-foreground);
+    --colorCompoundBrandBackground: var(--relay-accent-fill);
+    --colorCompoundBrandBackgroundHover: var(--colorBrandBackgroundHover);
+    --colorCompoundBrandBackgroundPressed: var(--colorBrandBackgroundPressed);
+    --colorCompoundBrandForeground1: var(--relay-accent-foreground);
+    --colorCompoundBrandForeground1Hover: var(--colorBrandBackgroundHover);
+    --colorCompoundBrandForeground1Pressed: var(--colorBrandBackgroundPressed);
+    --colorCompoundBrandStroke: var(--relay-accent-foreground);
+    --colorCompoundBrandStrokeHover: var(--colorBrandBackgroundHover);
+    --colorCompoundBrandStrokePressed: var(--colorBrandBackgroundPressed);
+    --colorNeutralForeground2BrandHover: var(--relay-accent-foreground);
+    --colorNeutralForeground2BrandPressed: var(--relay-accent-foreground);
+    --colorNeutralForeground2BrandSelected: var(--relay-accent-foreground);
+}
+
+html:has(body:not([data-theme])),
+html:has(body:is([data-theme="light"], [data-theme="system-light"])) {
+    /* V4's default accent-base-color. */
+    --relay-accent-fill: #0078d4;
+    --relay-accent-foreground: #0078d4;
+    --relay-accent-interaction: black;
+    --colorNeutralForegroundOnBrand: #ffffff;
+    --relay-badge-background: #ebebeb;
+}
+
+html:has(body:is([data-theme="dark"], [data-theme="system-dark"])) {
+    --relay-accent-fill: #5fc8fc;
+    --relay-accent-foreground: #61c9fc;
+    --relay-accent-interaction: white;
+    --colorNeutralForegroundOnBrand: #000000;
+    --colorNeutralBackground1: #333333;
+    --colorNeutralBackground1Hover: #3b3b3b;
+    --colorNeutralBackground1Pressed: #292929;
+    --colorNeutralBackground1Selected: #3b3b3b;
+    --colorNeutralBackground2: #1a1a1a;
+    --colorNeutralStroke1: #505050;
+    --colorNeutralStroke1Hover: #626262;
+    --colorNeutralStroke1Pressed: #707070;
+    --colorNeutralStroke2: #505050;
+    --relay-badge-background: #3b3b3b;
+}
+
+/* V4 normal-density text buttons: 10px sides, 11px between icon and text.
+   Leave v5's explicitly requested small/large sizes and icon-only layout intact. */
+fluent-button:not([icon-only]):not([size="small"]):not([size="large"]) {
+    padding-inline: 10px;
+}
+
+fluent-button:not([icon-only]):not([size="small"]):not([size="large"]) > :is(svg, fluent-spinner)[slot="start"] {
+    margin-inline-end: 11px;
+}
+
+fluent-button:not([icon-only]):not([size="small"]):not([size="large"]) > :is(svg, fluent-spinner)[slot="end"] {
+    margin-inline-start: 11px;
+}
+
+/* V5 informative filled badges are black in dark mode. Ordinary v4 badges
+   used a neutral surface. Do not change explicitly tinted/outlined/status chips. */
+fluent-badge[color="informative"]:not([appearance="outline"]):not([appearance="tint"]):not([appearance="ghost"]) {
+    background-color: var(--relay-badge-background);
+}
+
+/* These components use ForegroundInverted for marks over their accent fill,
+   rather than ForegroundOnBrand. Keep their contrast in step with buttons. */
+fluent-checkbox, fluent-radio, fluent-switch {
+    --colorNeutralForegroundInverted: var(--colorNeutralForegroundOnBrand);
+    --colorNeutralForegroundInvertedHover: var(--colorNeutralForegroundOnBrand);
+    --colorNeutralForegroundInvertedPressed: var(--colorNeutralForegroundOnBrand);
+}
+
+/* FAST v4 tabs were 32px tall with a centered 20 by 3px indicator.
+   Cover both v5's anchor-positioned indicator and its per-tab fallback. */
+fluent-tablist:not([orientation="vertical"]):not([size="small"]):not([size="large"]) {
+    --tabPaddingInline: 6px;
+    --tabPaddingBlock: 6px;
+}
+fluent-tablist:not([orientation="vertical"])::after {
+    width: 20px;
+    height: 3px;
+}
+fluent-tablist:not([orientation="vertical"]) > fluent-tab::before,
+fluent-tablist:not([orientation="vertical"]) > fluent-tab::after {
+    inset-inline: calc(50% - 10px);
+    height: 3px;
+}
+
+/* Component-level v4 compatibility, kept beside the palette/geometry policy. */
+/* Keep Relay's v4 heading scale; v5's reboot moves every heading up a size. */
+h1 { font-size: var(--fontSizeHero800); line-height: 40px; }
+h2 { font-size: var(--fontSizeHero700); line-height: 36px; }
+h3 { font-size: var(--fontSizeBase600); line-height: 32px; }
+h4 { font-size: var(--fontSizeBase500); line-height: 26px; }
+h5 { font-size: var(--fontSizeBase400); line-height: 22px; }
+h6 { font-size: var(--fontSizeBase300); line-height: var(--lineHeightBase300); }
+
+/* V4's ordinary badges used normal-weight 12px text and 3px side padding. */
+fluent-badge {
+    font-weight: 400;
+    padding-inline: 3px;
+    vertical-align: middle;
+}
+
+fluent-badge[color="informative"] {
+    color: var(--colorNeutralForeground1);
+}
+
+fluent-badge.author-badge {
+    margin-inline-start: 4px;
+}
+
+/* The v5 button surface is the host; it no longer exports a control part. */
+fluent-button {
+    font-weight: 400;
+}
+
+/* V4 faded the normal surface instead of painting a separate disabled fill. */
+@media (forced-colors: none) {
+    fluent-button:is([disabled], [disabled-focusable]) {
+        background-color: var(--colorNeutralBackground1);
+        color: var(--colorNeutralForeground1);
+        opacity: 0.3;
+    }
+
+    fluent-button[appearance="primary"]:is([disabled], [disabled-focusable]) {
+        background-color: var(--colorBrandBackground);
+        color: var(--colorNeutralForegroundOnBrand);
+    }
+
+    fluent-button:is([appearance="outline"], [appearance="subtle"], [appearance="transparent"]):is([disabled], [disabled-focusable]) {
+        background-color: transparent;
+    }
+}
+
+fluent-button.no-right-border {
+    border-right: 0;
+}
+
+fluent-button.no-left-border {
+    border-left: 0;
+}
+
+/* FluentIcon supplies the width; preserve the SVG's square aspect ratio. */
+fluent-button > svg {
+    height: auto;
+    flex-shrink: 0;
+}
+
+fluent-tooltip {
+    padding: 8px !important;
+}
+
+fluent-accordion-item.transparent {
+    width: 100%;
+    max-width: none;
+}
+
+fluent-accordion-item.transparent::part(content) {
+    background-color: transparent !important;
+}
+
+/* Class and Style now belong to the FluentField around each input. */
+fluent-field {
+    min-width: 0;
+}
+
+fluent-field > fluent-dropdown {
+    width: 100%;
+    min-width: 0;
+}
+
+.borderless fluent-text-input::part(root),
+fluent-text-input.borderless::part(root),
+.borderless fluent-textarea::part(root),
+fluent-textarea.borderless::part(root) {
+    border: none !important;
+}
+
+.filtered-list-container fluent-option {
+    min-height: 24px;
+    padding: 2px 0;
+    text-align: start;
+}
+
+.filtered-list-container .fluent-listbox,
+.filtered-list-container fluent-listbox {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    row-gap: 0;
+}
+
+.filtered-list-container fluent-field,
+.filtered-list-container fluent-listbox {
+    width: 100%;
+    min-inline-size: 0;
+}
+
+/* Restore v4's default accent icons, while preserving explicit icon/button colors. */
+fluent-button:not([appearance="primary"]):not([disabled]):not([style^="color:"]):not([style*=";color:"]):not([style*="; color:"]) > svg[style*="fill: currentColor"] {
+    fill: var(--colorBrandForeground1) !important;
+}

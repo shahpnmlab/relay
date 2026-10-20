@@ -53,7 +53,6 @@ else if (_allTsThumbnails != null && _allTsThumbnails.Any())
                         @if (_job.DeselectedTiltSeries.Any())
                         {
                             <ConfirmButton Color="var(--error)"
-                                           Position="ConfirmationPosition.Bottom"
                                            OnClick="ClearAllDeselectedTiltSeries" >
                                 Clear all tilt-series deselections
                             </ConfirmButton>
@@ -62,7 +61,6 @@ else if (_allTsThumbnails != null && _allTsThumbnails.Any())
                         @if (_job.DeselectedTilts.Any())
                         {
                             <ConfirmButton Color="var(--error)"
-                                           Position="ConfirmationPosition.Bottom"
                                            OnClick="ClearAllDeselectedTilts" >
                                 Clear all tilt deselections
                             </ConfirmButton>
@@ -72,13 +70,12 @@ else if (_allTsThumbnails != null && _allTsThumbnails.Any())
                                                                        .Any(p => _job.DeselectedTilts.Contains(p)))
                         {
                             <ConfirmButton Color="var(--error)"
-                                           Position="ConfirmationPosition.Bottom"
                                            OnClick="ClearDeselectedTilts" >
                                 Clear all tilt deselections in this series
                             </ConfirmButton>
                         }
                         
-                        <FluentButton Appearance="Appearance.Accent"
+                        <FluentButton Appearance="ButtonAppearance.Primary"
                                       OnClick="ExportSelection">
                             Export selection
                         </FluentButton>
@@ -92,7 +89,7 @@ else if (_allTsThumbnails != null && _allTsThumbnails.Any())
             <FluentTabs @ref="_tabs"
                         Style="height: 100%;">
                 <FluentTab Id="@OverviewTabId"
-                           Label="Overview"
+                           Header="Overview"
                            Style="padding-top: 1rem;">
                     <div style="display: flex; flex-direction: column; gap: 2rem;">
 
@@ -106,7 +103,7 @@ else if (_allTsThumbnails != null && _allTsThumbnails.Any())
                 </FluentTab>
 
                 <FluentTab Id="@TsTabId"
-                           Label="Tilt series details" 
+                           Header="Tilt series details"
                            Style="height: 100%; padding-top: 1rem;">
                     @if (_selectedTsThumbnail != null)
                     {
@@ -168,7 +165,7 @@ else if (_allTsThumbnails != null && _allTsThumbnails.Any())
                 </FluentTab>
 
                 <FluentTab Id="@FsTabId"
-                           Label="Tilt movie details"
+                           Header="Tilt movie details"
                            Style="height: 100%;">
                     @if (_selectedFsThumbnail != null)
                     {

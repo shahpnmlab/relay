@@ -9,23 +9,23 @@ else
 
 @if (_job == null)
 {
-    <FluentProgressRing Style="height: 70px; width: 70px;" />
+    <FluentSpinner Size="SpinnerSize.Huge" Style="height: 70px; width: 70px;" />
 }
 else
 {
     <div class="d-flex w-100 justify-content-end position-relative pb-2">
-        <FluentButton Appearance="Appearance.Outline"
+        <FluentButton Appearance="ButtonAppearance.Outline"
                       OnClick="ClearAll"
                       Disabled="@(_nClassesSelected == 0)"
                       Class="job-card-button mr-2">Clear all</FluentButton>
-        <FluentButton Appearance="Appearance.Outline"
+        <FluentButton Appearance="ButtonAppearance.Outline"
                       OnClick="SelectAll"
                       Disabled="@(_nClassesSelected == _job.NClasses)"
                       Class="job-card-button mr-2">Select all</FluentButton>
         <FluentButton Class="job-card-button job-card-button-accent mr-8"
                       OnClick="@SaveSelectionState"
                       Disabled="@(_nClassesSelected == 0)"
-                      Appearance="Appearance.Accent">Export selection from final iteration</FluentButton>
+                      Appearance="ButtonAppearance.Primary">Export selection from final iteration</FluentButton>
     </div>
 
     <Class2DSelection @ref="_class2DSelectionComponent"

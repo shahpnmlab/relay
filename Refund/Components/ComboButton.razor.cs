@@ -11,6 +11,8 @@ namespace Refund.Components;
 /// </summary>
 public partial class ComboButton : ComponentBase
 {
+    private string GroupId => $"combo-btn-{_id}";
+    [Parameter] public Positioning MenuPosition { get; set; } = Positioning.BelowStart;
     /// <summary>
     /// Gets the unique ID for the main button element.
     /// </summary>
@@ -54,7 +56,7 @@ public partial class ComboButton : ComponentBase
     /// <summary>
     /// The visual appearance style of the button (Accent, Lightweight, Neutral, etc.).
     /// </summary>
-    [Parameter] public Appearance? Appearance { get; set; } = Microsoft.FluentUI.AspNetCore.Components.Appearance.Neutral;
+    [Parameter] public ButtonAppearance? Appearance { get; set; } = Microsoft.FluentUI.AspNetCore.Components.ButtonAppearance.Default;
     
     /// <summary>
     /// Custom text color for the button.
@@ -66,25 +68,12 @@ public partial class ComboButton : ComponentBase
     /// </summary>
     [Parameter] public string? BackgroundColor { get; set; }
     
-    /// <summary>
-    /// Controls the horizontal positioning of the dropdown menu relative to the button.
-    /// </summary>
-    [Parameter] public HorizontalPosition? HorizontalPosition { get; set; }
-    
-    /// <summary>
-    /// Controls the vertical positioning of the dropdown menu relative to the button.
-    /// </summary>
-    [Parameter] public VerticalPosition VerticalPosition { get; set; } = VerticalPosition.Bottom;
-    
-    /// <summary>
-    /// Whether the button should automatically receive focus when rendered.
-    /// </summary>
-    [Parameter] public bool AutoFocus { get; set; } = false;
     
     /// <summary>
     /// Whether the dropdown menu is currently open.
     /// </summary>
     [Parameter] public bool IsOpen { get; set; } = false;
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
     
     /// <summary>
     /// Maximum width of the button in pixels.
@@ -150,8 +139,14 @@ public partial class ComboButton : ComponentBase
     /// <summary>
     /// Toggles the dropdown menu's open state.
     /// </summary>
+    private async Task SetIsOpen(bool open)
+    {
+        IsOpen = open;
+        await IsOpenChanged.InvokeAsync(open);
+    }
+
     private async Task OnDropdownButtonClick()
     {
-        IsOpen = !IsOpen;
+        await SetIsOpen(!IsOpen);
     }
 }

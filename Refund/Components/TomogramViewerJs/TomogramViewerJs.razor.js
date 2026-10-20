@@ -369,7 +369,7 @@ function createUI(state) {
     c.style.display = 'flex';
     c.style.flexDirection = 'column';
     c.style.overflow = 'hidden';
-    c.style.background = 'var(--neutral-fill-layer-rest)';
+    c.style.background = 'var(--colorNeutralBackground1)';
     c.style.userSelect = 'none';
 
     injectSliderStyles(c);
@@ -435,8 +435,8 @@ function createToolbar(state) {
     const toolbar = document.createElement('div');
     toolbar.style.cssText = `
         display: flex; align-items: flex-end; gap: 16px; padding: 6px 12px;
-        background: var(--neutral-layer-1); border-radius: 4px; margin-bottom: 10px;
-        flex-shrink: 0; min-height: 52px; box-shadow: var(--shadow-4); flex-wrap: wrap;
+        background: var(--colorNeutralBackground1); border-radius: 4px; margin-bottom: 10px;
+        flex-shrink: 0; min-height: 52px; box-shadow: var(--shadow4); flex-wrap: wrap;
     `;
 
     // ── Coordinates group ──
@@ -479,7 +479,7 @@ function createToolbar(state) {
         if (state.model.active) requestModelRender(state, true);
     });
     const zoomDisplay = document.createElement('span');
-    zoomDisplay.style.cssText = 'min-width:48px; text-align:center; font-size:12px; font-family:monospace; color:var(--neutral-foreground-rest);';
+    zoomDisplay.style.cssText = 'min-width:48px; text-align:center; font-size:12px; font-family:monospace; color:var(--colorNeutralForeground1);';
     zoomDisplay.textContent = '100%';
     const zoomInBtn = createSmallButton('+', () => {
         zoomAroundViewPoint(state, Math.min(10, state.zoom * 1.2));
@@ -510,7 +510,7 @@ function createToolbar(state) {
     slabInput.min = '1';
     slabInput.step = '1';
     slabInput.title = 'Number of slices to average';
-    slabInput.style.cssText = 'width:42px; height:24px; font-size:12px; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; text-align:right; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest);';
+    slabInput.style.cssText = 'width:42px; height:24px; font-size:12px; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; text-align:right; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1);';
     slabInput.addEventListener('change', () => {
         const v = Math.max(1, Math.round(parseInt(slabInput.value) || 1));
         slabInput.value = v;
@@ -525,23 +525,23 @@ function createToolbar(state) {
 
     const slabLabel = document.createElement('span');
     slabLabel.textContent = 'slices';
-    slabLabel.style.cssText = 'font-size:11px; color:var(--neutral-foreground-hint);';
+    slabLabel.style.cssText = 'font-size:11px; color:var(--colorNeutralForeground3);';
 
     // Show orthoslices toggle (starts active = slices visible)
     const showSlicesBtn = document.createElement('button');
     showSlicesBtn.textContent = 'Show';
     showSlicesBtn.title = 'Toggle orthoslice visibility';
     showSlicesBtn.style.cssText = `
-        padding: 2px 6px; font-size: 11px; border: 1px solid var(--accent-fill-rest);
-        border-radius: 4px; cursor: pointer; background: var(--accent-fill-rest);
-        color: var(--foreground-on-accent-rest); margin-left: 8px;
+        padding: 2px 6px; font-size: 11px; border: 1px solid var(--colorBrandBackground);
+        border-radius: 4px; cursor: pointer; background: var(--colorBrandBackground);
+        color: var(--colorNeutralForegroundOnBrand); margin-left: 8px;
     `;
     showSlicesBtn.addEventListener('click', () => {
         state.model.hideOrthoslices = !state.model.hideOrthoslices;
         const visible = !state.model.hideOrthoslices;
-        showSlicesBtn.style.background = visible ? 'var(--accent-fill-rest)' : 'var(--neutral-layer-1)';
-        showSlicesBtn.style.color = visible ? 'var(--foreground-on-accent-rest)' : 'var(--neutral-foreground-rest)';
-        showSlicesBtn.style.borderColor = visible ? 'var(--accent-fill-rest)' : 'var(--neutral-stroke-rest)';
+        showSlicesBtn.style.background = visible ? 'var(--colorBrandBackground)' : 'var(--colorNeutralBackground1)';
+        showSlicesBtn.style.color = visible ? 'var(--colorNeutralForegroundOnBrand)' : 'var(--colorNeutralForeground1)';
+        showSlicesBtn.style.borderColor = visible ? 'var(--colorBrandBackground)' : 'var(--colorNeutralStroke1)';
         setOrthosliceVisibility(state, visible);
     });
 
@@ -566,7 +566,7 @@ function createToolbar(state) {
     sigmaInput.min = '0.1';
     sigmaInput.step = '0.5';
     sigmaInput.title = 'Standard deviations for intensity range';
-    sigmaInput.style.cssText = 'width:42px; height:24px; font-size:12px; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; text-align:right; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest);';
+    sigmaInput.style.cssText = 'width:42px; height:24px; font-size:12px; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; text-align:right; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1);';
     sigmaInput.addEventListener('change', () => {
         const v = Math.max(0.1, parseFloat(sigmaInput.value) || 3);
         sigmaInput.value = v;
@@ -581,7 +581,7 @@ function createToolbar(state) {
 
     const sigmaLabel = document.createElement('span');
     sigmaLabel.textContent = '\u03C3';
-    sigmaLabel.style.cssText = 'font-size:11px; color:var(--neutral-foreground-hint);';
+    sigmaLabel.style.cssText = 'font-size:11px; color:var(--colorNeutralForeground3);';
 
     contrastRow.append(sigmaInput, sigmaLabel);
     contrastGroup.appendChild(contrastRow);
@@ -600,7 +600,7 @@ function createToolbar(state) {
     // View mode dropdown
     const viewModeSelect = document.createElement('select');
     viewModeSelect.title = 'View mode';
-    viewModeSelect.style.cssText = 'height:24px; font-size:12px; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest); cursor:pointer;';
+    viewModeSelect.style.cssText = 'height:24px; font-size:12px; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1); cursor:pointer;';
     const optOrthoslices = document.createElement('option');
     optOrthoslices.value = 'orthoslices'; optOrthoslices.textContent = 'Orthoslices';
     const opt3D = document.createElement('option');
@@ -611,7 +611,7 @@ function createToolbar(state) {
     // Projection dropdown (hidden by default, shown in 3D mode)
     const projSelect = document.createElement('select');
     projSelect.title = 'Projection type';
-    projSelect.style.cssText = 'height:24px; font-size:12px; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest); cursor:pointer; display:none;';
+    projSelect.style.cssText = 'height:24px; font-size:12px; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1); cursor:pointer; display:none;';
     const optPersp = document.createElement('option');
     optPersp.value = 'perspective'; optPersp.textContent = 'Perspective';
     const optOrtho = document.createElement('option');
@@ -626,9 +626,9 @@ function createToolbar(state) {
     fullscreenBtn.textContent = '\u26F6';
     fullscreenBtn.title = 'Toggle fullscreen';
     fullscreenBtn.style.cssText = `
-        padding: 2px 8px; font-size: 14px; border: 1px solid var(--neutral-stroke-rest);
-        border-radius: 4px; cursor: pointer; background: var(--neutral-layer-1);
-        color: var(--neutral-foreground-rest);
+        padding: 2px 8px; font-size: 14px; border: 1px solid var(--colorNeutralStroke1);
+        border-radius: 4px; cursor: pointer; background: var(--colorNeutralBackground1);
+        color: var(--colorNeutralForeground1);
     `;
     fullscreenBtn.addEventListener('click', () => toggleFullscreen(state));
 
@@ -653,7 +653,7 @@ function createToolbar(state) {
         // Species selector dropdown
         const speciesSelect = document.createElement('select');
         speciesSelect.title = 'Select particle species';
-        speciesSelect.style.cssText = 'height:24px; font-size:12px; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest); cursor:pointer; max-width:120px;';
+        speciesSelect.style.cssText = 'height:24px; font-size:12px; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1); cursor:pointer; max-width:120px;';
         speciesSelect.style.display = 'none';
         speciesSelect.addEventListener('change', () => {
             state.selectedSpeciesIndex = parseInt(speciesSelect.value) || 0;
@@ -665,24 +665,24 @@ function createToolbar(state) {
         showToggle.textContent = 'Show';
         showToggle.title = 'Toggle particle visibility';
         showToggle.style.cssText = `
-            padding: 2px 8px; font-size: 12px; border: 1px solid var(--accent-fill-rest);
-            border-radius: 4px; cursor: pointer; background: var(--accent-fill-rest);
-            color: var(--foreground-on-accent-rest);
+            padding: 2px 8px; font-size: 12px; border: 1px solid var(--colorBrandBackground);
+            border-radius: 4px; cursor: pointer; background: var(--colorBrandBackground);
+            color: var(--colorNeutralForegroundOnBrand);
         `;
         showToggle.addEventListener('click', () => {
             const sp = getSelectedSpecies(state);
             if (!sp) return;
             sp.settings.visible = !sp.settings.visible;
-            showToggle.style.background = sp.settings.visible ? 'var(--accent-fill-rest)' : 'var(--neutral-layer-1)';
-            showToggle.style.color = sp.settings.visible ? 'var(--foreground-on-accent-rest)' : 'var(--neutral-foreground-rest)';
-            showToggle.style.borderColor = sp.settings.visible ? 'var(--accent-fill-rest)' : 'var(--neutral-stroke-rest)';
+            showToggle.style.background = sp.settings.visible ? 'var(--colorBrandBackground)' : 'var(--colorNeutralBackground1)';
+            showToggle.style.color = sp.settings.visible ? 'var(--colorNeutralForegroundOnBrand)' : 'var(--colorNeutralForeground1)';
+            showToggle.style.borderColor = sp.settings.visible ? 'var(--colorBrandBackground)' : 'var(--colorNeutralStroke1)';
             applyParticleVisibility(state);
         });
 
         // Display type dropdown
         const displaySelect = document.createElement('select');
         displaySelect.title = 'Particle display type';
-        displaySelect.style.cssText = 'height:24px; font-size:12px; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest); cursor:pointer;';
+        displaySelect.style.cssText = 'height:24px; font-size:12px; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1); cursor:pointer;';
         const optSpheres = document.createElement('option');
         optSpheres.value = 'spheres'; optSpheres.textContent = 'Spheres';
         const optCubes = document.createElement('option');
@@ -731,14 +731,14 @@ function createToolbar(state) {
         diamGroup.style.cssText = 'display:flex; gap:4px; align-items:center;';
         const diamLabel = document.createElement('span');
         diamLabel.textContent = '\u00D8';
-        diamLabel.style.cssText = 'font-size:12px; color:var(--neutral-foreground-hint);';
+        diamLabel.style.cssText = 'font-size:12px; color:var(--colorNeutralForeground3);';
         diamLabel.title = 'Particle size (\u00C5)';
         const diamInput = document.createElement('input');
         diamInput.type = 'number';
         diamInput.value = '100';
         diamInput.min = '1';
         diamInput.step = '1';
-        diamInput.style.cssText = 'width:50px; height:24px; font-size:12px; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest);';
+        diamInput.style.cssText = 'width:50px; height:24px; font-size:12px; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1);';
         diamInput.addEventListener('change', () => {
             const sp = getSelectedSpecies(state);
             if (sp) sp.settings.diameter = parseFloat(diamInput.value) || 100;
@@ -747,7 +747,7 @@ function createToolbar(state) {
         });
         const diamUnit = document.createElement('span');
         diamUnit.textContent = '\u00C5';
-        diamUnit.style.cssText = 'font-size:11px; color:var(--neutral-foreground-hint);';
+        diamUnit.style.cssText = 'font-size:11px; color:var(--colorNeutralForeground3);';
         diamGroup.append(diamLabel, diamInput, diamUnit);
 
         // Flat shading toggle
@@ -755,9 +755,9 @@ function createToolbar(state) {
         flatToggle.textContent = 'Flat';
         flatToggle.title = 'Toggle flat shading with contour lines';
         flatToggle.style.cssText = `
-            padding: 2px 8px; font-size: 12px; border: 1px solid var(--neutral-stroke-rest);
-            border-radius: 4px; cursor: pointer; background: var(--neutral-layer-1);
-            color: var(--neutral-foreground-rest);
+            padding: 2px 8px; font-size: 12px; border: 1px solid var(--colorNeutralStroke1);
+            border-radius: 4px; cursor: pointer; background: var(--colorNeutralBackground1);
+            color: var(--colorNeutralForeground1);
         `;
 
         // Contour color picker (hidden by default)
@@ -778,9 +778,9 @@ function createToolbar(state) {
             if (!sp) return;
             sp.settings.flatShading = !sp.settings.flatShading;
             const active = sp.settings.flatShading;
-            flatToggle.style.background = active ? 'var(--accent-fill-rest)' : 'var(--neutral-layer-1)';
-            flatToggle.style.color = active ? 'var(--foreground-on-accent-rest)' : 'var(--neutral-foreground-rest)';
-            flatToggle.style.borderColor = active ? 'var(--accent-fill-rest)' : 'var(--neutral-stroke-rest)';
+            flatToggle.style.background = active ? 'var(--colorBrandBackground)' : 'var(--colorNeutralBackground1)';
+            flatToggle.style.color = active ? 'var(--colorNeutralForegroundOnBrand)' : 'var(--colorNeutralForeground1)';
+            flatToggle.style.borderColor = active ? 'var(--colorBrandBackground)' : 'var(--colorNeutralStroke1)';
             contourColorInput.style.display = active ? '' : 'none';
             if (state.isVolumeLoaded) renderAllOverlays(state);
             if (state.model.active) requestModelRender(state);
@@ -807,7 +807,7 @@ function createToolbar(state) {
         modelThreshSlider.max = '100';
         modelThreshSlider.value = '30';
         modelThreshSlider.title = 'Isosurface threshold';
-        modelThreshSlider.style.cssText = 'width:100px; height:4px; cursor:pointer; accent-color:var(--accent-fill-rest);';
+        modelThreshSlider.style.cssText = 'width:100px; height:4px; cursor:pointer; accent-color:var(--colorBrandBackground);';
 
         modelThreshSlider.addEventListener('input', () => {
             const sp = getSelectedSpecies(state);
@@ -833,7 +833,7 @@ function createToolbar(state) {
         modelThreshInput.step = '0.001';
         modelThreshInput.value = '0';
         modelThreshInput.title = 'Isosurface threshold value';
-        modelThreshInput.style.cssText = 'width:75px; height:24px; font-size:11px; font-family:monospace; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; text-align:right; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest);';
+        modelThreshInput.style.cssText = 'width:75px; height:24px; font-size:11px; font-family:monospace; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; text-align:right; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1);';
         modelThreshInput.addEventListener('change', () => {
             const sp = getSelectedSpecies(state);
             if (!sp) return;
@@ -871,7 +871,7 @@ function createToolbar(state) {
         modelSlabInput.min = '1';
         modelSlabInput.step = '1';
         modelSlabInput.title = 'Model slab thickness (slices)';
-        modelSlabInput.style.cssText = 'width:54px; height:24px; font-size:12px; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; text-align:right; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest);';
+        modelSlabInput.style.cssText = 'width:54px; height:24px; font-size:12px; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; text-align:right; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1);';
         modelSlabInput.addEventListener('change', () => {
             state.model.slabThickness = Math.max(1, parseInt(modelSlabInput.value) || 50);
             modelSlabInput.value = state.model.slabThickness;
@@ -879,22 +879,22 @@ function createToolbar(state) {
         });
         const slabUnit = document.createElement('span');
         slabUnit.textContent = 'slices';
-        slabUnit.style.cssText = 'font-size:11px; color:var(--neutral-foreground-hint);';
+        slabUnit.style.cssText = 'font-size:11px; color:var(--colorNeutralForeground3);';
 
         // Show All button
         const fullSlabBtn = document.createElement('button');
         fullSlabBtn.textContent = 'Show All';
         fullSlabBtn.title = 'Show all particles (ignore slab)';
         fullSlabBtn.style.cssText = `
-            padding: 2px 6px; font-size: 11px; border: 1px solid var(--neutral-stroke-rest);
-            border-radius: 4px; cursor: pointer; background: var(--neutral-layer-1);
-            color: var(--neutral-foreground-rest);
+            padding: 2px 6px; font-size: 11px; border: 1px solid var(--colorNeutralStroke1);
+            border-radius: 4px; cursor: pointer; background: var(--colorNeutralBackground1);
+            color: var(--colorNeutralForeground1);
         `;
         fullSlabBtn.addEventListener('click', () => {
             state.model.slabFull = !state.model.slabFull;
-            fullSlabBtn.style.background = state.model.slabFull ? 'var(--accent-fill-rest)' : 'var(--neutral-layer-1)';
-            fullSlabBtn.style.color = state.model.slabFull ? 'var(--foreground-on-accent-rest)' : 'var(--neutral-foreground-rest)';
-            fullSlabBtn.style.borderColor = state.model.slabFull ? 'var(--accent-fill-rest)' : 'var(--neutral-stroke-rest)';
+            fullSlabBtn.style.background = state.model.slabFull ? 'var(--colorBrandBackground)' : 'var(--colorNeutralBackground1)';
+            fullSlabBtn.style.color = state.model.slabFull ? 'var(--colorNeutralForegroundOnBrand)' : 'var(--colorNeutralForeground1)';
+            fullSlabBtn.style.borderColor = state.model.slabFull ? 'var(--colorBrandBackground)' : 'var(--colorNeutralStroke1)';
             if (state.model.active) requestModelRender(state);
         });
 
@@ -939,14 +939,14 @@ function createToolbarGroup(label) {
     group.style.cssText = 'display:flex; flex-direction:column;';
     const header = document.createElement('span');
     header.textContent = label;
-    header.style.cssText = 'font-size:10px; color:var(--neutral-foreground-hint); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px;';
+    header.style.cssText = 'font-size:10px; color:var(--colorNeutralForeground3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px;';
     group.appendChild(header);
     return group;
 }
 
 function createSeparator() {
     const sep = document.createElement('div');
-    sep.style.cssText = 'width:1px; height:36px; background:var(--neutral-stroke-rest); align-self:center;';
+    sep.style.cssText = 'width:1px; height:36px; background:var(--colorNeutralStroke1); align-self:center;';
     return sep;
 }
 
@@ -987,14 +987,14 @@ function syncToolbarToSpecies(state) {
         tb.displaySelect.value = s.displayType;
     }
     if (tb.showToggle) {
-        tb.showToggle.style.background = s.visible ? 'var(--accent-fill-rest)' : 'var(--neutral-layer-1)';
-        tb.showToggle.style.color = s.visible ? 'var(--foreground-on-accent-rest)' : 'var(--neutral-foreground-rest)';
-        tb.showToggle.style.borderColor = s.visible ? 'var(--accent-fill-rest)' : 'var(--neutral-stroke-rest)';
+        tb.showToggle.style.background = s.visible ? 'var(--colorBrandBackground)' : 'var(--colorNeutralBackground1)';
+        tb.showToggle.style.color = s.visible ? 'var(--colorNeutralForegroundOnBrand)' : 'var(--colorNeutralForeground1)';
+        tb.showToggle.style.borderColor = s.visible ? 'var(--colorBrandBackground)' : 'var(--colorNeutralStroke1)';
     }
     if (tb.flatToggle) {
-        tb.flatToggle.style.background = s.flatShading ? 'var(--accent-fill-rest)' : 'var(--neutral-layer-1)';
-        tb.flatToggle.style.color = s.flatShading ? 'var(--foreground-on-accent-rest)' : 'var(--neutral-foreground-rest)';
-        tb.flatToggle.style.borderColor = s.flatShading ? 'var(--accent-fill-rest)' : 'var(--neutral-stroke-rest)';
+        tb.flatToggle.style.background = s.flatShading ? 'var(--colorBrandBackground)' : 'var(--colorNeutralBackground1)';
+        tb.flatToggle.style.color = s.flatShading ? 'var(--colorNeutralForegroundOnBrand)' : 'var(--colorNeutralForeground1)';
+        tb.flatToggle.style.borderColor = s.flatShading ? 'var(--colorBrandBackground)' : 'var(--colorNeutralStroke1)';
     }
     if (tb.contourColorInput) {
         tb.contourColorInput.value = s.contourColor;
@@ -1017,13 +1017,13 @@ function syncToolbarToSpecies(state) {
 function createCoordInput(state, label, maxFn, onChange) {
     const wrapper = document.createElement('div');
     wrapper.style.cssText = `
-        display:flex; align-items:center; background:var(--neutral-layer-1);
-        min-width:50px; height:24px; border:1px solid var(--neutral-stroke-rest);
+        display:flex; align-items:center; background:var(--colorNeutralBackground1);
+        min-width:50px; height:24px; border:1px solid var(--colorNeutralStroke1);
         padding:0 4px; border-radius:4px; gap:2px;
     `;
     const lbl = document.createElement('span');
     lbl.textContent = label;
-    lbl.style.cssText = 'font-size:10px; color:var(--neutral-foreground-hint); font-weight:600;';
+    lbl.style.cssText = 'font-size:10px; color:var(--colorNeutralForeground3); font-weight:600;';
     const input = document.createElement('input');
     input.type = 'number';
     input.value = '0';
@@ -1032,7 +1032,7 @@ function createCoordInput(state, label, maxFn, onChange) {
     input.style.cssText = `
         width:42px; border:none; outline:none; font-size:12px;
         text-align:right; background:transparent; padding:0;
-        color:var(--neutral-foreground-rest); -moz-appearance:textfield;
+        color:var(--colorNeutralForeground1); -moz-appearance:textfield;
     `;
 
     let debounceTimer = null;
@@ -1053,8 +1053,8 @@ function createSmallButton(text, onClick) {
     const btn = document.createElement('button');
     btn.textContent = text;
     btn.style.cssText = `
-        width:24px; height:24px; border:1px solid var(--neutral-stroke-rest); border-radius:4px;
-        cursor:pointer; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest);
+        width:24px; height:24px; border:1px solid var(--colorNeutralStroke1); border-radius:4px;
+        cursor:pointer; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1);
         font-size:14px; display:flex; align-items:center; justify-content:center; padding:0;
     `;
     btn.addEventListener('click', onClick);
@@ -1087,20 +1087,20 @@ function injectSliderStyles(container) {
             -webkit-appearance: none;
             width: ${th}px; height: ${th}px;
             border-radius: 50%;
-            background: var(--neutral-fill-strong-rest);
+            background: var(--colorNeutralBackground5);
             border: none;
             cursor: pointer;
             transition: background 0.15s;
         }
-        .tvjs-slider::-webkit-slider-thumb:hover { background: var(--accent-fill-rest); }
+        .tvjs-slider::-webkit-slider-thumb:hover { background: var(--colorBrandBackground); }
         .tvjs-slider::-moz-range-thumb {
             width: ${th}px; height: ${th}px;
             border-radius: 50%;
-            background: var(--neutral-fill-strong-rest);
+            background: var(--colorNeutralBackground5);
             border: none;
             cursor: pointer;
         }
-        .tvjs-slider::-moz-range-thumb:hover { background: var(--accent-fill-rest); }
+        .tvjs-slider::-moz-range-thumb:hover { background: var(--colorBrandBackground); }
 
         /* ── vertical ── */
         .tvjs-slider-v {
@@ -1117,8 +1117,8 @@ function injectSliderStyles(container) {
             border-radius: 1px;
             background: linear-gradient(
                 transparent ${half}px,
-                var(--neutral-stroke-rest) ${half}px,
-                var(--neutral-stroke-rest) calc(100% - ${half}px),
+                var(--colorNeutralStroke1) ${half}px,
+                var(--colorNeutralStroke1) calc(100% - ${half}px),
                 transparent calc(100% - ${half}px));
         }
         .tvjs-slider-v::-webkit-slider-thumb { margin-left: -${half - 1}px; }
@@ -1128,8 +1128,8 @@ function injectSliderStyles(container) {
             border-radius: 1px;
             background: linear-gradient(
                 transparent ${half}px,
-                var(--neutral-stroke-rest) ${half}px,
-                var(--neutral-stroke-rest) calc(100% - ${half}px),
+                var(--colorNeutralStroke1) ${half}px,
+                var(--colorNeutralStroke1) calc(100% - ${half}px),
                 transparent calc(100% - ${half}px));
         }
 
@@ -1145,8 +1145,8 @@ function injectSliderStyles(container) {
             border-radius: 1px;
             background: linear-gradient(to right,
                 transparent ${half}px,
-                var(--neutral-stroke-rest) ${half}px,
-                var(--neutral-stroke-rest) calc(100% - ${half}px),
+                var(--colorNeutralStroke1) ${half}px,
+                var(--colorNeutralStroke1) calc(100% - ${half}px),
                 transparent calc(100% - ${half}px));
         }
         .tvjs-slider-h::-webkit-slider-thumb { margin-top: -${half - 1}px; }
@@ -1156,8 +1156,8 @@ function injectSliderStyles(container) {
             border-radius: 1px;
             background: linear-gradient(to right,
                 transparent ${half}px,
-                var(--neutral-stroke-rest) ${half}px,
-                var(--neutral-stroke-rest) calc(100% - ${half}px),
+                var(--colorNeutralStroke1) ${half}px,
+                var(--colorNeutralStroke1) calc(100% - ${half}px),
                 transparent calc(100% - ${half}px));
         }
     `;
@@ -1184,7 +1184,7 @@ function createPanel(state, planeType) {
     const container = document.createElement('div');
     container.style.cssText = `
         position:relative; overflow:hidden;
-        border:1px solid var(--neutral-stroke-rest); background:transparent;
+        border:1px solid var(--colorNeutralStroke1); background:transparent;
     `;
 
     // Slice canvas (bottom) - use auto for bilinear interpolation when zoomed
@@ -1214,18 +1214,18 @@ function createLoadingOverlay() {
     root.style.cssText = `
         position:absolute; top:0; left:0; width:100%; height:100%;
         display:flex; flex-direction:column; align-items:center; justify-content:center;
-        background:rgb(from var(--neutral-fill-layer-rest) r g b / 85%); z-index:100; pointer-events:none;
+        background:rgb(from var(--colorNeutralBackground1) r g b / 85%); z-index:100; pointer-events:none;
         transition: opacity 0.3s;
     `;
 
     const text = document.createElement('div');
-    text.style.cssText = 'font-size:13px; color:var(--neutral-foreground-hint); margin-bottom:8px;';
+    text.style.cssText = 'font-size:13px; color:var(--colorNeutralForeground3); margin-bottom:8px;';
     text.textContent = 'Loading...';
 
     const barOuter = document.createElement('div');
-    barOuter.style.cssText = 'width:200px; height:4px; background:var(--neutral-stroke-rest); border-radius:2px; overflow:hidden;';
+    barOuter.style.cssText = 'width:200px; height:4px; background:var(--colorNeutralStroke1); border-radius:2px; overflow:hidden;';
     const barInner = document.createElement('div');
-    barInner.style.cssText = 'width:0%; height:100%; background:var(--accent-fill-rest); transition:width 0.15s;';
+    barInner.style.cssText = 'width:0%; height:100%; background:var(--colorBrandBackground); transition:width 0.15s;';
     barOuter.appendChild(barInner);
 
     root.append(text, barOuter);
@@ -2193,9 +2193,9 @@ function setupFullscreenListener(state) {
         const isFs = document.fullscreenElement === state.container;
         const btn = state.toolbar.fullscreenBtn;
         if (btn) {
-            btn.style.background = isFs ? 'var(--accent-fill-rest)' : 'var(--neutral-layer-1)';
-            btn.style.color = isFs ? 'var(--foreground-on-accent-rest)' : 'var(--neutral-foreground-rest)';
-            btn.style.borderColor = isFs ? 'var(--accent-fill-rest)' : 'var(--neutral-stroke-rest)';
+            btn.style.background = isFs ? 'var(--colorBrandBackground)' : 'var(--colorNeutralBackground1)';
+            btn.style.color = isFs ? 'var(--colorNeutralForegroundOnBrand)' : 'var(--colorNeutralForeground1)';
+            btn.style.borderColor = isFs ? 'var(--colorBrandBackground)' : 'var(--colorNeutralStroke1)';
         }
         // ResizeObserver will handle fitToViewport automatically
     };

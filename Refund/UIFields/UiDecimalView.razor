@@ -2,8 +2,7 @@
 @using System.Globalization
 @inherits UiFieldViewBase
 
-@* working around a weird FluentUI bug that doesn't always update the field when the value changes, so brute-forcing it with @key *@
-<RobustFluentNumberField @key="@(ValueT)"
+<RobustFluentNumberField
                    Class="borderless"
                    @bind-Value="@ValueT"
                    Style="width: 100%"

@@ -66,7 +66,7 @@ public partial class MenuActionService
                                $"Run {jobs.Count()} jobs" :
                                "Run job",
                     NeedsConfirmation = false,
-                    Appearance = Appearance.Accent,
+                    Appearance = ButtonAppearance.Primary,
                     TextColor = null,
                     BorderColor = null,
                     IconSmall = new Icons.Regular.Size16.Play(),
@@ -97,7 +97,7 @@ public partial class MenuActionService
                                 }
                                 catch (Exception exc)
                                 {
-                                    _toastService.ShowError($"Couldn't run {job.QualifiedName} in local queue: {exc.Message}");
+                                    _ = _toastService.ShowErrorToastAsync($"Couldn't run {job.QualifiedName} in local queue: {exc.Message}");
                                 }
                             });
                     };
@@ -139,7 +139,7 @@ public partial class MenuActionService
                                         }
                                         catch (Exception exc)
                                         {
-                                            _toastService.ShowError($"Couldn't run {job.QualifiedName} in {queue.Alias}: {exc.Message}");
+                                            _ = _toastService.ShowErrorToastAsync($"Couldn't run {job.QualifiedName} in {queue.Alias}: {exc.Message}");
                                         }
                                     });
                             };
@@ -218,11 +218,11 @@ public partial class MenuActionService
                                 try
                                 {
                                     await _dataManager.AbortJob(_session.User, job);
-                                    _toastService.ShowSuccess($"{job.QualifiedName} aborted");
+                                    _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} aborted");
                                 }
                                 catch (Exception exc)
                                 {
-                                    _toastService.ShowError($"Couldn't abort {job.QualifiedName}: {exc.Message}");
+                                    _ = _toastService.ShowErrorToastAsync($"Couldn't abort {job.QualifiedName}: {exc.Message}");
                                 }
                             });
                     };
@@ -277,7 +277,7 @@ public partial class MenuActionService
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't set color on {job.QualifiedName}: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't set color on {job.QualifiedName}: {exc.Message}");
                             }
                         }
                     }
@@ -297,7 +297,7 @@ public partial class MenuActionService
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't remove color from {job.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't remove color from {job.QualifiedName}: {exc.Message}");
                         }
                     }
                 }
@@ -344,7 +344,7 @@ public partial class MenuActionService
                 }
                 catch (Exception exc)
                 {
-                    _toastService.ShowError("Couldn't create factory: " + exc.Message);
+                    _ = _toastService.ShowErrorToastAsync("Couldn't create factory: " + exc.Message);
                 }
             };
 
@@ -375,11 +375,11 @@ public partial class MenuActionService
                         try
                         {
                             await _dataManager.CloneJobTree(_session.User, jobs, view);
-                            _toastService.ShowSuccess($"Cloned {jobs.Count()} jobs as tree");
+                            _ = _toastService.ShowSuccessToastAsync($"Cloned {jobs.Count()} jobs as tree");
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't clone job tree: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't clone job tree: {exc.Message}");
                         }
                     });
                 };
@@ -398,11 +398,11 @@ public partial class MenuActionService
                             if (folder != null)
                                 await _dataManager.MoveJobToFolder(_session.User, view, clone, folder);
 
-                            _toastService.ShowSuccess($"{job.QualifiedName} cloned");
+                            _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} cloned");
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't clone {job.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't clone {job.QualifiedName}: {exc.Message}");
                         }
                 };
             }
@@ -509,7 +509,7 @@ public partial class MenuActionService
                         if (cloneFolder != null)
                             await _dataManager.MoveJobToFolder(_session.User, _session.View, clone, cloneFolder);
 
-                        _toastService.ShowSuccess($"{job.QualifiedName} cloned");
+                        _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} cloned");
 
                         foreach (var (_, inName) in possibleConnections)
                             foreach (var edge in clone.PortsIn[inName].Edges)
@@ -520,11 +520,11 @@ public partial class MenuActionService
                                                           job.PortsOut[outName],
                                                           clone.PortsIn[inName]);
 
-                        _toastService.ShowSuccess($"{job.QualifiedName} connected to clone");
+                        _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} connected to clone");
                     }
                     catch (Exception exc)
                     {
-                        _toastService.ShowError($"Couldn't clone and connect {job.QualifiedName}: {exc.Message}");
+                        _ = _toastService.ShowErrorToastAsync($"Couldn't clone and connect {job.QualifiedName}: {exc.Message}");
                     }
                 };
 
@@ -551,7 +551,7 @@ public partial class MenuActionService
                                $"Finalize {jobs.Count()} jobs" :
                                "Finalize job",
                     NeedsConfirmation = false,
-                    Appearance = Appearance.Accent,
+                    Appearance = ButtonAppearance.Primary,
                     TextColor = null,
                     BorderColor = null,
                     IconSmall = new Icons.Regular.Size16.Flag(),
@@ -581,7 +581,7 @@ public partial class MenuActionService
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't finalize {job.QualifiedName} in local queue: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't finalize {job.QualifiedName} in local queue: {exc.Message}");
                             }
                     };
                 }
@@ -700,11 +700,11 @@ public partial class MenuActionService
                                     await _dataManager.AddJobToView(_session.User, view, job);
                                     if (targetFolder != null)
                                         await _dataManager.MoveJobToFolder(_session.User, view, job, targetFolder);
-                                    _toastService.ShowSuccess($"{job.QualifiedName} added to {view.QualifiedName}");
+                                    _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} added to {view.QualifiedName}");
                                 }
                                 catch (Exception exc)
                                 {
-                                    _toastService.ShowError($"Couldn't add {job.QualifiedName} to {view.QualifiedName}: {exc.Message}");
+                                    _ = _toastService.ShowErrorToastAsync($"Couldn't add {job.QualifiedName} to {view.QualifiedName}: {exc.Message}");
                                 }
                         };
 
@@ -765,7 +765,7 @@ public partial class MenuActionService
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't move {job.QualifiedName}: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't move {job.QualifiedName}: {exc.Message}");
                             }
                     };
 
@@ -813,11 +813,11 @@ public partial class MenuActionService
                                     if (targetFolder != null)
                                         await _dataManager.MoveJobToFolder(_session.User, view, job, targetFolder);
                                     await _dataManager.RemoveJobFromView(_session.User, currentView, job);
-                                    _toastService.ShowSuccess($"{job.QualifiedName} moved to {view.QualifiedName}");
+                                    _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} moved to {view.QualifiedName}");
                                 }
                                 catch (Exception exc)
                                 {
-                                    _toastService.ShowError($"Couldn't move {job.QualifiedName} to {view.QualifiedName}: {exc.Message}");
+                                    _ = _toastService.ShowErrorToastAsync($"Couldn't move {job.QualifiedName} to {view.QualifiedName}: {exc.Message}");
                                 }
                         });
                     };
@@ -868,11 +868,11 @@ public partial class MenuActionService
                         try
                         {
                             await _dataManager.RemoveJobFromView(_session.User, currentView, job);
-                            _toastService.ShowSuccess($"{job.QualifiedName} removed from {currentView.QualifiedName}");
+                            _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} removed from {currentView.QualifiedName}");
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't remove {job.QualifiedName} from {currentView.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't remove {job.QualifiedName} from {currentView.QualifiedName}: {exc.Message}");
                         }
                 };
             }
@@ -921,11 +921,11 @@ public partial class MenuActionService
                                 try
                                 {
                                     await _dataManager.ClearJob(_session.User, job);
-                                    _toastService.ShowSuccess($"{job.QualifiedName} cleared");
+                                    _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} cleared");
                                 }
                                 catch (Exception exc)
                                 {
-                                    _toastService.ShowError($"Couldn't clear {job.QualifiedName}: {exc.Message}");
+                                    _ = _toastService.ShowErrorToastAsync($"Couldn't clear {job.QualifiedName}: {exc.Message}");
                                 }
                             });
                     };
@@ -993,13 +993,13 @@ public partial class MenuActionService
                                         await _jobEditor.SetJob(null);
 
                                     await _dataManager.DeleteJob(_session.User, job);
-                                    _toastService.ShowSuccess($"{job.QualifiedName} deleted");
+                                    _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} deleted");
                                 }
                             }
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Error occurred while deleting jobs: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Error occurred while deleting jobs: {exc.Message}");
                         }
 
                         await _selectionService.Clear();

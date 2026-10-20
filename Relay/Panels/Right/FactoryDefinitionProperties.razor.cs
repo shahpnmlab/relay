@@ -22,7 +22,7 @@ public partial class FactoryDefinitionProperties : ComponentBase, IDisposable
     private RelaySession Session { get; set; }
 
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     private List<GroupEventSubscription> _subscriptions = new();
     private IEnumerable<ReadOnlyFactoryDefinition> _defs;
@@ -57,7 +57,7 @@ public partial class FactoryDefinitionProperties : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't update name: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update name: {exc.Message}");
         }
     }
 

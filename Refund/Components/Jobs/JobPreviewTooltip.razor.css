@@ -14,5 +14,5 @@
 /* Previews always look like the card itself, regardless of selection dimming elsewhere */
 .job-preview ::deep .card-common {
     opacity: 1 !important;
-    outline: 1px solid var(--neutral-stroke-rest);
+    outline: 1px solid var(--colorNeutralStroke1);
 }

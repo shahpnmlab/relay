@@ -5,7 +5,7 @@
 <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
     <div style="display:flex; align-items:center; justify-content:space-between;">
         <h6 style="margin:0;">Personal access tokens</h6>
-        <FluentButton Appearance="Appearance.Accent" OnClick="OpenCreate">New token</FluentButton>
+        <FluentButton Appearance="ButtonAppearance.Primary" OnClick="OpenCreate">New token</FluentButton>
     </div>
 
     <p style="margin:0; opacity:0.8;">
@@ -15,34 +15,34 @@
 
     @if (_showCreate)
     {
-        <div style="border: 1px solid var(--neutral-stroke-rest); border-radius: 6px; padding: 16px; display:flex; flex-direction:column; gap:12px;">
+        <div style="border: 1px solid var(--colorNeutralStroke1); border-radius: 6px; padding: 16px; display:flex; flex-direction:column; gap:12px;">
             @if (_createdRawToken == null)
             {
                 <strong>New personal access token</strong>
-                <FluentTextField @bind-Value="_newName" Placeholder="Name (e.g. Claude on my laptop)" Style="width:100%;" AutoComplete="off" />
+                <FluentTextInput @bind-Value="_newName" Placeholder="Name (e.g. Claude on my laptop)" Style="width:100%;" AutoComplete="off" />
                 <div style="display:flex; gap:16px; flex-wrap:wrap;">
                     <div style="display:flex; flex-direction:column; gap:4px;">
                         <span style="font-size:12px; opacity:0.8;">Projects</span>
-                        <FluentSelect Items="_levelNames" Width="120px" Position="SelectPosition.Below"
+                        <FluentSelect TOption="string" TValue="string" Items="_levelNames" Width="160px"
                                       Value="@_newProjectAccess.ToString()"
                                       ValueChanged="@(v => _newProjectAccess = Enum.Parse<AccessLevel>(v))" />
                     </div>
                     <div style="display:flex; flex-direction:column; gap:4px;">
                         <span style="font-size:12px; opacity:0.8;">Spaces</span>
-                        <FluentSelect Items="_levelNames" Width="120px" Position="SelectPosition.Below"
+                        <FluentSelect TOption="string" TValue="string" Items="_levelNames" Width="160px"
                                       Value="@_newSpaceAccess.ToString()"
                                       ValueChanged="@(v => _newSpaceAccess = Enum.Parse<AccessLevel>(v))" />
                     </div>
                     <div style="display:flex; flex-direction:column; gap:4px;">
                         <span style="font-size:12px; opacity:0.8;">Jobs</span>
-                        <FluentSelect Items="_levelNames" Width="120px" Position="SelectPosition.Below"
+                        <FluentSelect TOption="string" TValue="string" Items="_levelNames" Width="160px"
                                       Value="@_newJobAccess.ToString()"
                                       ValueChanged="@(v => _newJobAccess = Enum.Parse<AccessLevel>(v))" />
                     </div>
                 </div>
                 <div style="display:flex; gap:8px; justify-content:flex-end;">
                     <FluentButton OnClick="CloseCreate">Cancel</FluentButton>
-                    <FluentButton Appearance="Appearance.Accent" OnClick="CreateToken">Create</FluentButton>
+                    <FluentButton Appearance="ButtonAppearance.Primary" OnClick="CreateToken">Create</FluentButton>
                 </div>
             }
             else
@@ -52,11 +52,11 @@
                     This is the only time the token will be shown. Store it somewhere safe.
                 </span>
                 <div style="display:flex; gap:8px; align-items:center;">
-                    <FluentTextField Value="@_createdRawToken" ReadOnly="true" Style="flex:1;" />
+                    <FluentTextInput Value="@_createdRawToken" ReadOnly="true" Style="flex:1;" />
                     <FluentButton IconStart="@(new Icons.Regular.Size16.Copy())" OnClick="CopyToken">Copy</FluentButton>
                 </div>
                 <div style="display:flex; gap:8px; justify-content:flex-end;">
-                    <FluentButton Appearance="Appearance.Accent" OnClick="CloseCreate">Done</FluentButton>
+                    <FluentButton Appearance="ButtonAppearance.Primary" OnClick="CloseCreate">Done</FluentButton>
                 </div>
             }
         </div>
@@ -74,12 +74,11 @@
             <TemplateColumn Title="Created">@FormatCreated(context.CreationDate)</TemplateColumn>
             <TemplateColumn Title="Last used">@FormatLastUsed(context.LastUsedDate)</TemplateColumn>
             <TemplateColumn Title="Expires">@FormatExpiry(context.ExpirationDate)</TemplateColumn>
-            <TemplateColumn Align="@Align.End" Width="120px">
+            <TemplateColumn Align="@DataGridCellAlignment.End" Width="120px">
                 <ConfirmButton aria-label="Revoke token"
                                Title="Revoke token"
                                IconEnd="@(new Icons.Regular.Size16.Delete().WithColor("var(--error)"))"
-                               OnClick="@(() => RevokeToken(context.Id))"
-                               Position="ConfirmationPosition.Bottom" />
+                               OnClick="@(() => RevokeToken(context.Id))" />
             </TemplateColumn>
         </FluentDataGrid>
     }

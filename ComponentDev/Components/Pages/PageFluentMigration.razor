@@ -1,0 +1,107 @@
+@page "/fluent-migration"
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+@using Refund.Components
+@using Refund.UIFields
+@inject IDialogService DialogService
+@inject INotificationService Notifications
+@inject IThemeService ThemeService
+@implements IDisposable
+
+<PageTitle>Fluent v5 migration checks</PageTitle>
+<h1>Fluent v5 migration checks</h1>
+<div style="display: grid; gap: 16px; max-width: 600px;">
+    <FluentTextInput Id="migration-text" Label="Immediate text" @bind-Value="_text" Immediate="true" ImmediateDelay="@(Delay ?? 200)" />
+    <output id="migration-text-value">@_text</output>
+    <div id="migration-job-string"><UiStringView Value="_jobText" ValueChanged="SaveJobText" /></div>
+    <output id="migration-job-value">@_jobText</output>
+    <RobustFluentNumberField TValue="decimal?" Value="_number" ValueChanged="@(v => _number = v)"
+                             Min="-10" Max="10" Step="0.25" Immediate="true" />
+    <RobustFluentNumberField TValue="decimal" Value="1.25m" Disabled="true" />
+    <FluentSlider TValue="int" Min="0" Max="100" Step="1" @bind-Value="_slider" />
+    <output id="migration-slider-value">@_slider</output>
+    <FluentSelect TOption="string" TValue="string" Items="_options" @bind-Value="_selected" />
+    <ListboxButton TValue="string" ButtonLabel="Choose an option" Options="@_listOptions" OnOptionSelected="@(v => _selected = v)" />
+    <output id="migration-selected">@_selected</output>
+    <ConfirmButton OnClick="@(() => _confirmed++)">Confirm action</ConfirmButton>
+    <output id="migration-confirmed">@_confirmed</output>
+    <FluentButton OnClick="ShowDialog">Open dialog</FluentButton>
+    <output id="migration-dialog-result">@_dialogResult</output>
+    <FluentButton OnClick="@(() => _ = Notifications.ShowSuccessToastAsync("Migration notification"))">Show notification</FluentButton>
+    <FluentButton OnClick="@(() => ThemeService.SetThemeAsync(ThemeMode.Dark))">Dark theme</FluentButton>
+    <FluentButton OnClick="@(() => ThemeService.SetThemeAsync(ThemeMode.Light))">Light theme</FluentButton>
+    <FluentTabs>
+        <FluentTab Header="First">First tab content</FluentTab>
+        <FluentTab Header="Second">Second tab content</FluentTab>
+    </FluentTabs>
+</div>
+
+<section aria-label="Visual compatibility reference" style="margin-block: 32px; display: grid; gap: 16px; max-width: 900px;">
+    <h2>Visual compatibility reference</h2>
+    <p>Review in both themes at the same browser zoom. Check hover, keyboard focus, open menus, and disabled states.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+        <FluentButton Appearance="ButtonAppearance.Primary">Primary action</FluentButton>
+        <FluentButton>Default action</FluentButton>
+        <FluentButton Appearance="ButtonAppearance.Outline">Outline action</FluentButton>
+        <FluentButton Appearance="ButtonAppearance.Subtle">Subtle action</FluentButton>
+        <FluentButton Appearance="ButtonAppearance.Transparent">Transparent action</FluentButton>
+        <FluentButton IconStart="@(new Icons.Regular.Size20.Add())">Icon and text</FluentButton>
+        <FluentButton IconStart="@(new Icons.Regular.Size20.Home())" IconOnly="true" Title="Home" />
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+        <FluentButton Disabled="true" Appearance="ButtonAppearance.Primary">Primary disabled</FluentButton>
+        <FluentButton Disabled="true">Default disabled</FluentButton>
+        <FluentButton Disabled="true" Appearance="ButtonAppearance.Subtle" IconStart="@(new Icons.Regular.Size20.ArrowLeft())" IconOnly="true" Title="Previous" />
+        <span>Created by <FluentBadge Class="author-badge">Admin</FluentBadge></span>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+        <FluentCheckbox Value="true" Label="Checked" />
+        <FluentCheckbox Value="false" Label="Unchecked" />
+        <FluentCheckbox Value="true" Disabled="true" Label="Disabled checkbox" />
+        <FluentSwitch Value="true" Label="Enabled switch" />
+        <FluentSwitch Value="false" Label="Off switch" />
+        <FluentSpinner Size="SpinnerSize.Medium" />
+    </div>
+    <div style="display: grid; gap: 16px; padding: 16px; border: 1px solid var(--colorNeutralStroke1); background: var(--colorNeutralBackground1);">
+        <FluentTextInput Label="Text field" Value="Example text" />
+        <FluentTextInput Label="Disabled field" Value="Example text" Disabled="true" />
+        <FluentTextArea Label="Notes" Value="Example notes" />
+        <FluentSelect TOption="string" TValue="string" Items="_options" Value="@("First")" Label="Dropdown" />
+    </div>
+</section>
+
+@code {
+    [SupplyParameterFromQuery] public int? Delay { get; set; }
+    private string _text = "";
+    private string _jobText = "";
+    private decimal? _number = 1.25m;
+    private int _slider = 25;
+    private string _selected = "First";
+    private int _confirmed;
+    private string _dialogResult = "";
+    private readonly string[] _options = ["First", "Second"];
+    private readonly (string Value, string Text)[] _listOptions = [("First", "First"), ("Second", "Second")];
+    private readonly CancellationTokenSource _stop = new();
+
+    protected override void OnInitialized() => _ = RenderWhileEditing();
+    private async Task RenderWhileEditing()
+    {
+        try
+        {
+            using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(25));
+            while (await timer.WaitForNextTickAsync(_stop.Token))
+                await InvokeAsync(StateHasChanged);
+        }
+        catch (OperationCanceledException) { }
+    }
+    private async Task SaveJobText(object value)
+    {
+        _jobText = (string)value;
+        await Task.Delay(100);
+    }
+    private async Task ShowDialog()
+    {
+        var result = await DialogService.ShowDialogAsync<MigrationDialog>(new DialogOptions());
+        _dialogResult = result.Cancelled ? "Cancelled" : result.Value?.ToString() ?? "";
+    }
+    public void Dispose() { _stop.Cancel(); _stop.Dispose(); }
+}

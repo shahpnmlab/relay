@@ -35,22 +35,22 @@
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         @if (isExposed && GetExposedPortName != null)
                         {
-                            <FluentTextField Value="@GetExposedPortName(_portIn)"
+                            <FluentTextInput Value="@GetExposedPortName(_portIn)"
                                              ValueChanged="@(v => OnExposedPortNameChanged.InvokeAsync((_portIn, v)))"
                                              Placeholder="Custom name"
                                              Style="flex: 1; font-size: 0.8rem;" />
                         }
                         else
                         {
-                            <FluentLabel Typo="Typography.H6" Style="@((portErrors.Any() || resourceErrors.Any()) ? "color: var(--error-normal);" : "")">
+                            <h6 Style="@((portErrors.Any() || resourceErrors.Any()) ? "color: var(--error-normal);" : "")">
                                 <span>@portIn.Alias (@totalConnections / @GetPortRequirementText(portIn))</span>
-                            </FluentLabel>
+                            </h6>
                         }
                         @if (ShowExposureToggle)
                         {
-                            <FluentButton BackgroundColor="transparent" Color="transparent"
+                            <FluentButton IconOnly="true" Appearance="ButtonAppearance.Transparent"
                                           Disabled="@(hasConnections && !isExposed)"
-                                          Style="height: 16px;"
+                                          Style="height: 16px; min-height: 16px; min-width: 16px; width: 16px; padding: 0;"
                                           Title="@(isExposed ? "Disconnect from instance editor" : (hasConnections ? "Disconnect edges first" : "Expose in instance editor"))"
                                           OnClick="() => OnExposureToggled.InvokeAsync((_portIn, !isExposed))">
                                 <FluentIcon Value="@(isExposed ? iconExposedFilled : iconExposedRegular)" />
@@ -76,8 +76,7 @@
                                     </div>
                                     @if (!IsDisabled)
                                     {
-                                        <FluentButton BackgroundColor="transparent"
-                                                      Color="transparent"
+                                        <FluentButton Appearance="ButtonAppearance.Transparent"
                                                       OnClick="() => HandleEdgeRemoved(edge)">
                                             <FluentIcon Value="@iconDeleteEdge"></FluentIcon>
                                         </FluentButton>
@@ -101,8 +100,7 @@
                                         </div>
                                         @if (!IsDisabled)
                                         {
-                                            <FluentButton BackgroundColor="transparent"
-                                                          Color="transparent"
+                                            <FluentButton Appearance="ButtonAppearance.Transparent"
                                                           OnClick="() => OnInternalEdgeRemoved.InvokeAsync((capturedPortName, capturedConn.sourceJobId, capturedConn.sourcePortName))">
                                                 <FluentIcon Value="@iconDeleteEdge"></FluentIcon>
                                             </FluentButton>
@@ -127,8 +125,7 @@
                                         </div>
                                         @if (!IsDisabled)
                                         {
-                                            <FluentButton BackgroundColor="transparent"
-                                                          Color="transparent"
+                                            <FluentButton Appearance="ButtonAppearance.Transparent"
                                                           OnClick="() => OnExternalEdgeRemoved.InvokeAsync((capturedPortName, capturedConn.externalJobId, capturedConn.externalPort))">
                                                 <FluentIcon Value="@iconDeleteEdge"></FluentIcon>
                                             </FluentButton>

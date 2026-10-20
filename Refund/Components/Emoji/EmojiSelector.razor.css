@@ -6,7 +6,7 @@
 
 .search-bar {
     width: 100%;
-    background: var(--neutral-layer-1);
+    background: var(--colorNeutralBackground1);
     z-index: 2;
 }
 
@@ -30,5 +30,5 @@
 }
 
 .emoji-button:hover {
-    background: var(--neutral-layer-3);
+    background: var(--colorNeutralBackground3);
 }

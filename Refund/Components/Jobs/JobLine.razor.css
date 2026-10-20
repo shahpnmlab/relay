@@ -10,7 +10,7 @@
 }
 
 .navigation:hover {
-    background-color: var(--neutral-layer-2);
+    background-color: var(--colorNeutralBackground2);
 }
 
 .job-info {
@@ -30,7 +30,7 @@
     display: flex;
     flex-wrap: nowrap;
     gap: 0.25rem;
-    color: var(--neutral-foreground-hint);
+    color: var(--colorNeutralForeground3);
     font-size: 0.75rem;
     white-space: nowrap;
     overflow: hidden;

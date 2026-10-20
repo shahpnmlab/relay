@@ -12,7 +12,7 @@ namespace Relay.Screens.Main.Space;
 
 public partial class SpaceScreen : ListingScreenLogic<ReadOnlyView>
 {
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
 
     protected override SelectionKey GetSelectionKey(ReadOnlyView item) => SelectionKey.ForView(item.Id);
 
@@ -66,7 +66,7 @@ public partial class SpaceScreen : ListingScreenLogic<ReadOnlyView>
 
     protected override async Task OnCreateDialogClosedAsync(DialogResult result)
     {
-        if (result.Data is CreateViewDialogResult { Success: true } createResult)
+        if (result.Value is CreateViewDialogResult { Success: true } createResult)
         {
             await Session.NavigateToAsync(new NavigationRequest
             {
@@ -162,7 +162,7 @@ public partial class SpaceScreen : ListingScreenLogic<ReadOnlyView>
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't create factory: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't create factory: " + exc.Message);
         }
     }
 

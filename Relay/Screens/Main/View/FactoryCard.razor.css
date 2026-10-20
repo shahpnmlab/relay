@@ -1,9 +1,9 @@
 .factory-card {
     border-radius: 6px;
-    border: 2px solid var(--neutral-stroke-rest);
-    outline: 2px solid var(--neutral-stroke-rest);
+    border: 2px solid var(--colorNeutralStroke1);
+    outline: 2px solid var(--colorNeutralStroke1);
     outline-offset: 2px;
-    background-color: var(--neutral-fill-layer-rest);
+    background-color: var(--colorNeutralBackground1);
     position: relative;
     overflow: visible;
     cursor: default;
@@ -13,8 +13,8 @@
 }
 
 .factory-card.selected {
-    border-color: var(--accent-fill-rest);
-    outline-color: var(--accent-fill-rest);
+    border-color: var(--colorBrandBackground);
+    outline-color: var(--colorBrandBackground);
 }
 
 .factory-header {
@@ -83,13 +83,13 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    border: 2px solid var(--neutral-fill-layer-rest);
+    border: 2px solid var(--colorNeutralBackground1);
     cursor: pointer;
     position: relative;
 }
 
 .factory-port-dot:hover {
-    outline: 2px solid var(--neutral-base-color);
+    outline: 2px solid var(--colorNeutralForeground1);
 }
 
 .port-tooltip {
@@ -100,7 +100,7 @@
     line-height: 16px;
     font-size: 9pt;
     border-radius: 4px;
-    background-color: var(--neutral-fill-layer-rest);
+    background-color: var(--colorNeutralBackground1);
     text-wrap: nowrap;
     z-index: 99;
     padding-left: 2px;

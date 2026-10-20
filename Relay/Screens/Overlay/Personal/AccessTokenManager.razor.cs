@@ -11,7 +11,7 @@ public partial class AccessTokenManager : ComponentBase
 {
     [Inject] private PersonalAccessTokenService Pats { get; set; } = default!;
     [Inject] private RelaySession Session { get; set; } = default!;
-    [Inject] private IToastService ToastService { get; set; } = default!;
+    [Inject] private INotificationService ToastService { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
     private IReadOnlyList<PersonalAccessToken> _tokens = [];
@@ -41,14 +41,14 @@ public partial class AccessTokenManager : ComponentBase
     {
         if (string.IsNullOrWhiteSpace(_newName))
         {
-            ToastService.ShowError("Please enter a name for the token.");
+            _ = ToastService.ShowErrorToastAsync("Please enter a name for the token.");
             return;
         }
         if (_newProjectAccess == AccessLevel.None
             && _newSpaceAccess == AccessLevel.None
             && _newJobAccess == AccessLevel.None)
         {
-            ToastService.ShowError("Grant at least one access level, or the token can do nothing.");
+            _ = ToastService.ShowErrorToastAsync("Grant at least one access level, or the token can do nothing.");
             return;
         }
         try
@@ -60,7 +60,7 @@ public partial class AccessTokenManager : ComponentBase
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't create token: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't create token: " + exc.Message);
         }
     }
 
@@ -70,11 +70,11 @@ public partial class AccessTokenManager : ComponentBase
         try
         {
             await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", _createdRawToken);
-            ToastService.ShowSuccess("Token copied to clipboard");
+            _ = ToastService.ShowSuccessToastAsync("Token copied to clipboard");
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't copy token: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't copy token: " + exc.Message);
         }
     }
 
@@ -93,7 +93,7 @@ public partial class AccessTokenManager : ComponentBase
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't revoke token: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't revoke token: " + exc.Message);
         }
     }
 

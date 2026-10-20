@@ -1,0 +1,11 @@
+@implements IDisposable
+
+<div>@State.FileName</div>
+<progress max="100" value="@State.Progress" aria-label="Upload progress">@State.Progress%</progress>
+
+@code {
+    [Parameter, EditorRequired] public UploadProgressState State { get; set; } = default!;
+    protected override void OnInitialized() => State.Changed += Refresh;
+    private void Refresh() => _ = InvokeAsync(StateHasChanged);
+    public void Dispose() => State.Changed -= Refresh;
+}

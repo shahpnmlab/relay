@@ -52,7 +52,7 @@ public partial class MenuActionService
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't set color on folder: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't set color on folder: {exc.Message}");
                         }
                     }
                 });
@@ -69,7 +69,7 @@ public partial class MenuActionService
                     }
                     catch (Exception exc)
                     {
-                        _toastService.ShowError($"Couldn't remove color from folder: {exc.Message}");
+                        _ = _toastService.ShowErrorToastAsync($"Couldn't remove color from folder: {exc.Message}");
                     }
                 }
             });
@@ -103,11 +103,11 @@ public partial class MenuActionService
                     {
                         await _dataManager.MoveFolderToFolder(_session.User, intraCurrentView, folder, targetFolder);
                         var destName = targetFolder != null ? $"folder \"{targetFolder.Alias}\"" : "root level";
-                        _toastService.ShowSuccess($"Folder \"{folder.Alias}\" moved to {destName}");
+                        _ = _toastService.ShowSuccessToastAsync($"Folder \"{folder.Alias}\" moved to {destName}");
                     }
                     catch (Exception exc)
                     {
-                        _toastService.ShowError($"Couldn't move folder: {exc.Message}");
+                        _ = _toastService.ShowErrorToastAsync($"Couldn't move folder: {exc.Message}");
                     }
                 };
 
@@ -164,11 +164,11 @@ public partial class MenuActionService
                             var msg = $"Folder \"{folder.Alias}\" added to {view.QualifiedName} ({added} job{(added != 1 ? "s" : "")} added)";
                             if (skipped > 0)
                                 msg += $", {skipped} skipped";
-                            _toastService.ShowSuccess(msg);
+                            _ = _toastService.ShowSuccessToastAsync(msg);
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't add folder to {view.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't add folder to {view.QualifiedName}: {exc.Message}");
                         }
                     };
 
@@ -226,7 +226,7 @@ public partial class MenuActionService
                                     }
                                     catch (Exception exc)
                                     {
-                                        _toastService.ShowError($"Couldn't remove {job.QualifiedName} from view: {exc.Message}");
+                                        _ = _toastService.ShowErrorToastAsync($"Couldn't remove {job.QualifiedName} from view: {exc.Message}");
                                     }
                                 }
                             }
@@ -238,11 +238,11 @@ public partial class MenuActionService
                             var msg = $"Folder \"{folder.Alias}\" moved to {view.QualifiedName} ({added} job{(added != 1 ? "s" : "")} moved)";
                             if (skipped > 0)
                                 msg += $", {skipped} skipped";
-                            _toastService.ShowSuccess(msg);
+                            _ = _toastService.ShowSuccessToastAsync(msg);
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't move folder to {view.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't move folder to {view.QualifiedName}: {exc.Message}");
                         }
                     };
 
@@ -274,11 +274,11 @@ public partial class MenuActionService
                 try
                 {
                     await _dataManager.DeleteFolder(_session.User, _session.View, folder);
-                    _toastService.ShowSuccess($"Folder \"{folder.Alias}\" ungrouped");
+                    _ = _toastService.ShowSuccessToastAsync($"Folder \"{folder.Alias}\" ungrouped");
                 }
                 catch (Exception exc)
                 {
-                    _toastService.ShowError($"Couldn't ungroup folder: {exc.Message}");
+                    _ = _toastService.ShowErrorToastAsync($"Couldn't ungroup folder: {exc.Message}");
                 }
             };
 

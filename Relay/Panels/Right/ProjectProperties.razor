@@ -20,7 +20,7 @@
             
             <div class="property-item">
                 <span class="property-title">Name</span>
-                <FluentTextField Class="property-value"
+                <FluentTextInput Class="property-value"
                                  AutoComplete="off"
                                  Value="@project.Alias"
                                  ValueChanged="@HandleProjectAliasChanged" />
@@ -37,16 +37,13 @@
                 <span class="property-title">Icon</span>
                 <EmojiSelectionButton Glyph="@project.HeroImage"
                                       GlyphChanged="@HandleProjectEmojiChanged"
-                                      Size="64"
-                                      HorizontalPosition="HorizontalPosition.Left"
-                                      VerticalPosition="VerticalPosition.Center"
-                                      HorizontalInset="false" />
+                                      Size="64" />
             </div>
 
             <div class="property-item">
                 <span class="property-title">Notes</span>
                 <FluentTextArea Class="property-value"
-                                Rows="5"
+                                Height="112px"
                                 Value="@project.Notes" 
                                 ValueChanged="@HandleProjectNotesChanged" />
             </div>
@@ -55,7 +52,7 @@
                 <span class="property-title">Created</span>
                 <span class="property-value">
                     @project.GetMostRecentEvent(EventType.Created).Timestamp.ToString("yyyy-MM-dd HH:mm"), by 
-                    <FluentBadge>
+                    <FluentBadge Class="author-badge">
                         @project.GetMostRecentEvent(EventType.Created).Author.Name
                     </FluentBadge>
                 </span>
@@ -63,13 +60,13 @@
 
             <div class="property-item">
                 <span class="property-title">Last modified</span>
-                <span class="property-value">@project.UpdateDate.ToString("yyyy-MM-dd HH:mm"), by <FluentBadge>@project.UpdatedBy.Name</FluentBadge></span>
+                <span class="property-value">@project.UpdateDate.ToString("yyyy-MM-dd HH:mm"), by <FluentBadge Class="author-badge">@project.UpdatedBy.Name</FluentBadge></span>
             </div>
             
             <div class="property-item">
                 <span class="property-title">Members</span>
                 <div style="display: flex; flex-wrap: wrap; gap: 4px;">
-                    <FluentBadge Appearance="Appearance.Neutral">
+                    <FluentBadge Class="author-badge" Appearance="BadgeAppearance.Filled">
                         @project.Owner.Name
                     </FluentBadge>
                     @foreach (var _member in project.Members)
@@ -78,16 +75,16 @@
                         @if (Session.User.Role == UserRole.Admin || 
                              Session.User == project.Owner)
                         {
-                            <FluentBadge @key="member.Id" 
-                                         Appearance="Appearance.Neutral" 
-                                         OnDismissClick="@(async () => await HandleMemberDismissed(member))">
+                            <FluentButton @key="member.Id"
+                                         Appearance="ButtonAppearance.Default"
+                                         OnClick="@(async () => await HandleMemberDismissed(member))" IconEnd="@(new Icons.Regular.Size16.Dismiss())" Title="Remove member">
                                 @member.Name
-                            </FluentBadge>
+                            </FluentButton>
                         }
                         else
                         {
-                            <FluentBadge @key="member.Id"
-                                         Appearance="Appearance.Neutral">
+                            <FluentBadge Class="author-badge" @key="member.Id"
+                                         Appearance="BadgeAppearance.Filled">
                                 @member.Name
                             </FluentBadge>
                         }
@@ -97,16 +94,18 @@
                     {
                         <FluentIcon id="add-member" 
                                     Value="@(new Icons.Filled.Size20.AddSquare())"
-                                    Color="Color.Accent"
+                                    Color="Color.Primary"
                                     OnClick="ShowUserMenu"/>
 
                         <div class="popover-no-padding popover-round-corners">
-                            <FluentPopover AnchorId="add-member"
-                                           HorizontalPosition="HorizontalPosition.Left"
-                                           VerticalPosition="VerticalPosition.Bottom"
-                                           @bind-Open="_isUserMenuOpen"
+                            <RelayPopover AnchorId="add-member"
+                                           Position="Positioning.BelowEnd"
+                                           @bind-Opened="_isUserMenuOpen"
                                            Style="margin-top: 4px;">
-                                <Body>
+            @if (_isUserMenuOpen)
+            {
+
+
                                     <FilteredListbox TValue="@(int)" 
                                                      ListWidth="150"
                                                      ListHeight="300"
@@ -114,8 +113,10 @@
                                                                                              u != project.Owner)
                                                                            .Select(u => (u.Id, u.Name)))"
                                                      SelectedOptionChanged="@(async v => await HandleMemberAdded(v))" />
-                                </Body>
-                            </FluentPopover>
+
+
+            }
+        </RelayPopover>
                         </div>
                     }
                 </div>

@@ -1,11 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
+    <link rel="stylesheet" href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" />
     <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="_content/Refund/css/refund.css" />
+    <link href="_content/Refund/css/fluent-v4-compat.css" rel="stylesheet" />
     <link rel="stylesheet" href="ComponentDev.styles.css" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     
@@ -17,10 +20,9 @@
     <HeadOutlet />
 </head>
 
-<body>
+<body no-fuib-style>
     <Routes @rendermode="@InteractiveServer"/>
     <script src="_framework/blazor.web.js"></script>
-    <script src="/js/volstar.js"></script>
 </body>
 
 </html>

@@ -6,8 +6,7 @@
 @inherits UiFieldViewBase
 
 <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-    @* working around a weird FluentUI bug that doesn't always update the field when the value changes, so brute-forcing it with @key *@
-    <RobustFluentNumberField @key="@(ValueT)"
+        <RobustFluentNumberField
                        TValue="@(int?)"
                        Class="borderless"
                        Value="@ValueT"

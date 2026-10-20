@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
     </PropertyGroup>
@@ -12,6 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.14.0" />
+      <!-- Emoji 5.0.1 still declares a v4 core minimum; compile this project against v5 too. -->
+      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.1" />
+      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="5.0.1" />
     </ItemGroup>
 </Project>

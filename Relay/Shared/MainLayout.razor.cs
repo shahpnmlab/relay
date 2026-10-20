@@ -45,7 +45,7 @@ public partial class MainLayout
     /// </summary>
     private string _centerPanelStyle => $"height: {Session.GetCenterPanelHeight()}px; " +
                                         $"border-top-right-radius: {(Session.IsRightPanelExpanded() ? "6px" : "0px")}; " +
-                                        $"border-right: {(Session.IsRightPanelExpanded() ? "1px" : "0px")} solid var(--neutral-stroke-rest);";
+                                        $"border-right: {(Session.IsRightPanelExpanded() ? "1px" : "0px")} solid var(--colorNeutralStroke1);";
 
     private string _folderPath
     {
@@ -70,7 +70,6 @@ public partial class MainLayout
     private string _rightPanelStyle => $"width: {RelaySession.RightPanelWidth}px; " +
                                        $"height: {Session.GetCenterPanelHeight()}px; " +
                                        $"margin-left: {RelaySession.DividerWidth}px;";
-
 
     
     /// <summary>

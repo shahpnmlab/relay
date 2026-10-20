@@ -1,7 +1,7 @@
 @using Relay.Emoji
 <div class="@(Disabled ? "emoji-button-disabled" : "")">
     <div id="@_id" 
-         style="@(ShowBorder ? "border: 1px solid var(--accent-base-color); border-radius: 10px; padding: 0.5rem;" : "")">
+         style="@(ShowBorder ? "border: 1px solid var(--colorBrandBackground); border-radius: 10px; padding: 0.5rem;" : "")">
         @{
             var emoji = EmojiLibrary.FindByGlyph(Glyph)?.FluentEmoji;
 
@@ -20,16 +20,19 @@
     </div>
 
     <div class="popover-no-padding">
-        <FluentPopover AnchorId="@_id"
-                       HorizontalPosition="@HorizontalPosition"
-                       VerticalPosition="@VerticalPosition"
-                       HorizontalInset="HorizontalInset"
-                       @bind-Open="@_isEmojiSelectorOpen">
-            <Body>
+        <RelayPopover AnchorId="@_id"
+                       Position="@Position"
+                       @bind-Opened="@_isEmojiSelectorOpen">
+            @if (_isEmojiSelectorOpen)
+            {
+
+
                 <div style="width: 316px;">
                     <EmojiSelector OnEmojiSelected="@HandleEmojiChanged"/>
                 </div>
-            </Body>
-        </FluentPopover>
+
+
+            }
+        </RelayPopover>
     </div>
 </div>

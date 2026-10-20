@@ -1,13 +1,12 @@
 ﻿@namespace Refund.UIFields
 @inherits UiFieldViewBase
 
-<FluentSelect @bind-Value="@ValueT"
-              Class="borderless"
+<FluentSelect TOption="SelectOption<string>" TValue="string" @bind-Value="@ValueT"
+              Class="borderless" Appearance="ListAppearance.Transparent"
               Width="100%"
               Items="@Options"
               OptionText="@(i => i.Text)"
               OptionValue="@(i => i.Value)"
-              OptionSelected="@(i => i.Selected)"
               Disabled="@IsDisabled"/>
 
 @code
@@ -20,5 +19,5 @@
         set => ValueChanged.InvokeAsync(Enum.Parse(FieldDescriptionT.EnumType, value));
     }
 
-    private List<Option<string>> Options => FieldDescriptionT.EnumType.GetEnumNames().Select(e => new Option<string>() { Value = e, Text = e }).ToList();
+    private List<SelectOption<string>> Options => FieldDescriptionT.EnumType.GetEnumNames().Select(e => new SelectOption<string>() { Value = e, Text = e }).ToList();
 }

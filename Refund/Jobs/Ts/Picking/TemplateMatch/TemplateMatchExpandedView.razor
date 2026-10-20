@@ -18,7 +18,7 @@ else if (_allTomogramThumbnails != null && _allTomogramThumbnails.Any())
         {
             <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
                         display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                <FluentProgressRing Style="width: 40px; height: 40px;" />
+                <FluentSpinner Size="SpinnerSize.Large" Style="width: 40px; height: 40px;" />
                 <div>Loading particle data...</div>
             </div>
         }
@@ -37,7 +37,7 @@ else if (_allTomogramThumbnails != null && _allTomogramThumbnails.Any())
             <div style="height: 100%;">
                 <FluentTabs @ref="_tabs" Style="height: 100%;" ActiveTabIdChanged="OnTabIdChanged">
                     
-                    <FluentTab Id="@OverviewTabId" Label="Overview" Style="padding-top: 1rem;">
+                    <FluentTab Id="@OverviewTabId" Header="Overview" Style="padding-top: 1rem;">
                         <div style="display: grid; grid-template-columns: repeat(2, minmax(350px, 1fr)); gap: 2rem; width: 100%;">
                             <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
                                 <h6>Detection score</h6>
@@ -101,7 +101,7 @@ else if (_allTomogramThumbnails != null && _allTomogramThumbnails.Any())
                         </div>
                     </FluentTab>
 
-                    <FluentTab Id="@DetailsTabId" Label="Details" Style="height: 100%; padding-top: 1rem;">
+                    <FluentTab Id="@DetailsTabId" Header="Details" Style="height: 100%; padding-top: 1rem;">
                         <div style="display: flex; flex-wrap: nowrap; gap: 2rem; height: 100%; overflow-x: auto;">
                             
                             @if (_selectedTomogramThumbnail != null)

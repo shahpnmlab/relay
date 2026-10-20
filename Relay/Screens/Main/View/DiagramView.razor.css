@@ -34,10 +34,10 @@
     position: absolute;
     box-sizing: border-box;
     padding: 4px 8px;
-    border: 1px dashed var(--neutral-stroke-rest, #999);
+    border: 1px dashed var(--colorNeutralStroke1, #999);
     border-radius: 3px;
-    background: var(--neutral-layer-1, #fafafa);
-    color: var(--neutral-foreground-rest, #444);
+    background: var(--colorNeutralBackground1, #fafafa);
+    color: var(--colorNeutralForeground1, #444);
     cursor: default;
     font-size: 11px;
     box-shadow: none;
@@ -59,13 +59,13 @@
 }
 
 .diagram-external a {
-    color: var(--accent-foreground-rest, #3269a8);
+    color: var(--colorBrandForeground1, #3269a8);
     text-decoration: underline;
     cursor: pointer;
 }
 
 .diagram-external a:focus-visible {
-    outline: 2px solid var(--accent-foreground-rest, #3269a8);
+    outline: 2px solid var(--colorBrandForeground1, #3269a8);
     outline-offset: 1px;
 }
 

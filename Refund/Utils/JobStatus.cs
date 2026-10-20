@@ -111,7 +111,7 @@ public static class JobStatusExtensions
     {
         return job.Status switch
         {
-            JobStatus.Building => icon.WithColor("var(--neutral-foreground-rest)"), // Black/White
+            JobStatus.Building => icon.WithColor("var(--colorNeutralForeground1)"), // Black/White
             JobStatus.Waiting => icon.WithColor("#aaa"),            // Gray
             JobStatus.Staging => icon.WithColor("#aaa"),            // Gray
             JobStatus.Running => icon.WithColor("#1b8ce3"),         // Blue
@@ -195,7 +195,7 @@ public static class JobStatusExtensions
     {
         return status switch
         {
-            JobStatus.Building => icon.WithColor("var(--neutral-foreground-rest)"),
+            JobStatus.Building => icon.WithColor("var(--colorNeutralForeground1)"),
             JobStatus.Waiting => icon.WithColor("#aaa"),
             JobStatus.Staging => icon.WithColor("#aaa"),
             JobStatus.Running => icon.WithColor("#1b8ce3"),

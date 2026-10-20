@@ -20,11 +20,10 @@
     width: 24px;
     min-width: 24px;
     height: 24px;
-}
-
-.pool-size-controls ::deep fluent-button::part(control) {
+    min-height: 24px;
     padding: 0;
 }
+
 
 .pool-size-value {
     min-width: 1.5em;

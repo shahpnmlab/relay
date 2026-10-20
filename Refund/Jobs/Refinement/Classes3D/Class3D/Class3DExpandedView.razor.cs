@@ -44,7 +44,7 @@ public partial class Class3DExpandedView
     /// <summary>
     /// Service for displaying toast notifications
     /// </summary>
-    [Inject] private IToastService _toastService { get; set; }
+    [Inject] private INotificationService _toastService { get; set; }
     
     /// <summary>
     /// Central data management service
@@ -224,13 +224,13 @@ public partial class Class3DExpandedView
             await _dataManager.QueueLocalJob(_session.User, createdJob);
 
             // Show success notification and clear selections
-            _toastService.ShowSuccess($"Created selection from {_job.QualifiedName}");
+            _ = _toastService.ShowSuccessToastAsync($"Created selection from {_job.QualifiedName}");
             _selectedClasses.Clear();
             StateHasChanged();
         }
         catch(Exception ex)
         {
-            _toastService.ShowError($"Failed to create selection: {ex.Message}");
+            _ = _toastService.ShowErrorToastAsync($"Failed to create selection: {ex.Message}");
         }
     }
     

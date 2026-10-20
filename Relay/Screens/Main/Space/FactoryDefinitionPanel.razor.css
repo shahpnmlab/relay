@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 220px;
     min-width: 220px;
-    border-right: 1px solid var(--neutral-stroke-divider-rest);
+    border-right: 1px solid var(--colorNeutralStroke2);
     overflow-y: auto;
 }
 

@@ -39,7 +39,7 @@ public partial class FactoryQueueWizard : ComponentBase
     private RelaySession Session { get; set; }
 
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     /// <summary>
     /// Maps real sub-job ID to assigned queue ID. Null means no queue assigned yet.
@@ -138,7 +138,7 @@ public partial class FactoryQueueWizard : ComponentBase
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't queue factory: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't queue factory: {exc.Message}");
             _isSubmitting = false;
         }
     }

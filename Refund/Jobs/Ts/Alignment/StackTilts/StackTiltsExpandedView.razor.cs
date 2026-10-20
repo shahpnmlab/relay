@@ -25,7 +25,7 @@ public partial class StackTiltsExpandedView : IAsyncDisposable
     [Inject] private DataManager DataManager { get; set; }
     [Inject] private ExpandedJobViewService ExpandedViewService { get; set; }
     [Inject] private ScatterHighlightService HighlightService { get; set; }
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
     [Inject] private ILogger<StackTiltsExpandedView> Logger { get; set; }
 
     #endregion
@@ -404,7 +404,7 @@ public partial class StackTiltsExpandedView : IAsyncDisposable
         _zeroTiltIndex = ts.IndicesSortedDose.First();
         
         await HighlightService.SetHighlight(this, -1, null);
-        await _tabs.GoToTabAsync(TsTabId);
+        await _tabs.SelectTabAsync(TsTabId);
         if (scrollToItem)
             await _tsThumbnailPanel.SetSelectedThumbnailAsync(_selectedTsThumbnail);
         
@@ -470,7 +470,7 @@ public partial class StackTiltsExpandedView : IAsyncDisposable
     //
     //     await DataManager.QueueLocalJob(Session.User, createdJob);
     //
-    //     ToastService.ShowSuccess($"Exported tilt selection from {_job.QualifiedName}");
+    //     _ = ToastService.ShowSuccessToastAsync($"Exported tilt selection from {_job.QualifiedName}");
     // }
     
     #endregion

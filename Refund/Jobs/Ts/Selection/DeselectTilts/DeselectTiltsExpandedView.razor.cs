@@ -24,7 +24,7 @@ public partial class DeselectTiltsExpandedView : IAsyncDisposable
     [Inject] private DataManager DataManager { get; set; }
     [Inject] private ExpandedJobViewService ExpandedViewService { get; set; }
     [Inject] private ScatterHighlightService HighlightService { get; set; }
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
     [Inject] private ILogger<DeselectTiltsExpandedView> Logger { get; set; }
 
     #endregion
@@ -246,7 +246,7 @@ public partial class DeselectTiltsExpandedView : IAsyncDisposable
         await InvokeAsync(StateHasChanged);
         
         await HighlightService.SetHighlight(this, -1, null);
-        await _tabs.GoToTabAsync(TsTabId);
+        await _tabs.SelectTabAsync(TsTabId);
         if (scrollToItem)
             await _tsThumbnailPanel.SetSelectedThumbnailAsync(_selectedTsThumbnail);
     }
@@ -323,7 +323,7 @@ public partial class DeselectTiltsExpandedView : IAsyncDisposable
         await InvokeAsync(StateHasChanged);
         
         await HighlightService.SetHighlight(this, -1, null);
-        await _tabs.GoToTabAsync(FsTabId);
+        await _tabs.SelectTabAsync(FsTabId);
         if (scrollToItem)
             await _tsThumbnailPanel.SetSelectedThumbnailAsync(_selectedTsThumbnail);
     }
@@ -446,7 +446,7 @@ public partial class DeselectTiltsExpandedView : IAsyncDisposable
 
         await DataManager.QueueLocalJob(Session.User, createdJob);
 
-        ToastService.ShowSuccess($"Exported tilt selection from {_job.QualifiedName}");
+        _ = ToastService.ShowSuccessToastAsync($"Exported tilt selection from {_job.QualifiedName}");
     }
     
     #endregion

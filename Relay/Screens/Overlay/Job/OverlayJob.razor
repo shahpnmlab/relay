@@ -14,7 +14,7 @@
              !Session.Job.IsInteractiveFinished)
         {
             <FluentButton IconStart="@(new Icons.Regular.Size20.FlagCheckered())"
-                          Appearance="Appearance.Accent"
+                          Appearance="ButtonAppearance.Primary"
                           Loading="@(Session.Job.IsInteractiveFinished)"
                           OnClick="HandleFinishInteractiveClicked">
                 Finish interactive job

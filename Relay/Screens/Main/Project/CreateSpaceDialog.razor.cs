@@ -12,7 +12,7 @@ namespace Relay.Screens.Main.Project;
 /// Used by ProjectScreen to allow users to create spaces with customized properties or
 /// reconnect previously disconnected spaces.
 /// </summary>
-public partial class CreateSpaceDialog : IDialogContentComponent<CreateSpaceDialogParameters>
+public partial class CreateSpaceDialog : ComponentBase
 {
     /// <summary>
     /// The current Relay session containing user, project, and navigation state.
@@ -30,7 +30,7 @@ public partial class CreateSpaceDialog : IDialogContentComponent<CreateSpaceDial
     /// Reference to the FluentUI dialog that hosts this component.
     /// </summary>
     [CascadingParameter] 
-    public FluentDialog Dialog { get; set; }
+    public IDialogInstance Dialog { get; set; }
     
     /// <summary>
     /// Parameters passed to the dialog when it's shown.
@@ -197,16 +197,17 @@ public partial class CreateSpaceDialog : IDialogContentComponent<CreateSpaceDial
     {
         var parameters = new CreateSpaceDialogParameters();
         
-        await dialogService.ShowDialogAsync<CreateSpaceDialog>(parameters,
-                                                               new DialogParameters
-                                                               {
-                                                                   Title = "Create new space",
-                                                                   Modal = true,
-                                                                   Width = "min(1050px, calc(100vw - 32px))",
-                                                                   PreventScroll = true,
-                                                                   ShowDismiss = true,
-                                                                   OnDialogResult = dialogService.CreateDialogCallback(callbackReceiver, callbackHandler)
-                                                               });
+        var options = new DialogOptions
+        {
+            Modal = true,
+            Parameters = new Dictionary<string, object?> { [nameof(Content)] = parameters },
+            Width = "min(1050px, calc(100vw - 32px))",
+        };
+        options.Header.Title = "Create new space";
+        options.Header.CloseAction.Visible = true;
+        options.Header.CloseAction.OnClickAsync = dialog => dialog.CancelAsync();
+        var result = await dialogService.ShowDialogAsync<CreateSpaceDialog>(options);
+        await EventCallback.Factory.Create(callbackReceiver, callbackHandler).InvokeAsync(result);
     }
 }
 

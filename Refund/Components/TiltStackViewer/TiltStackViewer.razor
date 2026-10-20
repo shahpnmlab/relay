@@ -13,9 +13,9 @@
         <div style="flex: 0 0 auto; padding: 15px 10px 15px 10px; display: flex; flex-wrap: nowrap; align-items: center; gap: 2rem;">
             <div style="display: flex; align-items: center; gap: 10px;">
                 <span style="text-wrap: nowrap;">Overlaid tilts:</span>
-                <FluentNumberField TValue="@(int)"
+                <FluentNumberInput TValue="@(int)"
                                    Min="1"
-                                   Max="@(Math.Max(1, ImagePaths.Length).ToString())"
+                                   Max="@(Math.Max(1, ImagePaths.Length))"
                                    Step="2"
                                    Value="@OverlayCount"
                                    ValueChanged="HandleOverlayCountChanged"
@@ -30,28 +30,30 @@
                               Value="@CurrentImageIndex"
                               ValueChanged="HandleTiltIndexChanged"
                               Style="flex-grow: 1;">
-                    <FluentSliderLabel Position="0">
+</FluentSlider>
+<div class="slider-labels">
+                    <span>
                         @TiltAngles.First().ToString("F1") °
-                    </FluentSliderLabel>
+                    </span>
                     @if (ZeroTiltIndex != null)
                     {
-                        <FluentSliderLabel Position="@ZeroTiltIndex.Value">
+                        <span>
                             @TiltAngles[ZeroTiltIndex.Value].ToString("F1") °
-                        </FluentSliderLabel>
+                        </span>
                     }
                     else
                     {
                         float lowestTilt = TiltAngles.OrderBy(a => Math.Abs(a)).First();
                         int lowestIndex = TiltAngles.IndexOf(lowestTilt);
                         
-                        <FluentSliderLabel Position="@lowestIndex">
+                        <span>
                             @lowestTilt.ToString("F1") °
-                        </FluentSliderLabel>
+                        </span>
                     }
-                    <FluentSliderLabel Position="@(TiltAngles.Length - 1)">
+                    <span>
                         @TiltAngles.Last().ToString("F1") °
-                    </FluentSliderLabel>
-                </FluentSlider>
+                    </span>
+                </div>
             </div>
         </div>
 

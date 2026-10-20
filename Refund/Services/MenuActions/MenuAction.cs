@@ -37,7 +37,7 @@ public class MenuAction
     /// <summary>
     /// Gets or sets the visual appearance of the action button.
     /// </summary>
-    public Appearance? Appearance { get; set; }
+    public ButtonAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Gets or sets the text color of the action button (CSS color value).

@@ -29,15 +29,6 @@
     position: relative;
 }
 
-/* Position badge in top-right corner of button */
-.button-wrapper :global(.fluent-badge) {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 8px;
-    height: 8px;
-    padding: 0;
-}
 
 .log-panel-content {
     display: none;
@@ -84,8 +75,8 @@ pre {
 
 .iteration-header {
     display: block;
-    background-color: var(--accent-fill-rest);
-    color: var(--neutral-fill-layer-rest);
+    background-color: var(--colorBrandBackground);
+    color: var(--colorNeutralBackground1);
     margin-bottom: 8px;
     font-size: 14px;
     text-align: center;

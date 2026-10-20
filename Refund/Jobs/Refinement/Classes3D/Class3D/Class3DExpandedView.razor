@@ -11,7 +11,7 @@
 }
 else if (_job == null)
 {
-    <FluentProgressRing Style="height: 70px; width: 70px;"/>
+    <FluentSpinner Size="SpinnerSize.Huge" Style="height: 70px; width: 70px;"/>
 }
 else
 {
@@ -24,7 +24,7 @@ else
 
             <FluentButton OnClick="@(ExportClasses)"
                           Disabled="@(!_selectedClasses.Any())"
-                          Appearance="Appearance.Accent">
+                          Appearance="ButtonAppearance.Primary">
                 Export selection
             </FluentButton>
         </div>
@@ -34,7 +34,7 @@ else
             {
                 var currentClass = c;
                 var selectedStyle = _selectedClasses.Contains(currentClass) ?
-                                        "border-color: var(--accent-fill-rest); box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);" :
+                                        "border-color: var(--colorBrandBackground); box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);" :
                                         "";
 
                 <div style="margin: 0.25rem; height: 100%; padding: 0.5rem; @selectedStyle"

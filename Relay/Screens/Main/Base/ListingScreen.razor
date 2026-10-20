@@ -23,7 +23,7 @@
                 <h4>@Title</h4>
                 @if (!string.IsNullOrWhiteSpace(CreateButtonText))
                 {
-                    <FluentButton Appearance="Appearance.Accent"
+                    <FluentButton Appearance="ButtonAppearance.Primary"
                                   IconStart="@(new Icons.Regular.Size16.Add())"
                                   OnClick="OnCreateClick">
                         @CreateButtonText

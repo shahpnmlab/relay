@@ -51,7 +51,7 @@ public partial class FolderCard : ComponentBase, IDisposable
     private RelaySession Session { get; set; }
 
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     private List<MenuAction> _contextMenuActions;
     private bool _isDragOver;
@@ -210,7 +210,7 @@ public partial class FolderCard : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't move item: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't move item: {exc.Message}");
         }
     }
 

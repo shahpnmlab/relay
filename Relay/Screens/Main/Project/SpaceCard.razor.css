@@ -40,7 +40,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: var(--accent-fill-rest);
+    color: var(--colorBrandForeground1);
     text-decoration: none;
 }
 
@@ -51,6 +51,6 @@
 .meta,
 .empty-text {
     font-size: 12px;
-    color: var(--neutral-foreground-hint);
+    color: var(--colorNeutralForeground3);
     white-space: nowrap;
 }

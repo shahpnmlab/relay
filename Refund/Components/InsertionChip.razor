@@ -1,0 +1,12 @@
+@using Microsoft.AspNetCore.Components.Web
+
+<FluentButton Class="insertion-chip" Appearance="ButtonAppearance.Subtle" Shape="ButtonShape.Circular"
+              Style="font-family: monospace; font-size: 10px;" OnClick="@OnClick">
+    <span style="@(Highlighted ? "color: var(--colorBrandForeground1);" : null)">@ChildContent</span>
+</FluentButton>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public bool Highlighted { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+}

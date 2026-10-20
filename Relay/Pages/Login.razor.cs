@@ -59,7 +59,7 @@ public partial class Login : IAsyncDisposable
     /// Toast service for showing success/error notifications during authentication operations.
     /// </summary>
     [Inject]
-    public IToastService ToastService { get; set; }
+    public INotificationService ToastService { get; set; }
     
     /// <summary>
     /// Logger for authentication operations.
@@ -193,7 +193,7 @@ public partial class Login : IAsyncDisposable
                 var result = await response.Content.ReadFromJsonAsync<RegistrationResponse>();
                 if (result?.Success == true)
                 {
-                    ToastService.ShowSuccess("Registration successful! You can now log in.");
+                    _ = ToastService.ShowSuccessToastAsync("Registration successful! You can now log in.");
                     _isRegistering = false;
                     // Pre-fill the login form with the registration username
                     _loginModel.Username = _registrationModel.Username;

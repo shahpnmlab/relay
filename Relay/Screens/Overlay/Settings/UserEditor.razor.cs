@@ -24,7 +24,7 @@ public partial class UserEditor : ComponentBase, IDisposable
     private RelaySession Session { set; get; }
 
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     [Inject]
     private SecurityTokenService TokenService { get; set; }
@@ -62,11 +62,11 @@ public partial class UserEditor : ComponentBase, IDisposable
         {
             var token = await TokenService.GenerateToken(Session.User);
             await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", token.Token);
-            ToastService.ShowSuccess("Registration token copied to clipboard");
+            _ = ToastService.ShowSuccessToastAsync("Registration token copied to clipboard");
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Failed to generate token: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Failed to generate token: {ex.Message}");
         }
     }
 
@@ -75,11 +75,11 @@ public partial class UserEditor : ComponentBase, IDisposable
         try
         {
             await TokenService.InvalidateAllTokens();
-            ToastService.ShowWarning("All registration tokens have been invalidated");
+            _ = ToastService.ShowWarningToastAsync("All registration tokens have been invalidated");
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Failed to invalidate tokens: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Failed to invalidate tokens: {ex.Message}");
         }
     }
 
@@ -178,7 +178,7 @@ public partial class UserEditor : ComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Couldn't update username: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update username: {ex.Message}");
         }
     }
 
@@ -205,7 +205,7 @@ public partial class UserEditor : ComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Couldn't update name: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update name: {ex.Message}");
         }
     }
 
@@ -240,7 +240,7 @@ public partial class UserEditor : ComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Couldn't update email: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update email: {ex.Message}");
         }
     }
 
@@ -263,7 +263,7 @@ public partial class UserEditor : ComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Couldn't update role: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't update role: {ex.Message}");
         }
     }
 
@@ -289,11 +289,11 @@ public partial class UserEditor : ComponentBase, IDisposable
             await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", password);
 
             // Notify user
-            ToastService.ShowSuccess($"Password reset for {user.Username}. New password copied to clipboard.");
+            _ = ToastService.ShowSuccessToastAsync($"Password reset for {user.Username}. New password copied to clipboard.");
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Failed to reset password: {ex.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Failed to reset password: {ex.Message}");
         }
     }
     
@@ -313,7 +313,7 @@ public partial class UserEditor : ComponentBase, IDisposable
             }
             catch (Exception ex)
             {
-                ToastService.ShowError($"Couldn't delete user: {ex.Message}");
+                _ = ToastService.ShowErrorToastAsync($"Couldn't delete user: {ex.Message}");
             }
         }
     }

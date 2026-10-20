@@ -18,8 +18,8 @@
 .reconnect-notice {
     margin-top: 8px;
     padding: 8px 12px;
-    background-color: var(--neutral-layer-2);
-    border-left: 1px solid var(--accent-fill-rest);
+    background-color: var(--colorNeutralBackground2);
+    border-left: 1px solid var(--colorBrandBackground);
     display: flex;
     align-items: center;
     gap: 8px;

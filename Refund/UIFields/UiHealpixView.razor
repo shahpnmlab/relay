@@ -1,29 +1,28 @@
 ﻿@namespace Refund.UIFields
 @inherits UiFieldViewBase
 
-<FluentSelect @bind-Value="@ValueT"
-              Class="borderless"
+<FluentSelect TOption="SelectOption<string>" TValue="string" @bind-Value="@ValueT"
+              Class="borderless" Appearance="ListAppearance.Transparent"
               Width="100%"
               Items="@Options"
               OptionText="@(i => i.Text)"
               OptionValue="@(i => i.Value)"
-              OptionSelected="@(i => i.Selected)"
               Disabled="@IsDisabled"/>
 
 @code
 {
-    private List<Option<string>> Options = new()
+    private List<SelectOption<string>> Options = new()
     {
-        new Option<string>(){Text = "60 °", Value = "0" },
-        new Option<string>(){Text = "30 °", Value = "1" },
-        new Option<string>(){Text = "15 °", Value = "2" },
-        new Option<string>(){Text = "7.5 °", Value = "3" },
-        new Option<string>(){Text = "3.7 °", Value = "4" },
-        new Option<string>(){Text = "1.8 °", Value = "5" },
-        new Option<string>(){Text = "0.9 °", Value = "6" },
-        new Option<string>(){Text = "0.5 °", Value = "7" },
-        new Option<string>(){Text = "0.2 °", Value = "8" },
-        new Option<string>(){Text = "0.1 °", Value = "9" }
+        new SelectOption<string>(){Text = "60 °", Value = "0" },
+        new SelectOption<string>(){Text = "30 °", Value = "1" },
+        new SelectOption<string>(){Text = "15 °", Value = "2" },
+        new SelectOption<string>(){Text = "7.5 °", Value = "3" },
+        new SelectOption<string>(){Text = "3.7 °", Value = "4" },
+        new SelectOption<string>(){Text = "1.8 °", Value = "5" },
+        new SelectOption<string>(){Text = "0.9 °", Value = "6" },
+        new SelectOption<string>(){Text = "0.5 °", Value = "7" },
+        new SelectOption<string>(){Text = "0.2 °", Value = "8" },
+        new SelectOption<string>(){Text = "0.1 °", Value = "9" }
     };
 
     private UiHealpix FieldDescriptionT => (UiHealpix)FieldDescription ?? null;

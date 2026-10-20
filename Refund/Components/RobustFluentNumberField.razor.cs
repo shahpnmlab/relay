@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Refund.Components;
 
+/// <summary>Adapts string-valued job metadata bounds to the v5 typed numeric input.</summary>
 public partial class RobustFluentNumberField<TValue> where TValue : new()
 {
     [Parameter] public TValue Value { get; set; }
@@ -15,13 +16,18 @@ public partial class RobustFluentNumberField<TValue> where TValue : new()
     [Parameter] public string? Step { get; set; }
     [Parameter] public bool Disabled { get; set; }
     [Parameter] public bool Immediate { get; set; }
-    [Parameter] public int ImmediateDelay { get; set; }
+    [Parameter] public int ImmediateDelay { get; set; } = 200;
     [Parameter] public string? AutoComplete { get; set; }
 
-    private string ValueAsString => Value switch
+    private static TValue ParseBound(string? value, string kind)
     {
-        null => "",
-        IFormattable f => f.ToString(null, CultureInfo.InvariantCulture),
-        _ => Value.ToString() ?? ""
-    };
+        var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        if (!string.IsNullOrWhiteSpace(value))
+            return (TValue)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
+
+        var number = kind == "Step"
+            ? Convert.ChangeType(1, type, CultureInfo.InvariantCulture)
+            : type.GetField(kind == "Min" ? "MinValue" : "MaxValue")!.GetValue(null)!;
+        return (TValue)number;
+    }
 }

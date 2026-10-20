@@ -26,7 +26,7 @@
         <div class="property-panel">
             <div class="property-item">
                 <span class="property-title">Name</span>
-                <FluentTextField Class="property-value"
+                <FluentTextInput Class="property-value"
                                  AutoComplete="off"
                                  Value="@FactoryInstance.Alias"
                                  ValueChanged="@HandleAliasChanged"/>
@@ -35,7 +35,7 @@
             <div class="property-item">
                 <span class="property-title">Notes</span>
                 <FluentTextArea Class="property-value"
-                                Rows="3"
+                                Height="72px"
                                 Value="@FactoryInstance.Notes"
                                 ValueChanged="@HandleNotesChanged"/>
             </div>
@@ -56,7 +56,7 @@
                     @FactoryInstance.UpdateDate.ToString("yyyy-MM-dd HH:mm")
                     @if (FactoryInstance.UpdatedBy != null)
                     {
-                        <text>, by </text><FluentBadge>@FactoryInstance.UpdatedBy.Name</FluentBadge>
+                        <text>, by </text><FluentBadge Class="author-badge">@FactoryInstance.UpdatedBy.Name</FluentBadge>
                     }
                 </span>
             </div>

@@ -21,7 +21,7 @@ namespace Relay.Services;
 public class JobStatusToaster : IDisposable
 {
     private DataManager DataManager { get; set; }
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     /// <summary>
     /// Collection of event subscriptions that need to be cleaned up when this service is disposed.
@@ -34,7 +34,7 @@ public class JobStatusToaster : IDisposable
     /// </summary>
     /// <param name="dataManager">The DataManager service that provides job status events</param>
     /// <param name="toastService">The FluentUI toast service used to display notifications</param>
-    public JobStatusToaster(DataManager dataManager, IToastService toastService)
+    public JobStatusToaster(DataManager dataManager, INotificationService toastService)
     {
         DataManager = dataManager;
         ToastService = toastService;
@@ -52,7 +52,7 @@ public class JobStatusToaster : IDisposable
     private async Task OnJobQueued(GroupEventArgs<ReadOnlyJob> args)
     {
         ReadOnlyJob j = args.Object;
-        ToastService.ShowToast(ToastIntent.Progress, $"Queued Job P{j.Space.Project.Id}-S{j.Space.Id}-{j.QualifiedName}");
+        _ = ToastService.ShowProgressToastAsync( $"Queued Job P{j.Space.Project.Id}-S{j.Space.Id}-{j.QualifiedName}");
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class JobStatusToaster : IDisposable
     private async Task OnJobFinished(GroupEventArgs<ReadOnlyJob> args)
     {
         ReadOnlyJob j = args.Object;
-        ToastService.ShowToast(ToastIntent.Success, $"Finished Job P{j.Space.Project.Id}-S{j.Space.Id}-{j.QualifiedName}");
+        _ = ToastService.ShowSuccessToastAsync( $"Finished Job P{j.Space.Project.Id}-S{j.Space.Id}-{j.QualifiedName}");
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ public class JobStatusToaster : IDisposable
     private async Task OnJobFailed(GroupEventArgs<ReadOnlyJob> args)
     {
         ReadOnlyJob j = args.Object;
-        ToastService.ShowToast(ToastIntent.Error, $"Failed Job P{j.Space.Project.Id}-S{j.Space.Id}-{j.QualifiedName}");
+        _ = ToastService.ShowErrorToastAsync( $"Failed Job P{j.Space.Project.Id}-S{j.Space.Id}-{j.QualifiedName}");
     }
 
     /// <summary>

@@ -10,7 +10,7 @@
 </div>
 <div class="clipped">
     <button id="clipped-target">Clipped and transformed target</button>
-    <RelayMenu Anchor="clipped-target" Trigger="MouseButton.Right" Label="Transformed context">@Entries</RelayMenu>
+    <RelayMenu Anchor="clipped-target" ContextMenu="true" Label="Transformed context">@Entries</RelayMenu>
 </div>
 <div class="overlap">Maximum z-index overlay</div>
 <div style="position: fixed; bottom: 8px; right: 8px;">
@@ -18,9 +18,9 @@
 </div>
 <button id="toggle-target" @onclick="() => _open = !_open">Toggle menu</button>
 <button id="outside-id">Outside target with an ID</button>
-<RelayMenu Anchor="left-target" Trigger="MouseButton.Right" Label="Left context">@Entries</RelayMenu>
-<RelayMenu Anchor="right-target" Trigger="MouseButton.Right" Label="Right context">@Entries</RelayMenu>
-<RelayMenu Anchor="bottom-target" Trigger="MouseButton.Right" Label="Bottom context">@Entries</RelayMenu>
+<RelayMenu Anchor="left-target" ContextMenu="true" Label="Left context">@Entries</RelayMenu>
+<RelayMenu Anchor="right-target" ContextMenu="true" Label="Right context">@Entries</RelayMenu>
+<RelayMenu Anchor="bottom-target" ContextMenu="true" Label="Bottom context">@Entries</RelayMenu>
 <RelayMenu Anchor="toggle-target" @bind-Open="_open" Label="Button context">@Entries</RelayMenu>
 
 @code {

@@ -12,6 +12,7 @@ namespace Refund.Components;
 /// <typeparam name="TValue">The type of value stored in the listbox options</typeparam>
 public partial class ListboxButton<TValue> : ComponentBase
 {
+    [Parameter] public Positioning ListPosition { get; set; } = Positioning.BelowStart;
     /// <summary>
     /// Flag indicating whether the dropdown list is currently open.
     /// </summary>
@@ -53,7 +54,7 @@ public partial class ListboxButton<TValue> : ComponentBase
     /// Sets the visual appearance of the button.
     /// Uses FluentUI's Appearance enum for styling.
     /// </summary>
-    [Parameter] public Appearance? ButtonAppearance { get; set; } = Appearance.Neutral;
+    [Parameter] public ButtonAppearance? ButtonAppearance { get; set; } = Microsoft.FluentUI.AspNetCore.Components.ButtonAppearance.Default;
     
     /// <summary>
     /// Gets or sets the text color of the button.
@@ -80,22 +81,6 @@ public partial class ListboxButton<TValue> : ComponentBase
     /// </summary>
     [Parameter] public string? ButtonStyle { get; set; }
     
-    /// <summary>
-    /// Controls the horizontal positioning of the dropdown list.
-    /// Uses FluentUI's HorizontalPosition enum for alignment.
-    /// </summary>
-    [Parameter] public HorizontalPosition ListHorizontalPosition { get; set; } = HorizontalPosition.Left;
-    
-    /// <summary>
-    /// Controls the vertical positioning of the dropdown list.
-    /// Uses FluentUI's VerticalPosition enum for alignment.
-    /// </summary>
-    [Parameter] public VerticalPosition ListVerticalPosition { get; set; } = VerticalPosition.Bottom;
-    
-    /// <summary>
-    /// When true, the dropdown list will automatically receive focus when opened.
-    /// </summary>
-    [Parameter] public bool ListAutoFocus { get; set; } = false;
     
     /// <summary>
     /// Width of the dropdown list in pixels.
@@ -151,6 +136,7 @@ public partial class ListboxButton<TValue> : ComponentBase
     /// <param name="value">The value of the selected option</param>
     private async Task OnListValueChanged(TValue value)
     {
+        if (!_isOpen) return;
         _isOpen = false;
         StateHasChanged();
 

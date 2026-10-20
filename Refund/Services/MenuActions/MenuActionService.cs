@@ -27,7 +27,7 @@ public partial class MenuActionService
     private readonly JobEditorService _jobEditor;
     private readonly FactoryEditorService _factoryEditor;
     private readonly CardSelectionService _selectionService;
-    private readonly IToastService _toastService;
+    private readonly INotificationService _toastService;
     private readonly FileService _fileService;
     private readonly IJSRuntime _jsRuntime;
 
@@ -46,7 +46,7 @@ public partial class MenuActionService
                              JobEditorService jobEditorService,
                              FactoryEditorService factoryEditorService,
                              CardSelectionService selectionService,
-                             IToastService toastService,
+                             INotificationService toastService,
                              FileService fileService,
                              IJSRuntime jsRuntime)
     {

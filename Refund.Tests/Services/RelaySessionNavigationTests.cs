@@ -9,7 +9,7 @@ public class RelaySessionNavigationTests
     public async Task NavigatingToANewUrlAddsOneEntryButRepeatingItAddsNone()
     {
         var navigation = new RecordingNavigationManager("/P1");
-        await using var session = new RelaySession(navigation, null!, null!, null!);
+        await using var session = new RelaySession(navigation, null!, null!, null!, null!);
 
         await session.NavigateToAsync(new NavigationRequest());
         await session.NavigateToAsync(new NavigationRequest());
@@ -21,7 +21,7 @@ public class RelaySessionNavigationTests
     public async Task StateOnlyNavigationStillUpdatesTheOverlayWithoutWritingHistory()
     {
         var navigation = new RecordingNavigationManager("/");
-        await using var session = new RelaySession(navigation, null!, null!, null!);
+        await using var session = new RelaySession(navigation, null!, null!, null!, null!);
         var overlays = new List<OverlayScreenType>();
         int stateChanges = 0;
         session.OnStateChanged += () =>

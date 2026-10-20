@@ -12,7 +12,7 @@ namespace Relay.Screens.Main.Space;
 /// essential view information including name, emoji, and notes, validates 
 /// the inputs, and creates a new view upon confirmation.
 /// </summary>
-public partial class CreateViewDialog : IDialogContentComponent<CreateViewDialogParameters>
+public partial class CreateViewDialog : ComponentBase
 {
     /// <summary>
     /// Current session information including the user and current space context.
@@ -30,7 +30,7 @@ public partial class CreateViewDialog : IDialogContentComponent<CreateViewDialog
     /// Reference to the dialog component that hosts this content.
     /// </summary>
     [CascadingParameter] 
-    public FluentDialog Dialog { get; set; }
+    public IDialogInstance Dialog { get; set; }
     
     /// <summary>
     /// Input parameters for the dialog. Currently not used but preserved
@@ -102,16 +102,16 @@ public partial class CreateViewDialog : IDialogContentComponent<CreateViewDialog
     {
         var parameters = new CreateViewDialogParameters();
         
-        await dialogService.ShowDialogAsync<CreateViewDialog>(
-            parameters,
-            new DialogParameters
-            {
-                Title = "Create new view",
-                Modal = true,
-                PreventScroll = true,
-                ShowDismiss = true,
-                OnDialogResult = dialogService.CreateDialogCallback(callbackReceiver, callbackHandler)
-            });
+        var options = new DialogOptions
+        {
+            Modal = true,
+            Parameters = new Dictionary<string, object?> { [nameof(Content)] = parameters },
+        };
+        options.Header.Title = "Create new view";
+        options.Header.CloseAction.Visible = true;
+        options.Header.CloseAction.OnClickAsync = dialog => dialog.CancelAsync();
+        var result = await dialogService.ShowDialogAsync<CreateViewDialog>(options);
+        await EventCallback.Factory.Create(callbackReceiver, callbackHandler).InvokeAsync(result);
     }
 }
 

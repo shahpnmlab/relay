@@ -1,19 +1,18 @@
 @using Refund.Components.Emoji
+<FluentDialogBody>
 <EditForm Model="@Model" OnValidSubmit="OnCreateClick">
     <DataAnnotationsValidator />
 
-    <FluentDialogBody>
+    <div>
         <div class="form-content">
             <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
-                <EmojiSelectionButton @bind-Glyph="Model.HeroImage"
+                <EmojiSelectionButton Position="Positioning.Below" @bind-Glyph="Model.HeroImage"
                                       Size="64"
-                                      ShowBorder="true"
-                                      HorizontalPosition="HorizontalPosition.Center"
-                                      VerticalPosition="VerticalPosition.Bottom" />
+                                      ShowBorder="true" />
             </div>
             
             <div class="form-item">
-                <FluentTextField @bind-Value="Model.Name"
+                <FluentTextInput @bind-Value="Model.Name"
                                  Label="View name"
                                  Required="true"
                                  Immediate="true"
@@ -23,7 +22,7 @@
             </div>
 
             <div class="form-item">
-                <FluentTextField @bind-Value="Model.Notes"
+                <FluentTextInput @bind-Value="Model.Notes"
                                  Label="Notes"
                                  Immediate="true"
                                  AutoComplete="off" />
@@ -35,17 +34,18 @@
                 <div class="error-message">@ErrorMessage</div>
             }
         </div>
-    </FluentDialogBody>
+    </div>
 
-    <FluentDialogFooter>
+    <div>
         <FluentButton Type="ButtonType.Button"
-                      Appearance="Appearance.Outline"
+                      Appearance="ButtonAppearance.Outline"
                       OnClick="OnCancelClick">
             Cancel
         </FluentButton>
         <FluentButton Type="ButtonType.Submit"
-                      Appearance="Appearance.Accent">
+                      Appearance="ButtonAppearance.Primary">
             Create
         </FluentButton>
-    </FluentDialogFooter>
+    </div>
 </EditForm>
+</FluentDialogBody>

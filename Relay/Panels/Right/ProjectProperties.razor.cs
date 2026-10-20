@@ -49,7 +49,7 @@ public partial class ProjectProperties : ComponentBase, IDisposable
     /// Gets or sets the toast service for showing notifications.
     /// </summary>
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     /// <summary>
     /// Subscriptions to project update events, used to refresh the display when projects change.
@@ -160,7 +160,7 @@ public partial class ProjectProperties : ComponentBase, IDisposable
     private async Task HandleMemberDismissed(ReadOnlyUser member)
     {
         await DataManager.RemoveProjectMember(Session.User, Projects.First(), member);
-        ToastService.ShowSuccess($"{member.Name} removed from project");
+        _ = ToastService.ShowSuccessToastAsync($"{member.Name} removed from project");
     }
 
     /// <summary>
@@ -179,11 +179,11 @@ public partial class ProjectProperties : ComponentBase, IDisposable
 
             await DataManager.AddProjectMember(Session.User, Projects.First(), member);
             
-            ToastService.ShowSuccess($"{member.Name} added to project");
+            _ = ToastService.ShowSuccessToastAsync($"{member.Name} added to project");
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't add project member: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't add project member: {exc.Message}");
         }
     }
 

@@ -1,21 +1,19 @@
 @typeparam TValue
 
 <ComboButton IconStart="@ButtonIconStart"
+             MenuPosition="@ListPosition"
              IconEnd="@ButtonIconEnd"
              Loading="@ButtonLoading"
              Disabled="@ButtonDisabled"
              Appearance="@ButtonAppearance"
              Color="@ButtonColor"
              BackgroundColor="@ButtonBackgroundColor"
-             AutoFocus="@ListAutoFocus"
-             HorizontalPosition="@ListHorizontalPosition"
              ButtonMaxWidth="@ButtonMaxWidth"
              ButtonMinWidth="@ButtonMinWidth"
              OnClick="@OnClick"
              Href="@Href"
-             VerticalPosition="@ListVerticalPosition"
              Style="@ButtonStyle"
-             IsOpen="@_isOpen">
+             @bind-IsOpen="_isOpen">
     <ChildContent>
         <span title="@ButtonLabel">@ButtonLabel</span>
     </ChildContent>
@@ -34,12 +32,13 @@
         else
         {
             <div class="filtered-list-container" style="width: @(ListWidth)px; max-width: 100%; max-height: @(ListHeight)px; overflow-y: auto;">
-                <FluentListbox TOption="@((TValue Value, string Text))"
+                <FluentListbox TOption="@((TValue Value, string Text))" TValue="TValue"
+                       OptionValue="@(item => item.Value)" OptionText="@(item => item.Text)"
                                Items="@Options"
                                Multiple="false"
                                Disabled="@ButtonDisabled"
                                Width="100%"
-                               SelectedOptionChanged="@(v => OnListValueChanged(v.Value))">
+                               ValueChanged="@(v => OnListValueChanged(v))">
                     <OptionTemplate Context="item">
                         @if (HrefSelector != null)
                         {
@@ -60,14 +59,16 @@
                         }
                         else
                         {
-                            @if (OptionTemplate != null)
-                            {
-                                @OptionTemplate(item)
-                            }
-                            else
-                            {
-                                <span class="option-span" title="@item.Text">@item.Text</span>
-                            }
+                            <div @onclick="@(() => OnListValueChanged(item.Value))" @onclick:stopPropagation>
+                                @if (OptionTemplate != null)
+                                {
+                                    @OptionTemplate(item)
+                                }
+                                else
+                                {
+                                    <span class="option-span" title="@item.Text">@item.Text</span>
+                                }
+                            </div>
                         }
                     </OptionTemplate>
                 </FluentListbox>

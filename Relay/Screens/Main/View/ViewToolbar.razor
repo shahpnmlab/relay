@@ -20,14 +20,13 @@
         }
 
         <span class="toolbar-label">Sort</span>
-        <FluentSelect Items="@SortOptions"
+        <FluentSelect TOption="SelectOption<string>" TValue="SelectOption<string>" Items="@SortOptions"
                       Multiple="false"
-                      Width="130px"
+                      Width="160px"
                       OptionText="@(i => i.Text)"
-                      OptionValue="@(i => i.Value)"
-                      OptionSelected="@(i => i.Selected)"
-                      SelectedOption="@SelectedSortOption"
-                      SelectedOptionChanged="@(EventCallback.Factory.Create<Option<string>?>(this, OnSortOptionChanged))" />
+                      OptionValue="@(i => i)"
+                      Value="@SelectedSortOption"
+                      ValueChanged="@(EventCallback.Factory.Create<SelectOption<string>?>(this, OnSortOptionChanged))" />
         <FluentButton Title="Switch sort direction" OnClick="ToggleSortDirection" IconEnd="@SortDirectionIcon" />
     }
 
@@ -45,11 +44,11 @@
     <span class="toolbar-separator"></span>
     <span class="toolbar-label">View</span>
     <FluentButton Title="List view"
-                  Appearance="@(DiagramService.ViewMode == ViewMode.List ? Appearance.Accent : Appearance.Stealth)"
+                  Appearance="@(DiagramService.ViewMode == ViewMode.List ? ButtonAppearance.Primary : ButtonAppearance.Subtle)"
                   IconEnd="@(new Icons.Regular.Size20.Grid())"
                   OnClick="@(() => DiagramService.SetViewMode(ViewMode.List))" />
     <FluentButton Title="Diagram view"
-                  Appearance="@(DiagramService.ViewMode == ViewMode.Diagram ? Appearance.Accent : Appearance.Stealth)"
+                  Appearance="@(DiagramService.ViewMode == ViewMode.Diagram ? ButtonAppearance.Primary : ButtonAppearance.Subtle)"
                   IconEnd="@(new Icons.Regular.Size20.Flow())"
                   OnClick="@(() => DiagramService.SetViewMode(ViewMode.Diagram))" />
 </div>

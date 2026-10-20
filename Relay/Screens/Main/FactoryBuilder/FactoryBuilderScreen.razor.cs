@@ -18,7 +18,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
     [Inject] private DataManager DataManager { get; set; }
     [Inject] private RelaySession Session { get; set; }
     [Inject] private JobEditorService JobEditor { get; set; }
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
     [Inject] private CardSelectionService Selection { get; set; }
     [Inject] private DiagramViewService DiagramService { get; set; }
 
@@ -111,7 +111,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't add sub-job: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't add sub-job: " + exc.Message);
         }
     }
 
@@ -137,7 +137,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't add sub-job: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't add sub-job: " + exc.Message);
         }
     }
 
@@ -168,7 +168,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't connect ports: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't connect ports: " + exc.Message);
         }
     }
 
@@ -205,7 +205,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
     {
         if (IsLocked)
         {
-            ToastService.ShowWarning("This definition can no longer be edited because instances exist. Clone to modify.");
+            _ = ToastService.ShowWarningToastAsync("This definition can no longer be edited because instances exist. Clone to modify.");
             return;
         }
 
@@ -219,7 +219,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
     {
         if (IsLocked)
         {
-            ToastService.ShowWarning("This definition can no longer be edited because instances exist. Clone to modify.");
+            _ = ToastService.ShowWarningToastAsync("This definition can no longer be edited because instances exist. Clone to modify.");
             return;
         }
 
@@ -284,7 +284,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
     {
         if (IsLocked)
         {
-            ToastService.ShowWarning("This definition can no longer be edited because instances exist. Clone to modify.");
+            _ = ToastService.ShowWarningToastAsync("This definition can no longer be edited because instances exist. Clone to modify.");
             return;
         }
 
@@ -373,7 +373,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't delete sub-job: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't delete sub-job: " + exc.Message);
         }
     }
 
@@ -405,7 +405,7 @@ public partial class FactoryBuilderScreen : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't compute layout: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't compute layout: " + exc.Message);
         }
     }
 

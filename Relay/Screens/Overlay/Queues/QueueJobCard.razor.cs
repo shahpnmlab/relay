@@ -30,7 +30,7 @@ public partial class QueueJobCard : ComponentBase, IAsyncDisposable
     private IJSRuntime JSRuntime { get; set; }
 
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     private string _id;
     private ReadOnlyJob _job;
@@ -150,7 +150,7 @@ public partial class QueueJobCard : ComponentBase, IAsyncDisposable
         }
         catch (Exception exception)
         {
-            ToastService.ShowError($"Couldn't resize worker pool: {exception.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't resize worker pool: {exception.Message}");
         }
         finally
         {

@@ -48,11 +48,11 @@ public partial class MenuActionService
                         try
                         {
                             await _dataManager.DeleteProject(project);
-                            _toastService.ShowSuccess($"{project.QualifiedName} deleted");
+                            _ = _toastService.ShowSuccessToastAsync($"{project.QualifiedName} deleted");
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't delete {project.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't delete {project.QualifiedName}: {exc.Message}");
                         }
 
                     await _selectionService.Clear();
@@ -110,11 +110,11 @@ public partial class MenuActionService
                                 Overlay = _session.CurrentOverlay
                             });
 
-                            _toastService.ShowSuccess($"{space.QualifiedName} disconnected");
+                            _ = _toastService.ShowSuccessToastAsync($"{space.QualifiedName} disconnected");
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't disconnect {space.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't disconnect {space.QualifiedName}: {exc.Message}");
                         }
 
                     await _selectionService.Clear();
@@ -173,11 +173,11 @@ public partial class MenuActionService
                         try
                         {
                             await _dataManager.DeleteView(_session.User, view);
-                            _toastService.ShowSuccess($"{view.QualifiedName} deleted");
+                            _ = _toastService.ShowSuccessToastAsync($"{view.QualifiedName} deleted");
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't delete {view.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't delete {view.QualifiedName}: {exc.Message}");
                         }
 
                     await _selectionService.Clear();

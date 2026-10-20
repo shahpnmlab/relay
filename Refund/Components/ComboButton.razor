@@ -1,6 +1,6 @@
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
-<div style="display: inline-flex; align-items: center; width: 100%;">
+<div id="@GroupId" style="display: inline-flex; align-items: center; width: 100%;">
 
     @if (!string.IsNullOrEmpty(Href))
     {
@@ -45,9 +45,7 @@
     }
 
     <FluentButton Id="@DropdownButtonId"
-                  IconStart="@(VerticalPosition == VerticalPosition.Top ?
-                                   new Icons.Regular.Size16.ChevronUp() :
-                                   new Icons.Regular.Size16.ChevronDown())"
+                  IconStart="@(new Icons.Regular.Size16.ChevronDown())"
                   Appearance="@Appearance"
                   Color="@Color"
                   BackgroundColor="@BackgroundColor"
@@ -58,15 +56,11 @@
     </FluentButton>
 
     <div class="popover-no-padding popover-round-corners">
-        <FluentPopover AnchorId="@DropdownButtonId"
-                       @bind-Open="IsOpen"
-                       HorizontalPosition="@HorizontalPosition"
-                       VerticalPosition="@VerticalPosition"
-                       FixedPlacement="true"
-                       AutoFocus="@AutoFocus">
-            <Body>
+        <RelayPopover AnchorId="@GroupId" Position="@MenuPosition" Opened="@IsOpen" OpenedChanged="SetIsOpen">
+            @if (IsOpen)
+            {
                 @MenuContent
-            </Body>
-        </FluentPopover>
+            }
+        </RelayPopover>
     </div>
 </div>

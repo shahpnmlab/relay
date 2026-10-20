@@ -11,7 +11,7 @@ public partial class FactoryDefinitionPanel : ComponentBase, IDisposable
 {
     [Inject] private DataManager DataManager { get; set; }
     [Inject] private RelaySession Session { get; set; }
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
 
     private bool _isCollapsed;
     private readonly List<GroupEventSubscription> _subscriptions = new();
@@ -72,7 +72,7 @@ public partial class FactoryDefinitionPanel : ComponentBase, IDisposable
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't create factory: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't create factory: " + exc.Message);
         }
     }
 

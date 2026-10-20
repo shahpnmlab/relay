@@ -5,19 +5,15 @@
     @* Out-of-flow, zero-size host keeps the tooltip element from taking part in the parent's
        flex/grid layout; the tooltip itself is fixed-positioned against its anchor *@
     <div class="job-preview-host">
-        <FluentTooltip @key="Job"
-                       Anchor="@Anchor"
-                       Position="@Position"
-                       Visible="true"
-                       UseTooltipService="false"
-                       Class="minimal-padding"
-                       MaxWidth="10000px"
-                       HorizontalViewportLock="true"
-                       VerticalViewportLock="true"
-                       OnDismissed="HandleDismissed">
+        <RelayPopover @key="Job"
+                       AnchorId="@Anchor"
+                       Position="@(Position ?? Positioning.After)"
+                       Opened="true"
+                       OpenedChanged="HandleOpenedChanged"
+                       Class="job-preview-popover">
             <div class="job-preview" @onclick:stopPropagation="true">
                 @Renderer.Render(Job, DomIdSuffix)
             </div>
-        </FluentTooltip>
+        </RelayPopover>
     </div>
 }

@@ -18,7 +18,7 @@ public partial class ThresholdStatisticsExpandedView : IAsyncDisposable
     [Inject] private RelaySession Session { get; set; }
     [Inject] private DataManager DataManager { get; set; }
     [Inject] private ExpandedJobViewService ExpandedViewService { get; set; }
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
     [Inject] private ILogger<ThresholdStatisticsExpandedView> Logger { get; set; }
 
     private ReadOnlyThresholdStatistics _job;

@@ -16,7 +16,7 @@ public partial class ReconstructMapExpandedView
     /// <summary>
     /// Service for displaying toast notifications
     /// </summary>
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private INotificationService ToastService { get; set; }
     
     /// <summary>
     /// The Refine3D job currently being viewed

@@ -24,7 +24,7 @@
     flex-direction: column;
     gap: 0.25rem;
     overflow-y: auto;
-    border: 1px solid var(--neutral-stroke-rest);
+    border: 1px solid var(--colorNeutralStroke1);
     border-radius: 4px;
     height: 100%;
 }
@@ -39,12 +39,12 @@
 }
 
 .queue-item:hover {
-    background-color: var(--neutral-fill-hover);
+    background-color: var(--colorNeutralBackground1Hover);
 }
 
 .queue-item.selected {
-    background-color: var(--accent-fill-rest);
-    color: var(--foreground-on-accent-rest);
+    background-color: var(--colorBrandBackground);
+    color: var(--colorNeutralForegroundOnBrand);
 }
 
 .queue-name {
@@ -102,10 +102,6 @@
     margin-bottom: 0.5rem;
 }
 
-.inuse {
-    color: var(--accent-fill-active);
-}
-
 .settings-form {
     display: flex;
     flex-direction: column;
@@ -126,7 +122,7 @@
 }
 
 .custom-variables {
-    border-top: 1px solid var(--neutral-stroke-rest);
+    border-top: 1px solid var(--colorNeutralStroke1);
     padding-top: 1rem;
     margin-top: auto;
 }
@@ -151,4 +147,10 @@
     grid-template-columns: 1fr 1fr 1fr auto;
     gap: 0.5rem;
     align-items: start;
+}
+/* V4 inputs had a quiet frame and a stronger bottom edge. Keep the v5
+   native focus/error/disabled rules while restoring the resting contrast. */
+.settings-field,
+.queue-list-buttons {
+    --colorNeutralStroke1: color-mix(in srgb, var(--colorNeutralBackground1), var(--colorNeutralForeground1) 4%);
 }

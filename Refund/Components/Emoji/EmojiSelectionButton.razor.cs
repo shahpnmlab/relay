@@ -11,6 +11,7 @@ namespace Refund.Components.Emoji;
 /// </summary>
 public partial class EmojiSelectionButton : ComponentBase
 {
+    [Parameter] public Positioning Position { get; set; } = Positioning.Before;
     /// <summary>
     /// The currently selected emoji glyph (Unicode character) to display in the button.
     /// </summary>
@@ -36,26 +37,6 @@ public partial class EmojiSelectionButton : ComponentBase
     [Parameter]
     public bool ShowBorder { get; set; } = false;
     
-    /// <summary>
-    /// Controls the horizontal positioning of the emoji selector dropdown.
-    /// Uses FluentUI's HorizontalPosition enum for alignment.
-    /// </summary>
-    [Parameter]
-    public HorizontalPosition? HorizontalPosition { get; set; } = null;
-    
-    /// <summary>
-    /// Controls the vertical positioning of the emoji selector dropdown.
-    /// Uses FluentUI's VerticalPosition enum for alignment.
-    /// </summary>
-    [Parameter]
-    public VerticalPosition? VerticalPosition { get; set; } = null;
-    
-    /// <summary>
-    /// Determines whether the dropdown selector is inset horizontally.
-    /// When true, the popup will try to stay within the horizontal bounds of its container.
-    /// </summary>
-    [Parameter]
-    public bool HorizontalInset { get; set; } = true;
     
     /// <summary>
     /// Determines whether the button is disabled.

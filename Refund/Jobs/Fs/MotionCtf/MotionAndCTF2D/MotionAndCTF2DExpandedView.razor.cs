@@ -70,7 +70,7 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
 
         _selectedThumbnail = data;
         _selectedName = _processedItems[_allThumbnails.IndexOf(data)].Path;
-        await _tabs.GoToTabAsync("tab-details");
+        await _tabs.SelectTabAsync("tab-details");
         StateHasChanged();
     }
 
@@ -86,7 +86,7 @@ public partial class MotionAndCTF2DExpandedView : IAsyncDisposable
         _selectedName = _processedItems[index].Path;
 
         await HighlightService.SetHighlight(this, -1, null);
-        await _tabs.GoToTabAsync("tab-details");
+        await _tabs.SelectTabAsync("tab-details");
         await _thumbnailPanel.SetSelectedThumbnailAsync(_selectedThumbnail);
     }
 

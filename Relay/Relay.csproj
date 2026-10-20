@@ -22,9 +22,9 @@
     <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="10.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.*" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.14.0" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.14.0" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.14.0" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.1" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="5.0.1" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.*" />
 	<PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="10.0.*" />
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.*" />

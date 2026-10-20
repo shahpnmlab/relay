@@ -16,14 +16,13 @@ parent div.
     @if (AllowSorting)
     {
         <div class="toolbar">
-            <FluentSelect Items="@SortOptions"
+            <FluentSelect TOption="SelectOption<string>" TValue="SelectOption<string>" Items="@SortOptions"
                           Multiple="false"
-                          Width="140px"
+                          Width="160px"
                           OptionText="@(i => i.Text)"
-                          OptionValue="@(i => i.Value)"
-                          OptionSelected="@(i => i.Selected)"
-                          SelectedOption="@SelectedSortOption"
-                          SelectedOptionChanged="@(EventCallback.Factory.Create<Option<string>?>(this, OnSortOptionChanged))"/>
+                          OptionValue="@(i => i)"
+                          Value="@SelectedSortOption"
+                          ValueChanged="@(EventCallback.Factory.Create<SelectOption<string>?>(this, OnSortOptionChanged))"/>
             <FluentButton Title="Switch sort direction" OnClick="ToggleSortDirection" IconEnd="@IconSort"/>
         </div>
     }

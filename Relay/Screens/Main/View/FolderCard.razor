@@ -10,10 +10,10 @@
      id="@($"folder-{Folder.Id}")"
      style="width: @(DiagramMode ? DiagramWidth : VisualProvider.GetWidth(1))px;
             height: @(DiagramMode ? DiagramHeight : VisualProvider.GetHeight(1))px;
-            border-left: 6px solid @(string.IsNullOrEmpty(Folder.ColorTag) ? "var(--neutral-stroke-rest)" : Folder.ColorTag);
-            @(!string.IsNullOrEmpty(Folder.ColorTag) ? $"background-color: color-mix(in srgb, {Folder.ColorTag} 25%, var(--neutral-fill-layer-rest));" : "")
-            @(Selection.IsSelected(SelectionKey) ? "outline: 2px solid var(--accent-fill-rest);" : "")
-            @(_isDragOver ? "outline: 2px dashed var(--accent-fill-rest); background: var(--neutral-fill-secondary-hover);" : "")"
+            border-left: 6px solid @(string.IsNullOrEmpty(Folder.ColorTag) ? "var(--colorNeutralStroke1)" : Folder.ColorTag);
+            @(!string.IsNullOrEmpty(Folder.ColorTag) ? $"background-color: color-mix(in srgb, {Folder.ColorTag} 25%, var(--colorNeutralBackground1));" : "")
+            @(Selection.IsSelected(SelectionKey) ? "outline: 2px solid var(--colorBrandBackground);" : "")
+            @(_isDragOver ? "outline: 2px dashed var(--colorBrandBackground); background: var(--colorNeutralBackground2Hover);" : "")"
      @onclick:stopPropagation="true"
      @onclick="HandleClick"
      @ondblclick:stopPropagation="true"
@@ -32,7 +32,7 @@
     <div class="folder-card-content @(Folder.Layout is { } _l && _l.Nodes.Count > 0 ? "has-minimap" : "")">
 
         <FluentIcon Value="@(new Icons.Regular.Size20.Folder())"
-                    Color="Microsoft.FluentUI.AspNetCore.Components.Color.Neutral"/>
+                    Color="Microsoft.FluentUI.AspNetCore.Components.Color.Default"/>
 
         <span class="folder-card-title">
             @Folder.Alias
@@ -51,7 +51,7 @@
                      width="@F(svgW)" height="@F(svgH)">
                     @foreach (var edge in layout.Edges)
                     {
-                        <path d="@GetEdgePath(edge)" fill="none" stroke="var(--neutral-foreground-rest)" stroke-width="1" opacity="0.4"/>
+                        <path d="@GetEdgePath(edge)" fill="none" stroke="var(--colorNeutralForeground1)" stroke-width="1" opacity="0.4"/>
                     }
                     @foreach (var node in layout.Nodes)
                     {
@@ -59,7 +59,7 @@
                         {
                             <rect x="@F(node.X)" y="@F(node.Y)"
                                   width="@F(node.Width)" height="@F(node.Height)"
-                                  rx="2" fill="var(--neutral-foreground-hint)" opacity="0.6"/>
+                                  rx="2" fill="var(--colorNeutralForeground3)" opacity="0.6"/>
                         }
                         else
                         {
@@ -74,7 +74,7 @@
 
     @if (!DiagramMode)
     {
-        <RelayMenu Anchor="@($"folder-{Folder.Id}")" Trigger="MouseButton.Right"
+        <RelayMenu Anchor="@($"folder-{Folder.Id}")" ContextMenu="true"
                     OpenChanged="HandleContextMenu">
             <span style="font-size: 0.75rem; padding: 0 1rem; opacity: 0.5;
                         display: block; max-width: 250px; overflow: hidden;

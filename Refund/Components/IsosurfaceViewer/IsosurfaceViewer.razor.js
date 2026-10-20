@@ -246,7 +246,7 @@ function createUI(state) {
     c.style.display = 'flex';
     c.style.flexDirection = 'column';
     c.style.overflow = 'hidden';
-    c.style.background = 'var(--neutral-fill-layer-rest)';
+    c.style.background = 'var(--colorNeutralBackground1)';
     c.style.userSelect = 'none';
 
     const toolbar = createToolbar(state);
@@ -254,7 +254,7 @@ function createUI(state) {
 
     // Canvas container — theme-aware background shows through transparent WebGL
     const canvasContainer = document.createElement('div');
-    canvasContainer.style.cssText = 'flex:1; position:relative; overflow:hidden; background:var(--neutral-fill-layer-rest);';
+    canvasContainer.style.cssText = 'flex:1; position:relative; overflow:hidden; background:var(--colorNeutralBackground1);';
     c.appendChild(canvasContainer);
 
     const canvas = document.createElement('canvas');
@@ -265,10 +265,10 @@ function createUI(state) {
     const tooltip = document.createElement('div');
     tooltip.style.cssText = `
         position: absolute; pointer-events: none; display: none;
-        background: var(--neutral-layer-1); border: 1px solid var(--neutral-stroke-rest);
+        background: var(--colorNeutralBackground1); border: 1px solid var(--colorNeutralStroke1);
         border-radius: 4px; padding: 4px 8px; font-size: 11px; font-family: monospace;
-        color: var(--neutral-foreground-rest); white-space: nowrap; z-index: 10;
-        box-shadow: var(--shadow-4); line-height: 1.4;
+        color: var(--colorNeutralForeground1); white-space: nowrap; z-index: 10;
+        box-shadow: var(--shadow4); line-height: 1.4;
     `;
     canvasContainer.appendChild(tooltip);
     state._tooltip = tooltip;
@@ -287,9 +287,9 @@ function createToolbar(state, miniOverride) {
     const toolbar = document.createElement('div');
     toolbar.style.cssText = mini
         ? `display: flex; align-items: center; gap: 4px; padding: 3px 6px;
-           background: var(--neutral-layer-1); box-shadow: var(--shadow-4); flex-shrink: 0;`
+           background: var(--colorNeutralBackground1); box-shadow: var(--shadow4); flex-shrink: 0;`
         : `display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 16px; padding: 6px 12px;
-           background: var(--neutral-layer-1); box-shadow: var(--shadow-4); flex-shrink: 0;`;
+           background: var(--colorNeutralBackground1); box-shadow: var(--shadow4); flex-shrink: 0;`;
 
     // Stop clicks/mousedowns on toolbar from propagating to parent components
     toolbar.addEventListener('click', (e) => e.stopPropagation());
@@ -302,8 +302,8 @@ function createToolbar(state, miniOverride) {
     slider.max = '100';
     slider.value = '30';
     slider.style.cssText = mini
-        ? 'flex:1; min-width:24px; height:4px; cursor:pointer; accent-color:var(--accent-fill-rest);'
-        : 'width:60px; height:4px; cursor:pointer; accent-color:var(--accent-fill-rest);';
+        ? 'flex:1; min-width:24px; height:4px; cursor:pointer; accent-color:var(--colorBrandBackground);'
+        : 'width:60px; height:4px; cursor:pointer; accent-color:var(--colorBrandBackground);';
 
     // ── Threshold number input (full mode only) ──
     let threshInput = null;
@@ -312,7 +312,7 @@ function createToolbar(state, miniOverride) {
         threshInput.type = 'number';
         threshInput.step = '0.001';
         threshInput.value = '0';
-        threshInput.style.cssText = 'width:72px; height:24px; font-size:11px; font-family:monospace; border:1px solid var(--neutral-stroke-rest); border-radius:4px; padding:0 4px; text-align:right; background:var(--neutral-layer-1); color:var(--neutral-foreground-rest);';
+        threshInput.style.cssText = 'width:72px; height:24px; font-size:11px; font-family:monospace; border:1px solid var(--colorNeutralStroke1); border-radius:4px; padding:0 4px; text-align:right; background:var(--colorNeutralBackground1); color:var(--colorNeutralForeground1);';
     }
 
     // Slider drag → update display only
@@ -390,9 +390,9 @@ function createToolbar(state, miniOverride) {
     fullscreenBtn.title = 'Toggle fullscreen';
     fullscreenBtn.style.cssText = `
         width: 24px; height: 24px; font-size: 14px; line-height: 1;
-        border: 1px solid var(--neutral-stroke-rest);
-        border-radius: 4px; cursor: pointer; background: var(--neutral-layer-1);
-        color: var(--neutral-foreground-rest); display: flex; align-items: center; justify-content: center;
+        border: 1px solid var(--colorNeutralStroke1);
+        border-radius: 4px; cursor: pointer; background: var(--colorNeutralBackground1);
+        color: var(--colorNeutralForeground1); display: flex; align-items: center; justify-content: center;
         padding: 0;
     `;
     fullscreenBtn.addEventListener('click', () => toggleFullscreen(state));
@@ -424,7 +424,7 @@ function createToolbar(state, miniOverride) {
         let eulerDisplay = null;
         if (state.options.showEulerAngles) {
             eulerDisplay = document.createElement('span');
-            eulerDisplay.style.cssText = 'font-size:10px; font-family:monospace; color:var(--neutral-foreground-hint); white-space:nowrap;';
+            eulerDisplay.style.cssText = 'font-size:10px; font-family:monospace; color:var(--colorNeutralForeground3); white-space:nowrap;';
             eulerDisplay.textContent = '0.0, 0.0, 0.0';
         }
 
@@ -433,9 +433,9 @@ function createToolbar(state, miniOverride) {
         resetBtn.title = 'Reset camera';
         resetBtn.style.cssText = `
             width: 24px; height: 24px; font-size: 14px; line-height: 1;
-            border: 1px solid var(--neutral-stroke-rest);
-            border-radius: 4px; cursor: pointer; background: var(--neutral-layer-1);
-            color: var(--neutral-foreground-rest); display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--colorNeutralStroke1);
+            border-radius: 4px; cursor: pointer; background: var(--colorNeutralBackground1);
+            color: var(--colorNeutralForeground1); display: flex; align-items: center; justify-content: center;
             padding: 0;
         `;
         resetBtn.addEventListener('click', () => {
@@ -463,13 +463,13 @@ function createLockToggle(initialActive, onToggle) {
     function applyStyle() {
         btn.innerHTML = active ? '&#x1F512;' : '&#x1F513;';
         if (active) {
-            btn.style.background = 'var(--accent-fill-rest)';
-            btn.style.color = 'var(--foreground-on-accent-rest)';
-            btn.style.borderColor = 'var(--accent-fill-rest)';
+            btn.style.background = 'var(--colorBrandBackground)';
+            btn.style.color = 'var(--colorNeutralForegroundOnBrand)';
+            btn.style.borderColor = 'var(--colorBrandBackground)';
         } else {
-            btn.style.background = 'var(--neutral-layer-1)';
-            btn.style.color = 'var(--neutral-foreground-rest)';
-            btn.style.borderColor = 'var(--neutral-stroke-rest)';
+            btn.style.background = 'var(--colorNeutralBackground1)';
+            btn.style.color = 'var(--colorNeutralForeground1)';
+            btn.style.borderColor = 'var(--colorNeutralStroke1)';
         }
     }
 
@@ -500,14 +500,14 @@ function createToolbarGroup(label) {
     group.style.cssText = 'display:flex; flex-direction:column;';
     const header = document.createElement('span');
     header.textContent = label;
-    header.style.cssText = 'font-size:10px; color:var(--neutral-foreground-hint); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px;';
+    header.style.cssText = 'font-size:10px; color:var(--colorNeutralForeground3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px;';
     group.appendChild(header);
     return group;
 }
 
 function createSeparator() {
     const sep = document.createElement('div');
-    sep.style.cssText = 'width:1px; height:36px; background:var(--neutral-stroke-rest); align-self:center;';
+    sep.style.cssText = 'width:1px; height:36px; background:var(--colorNeutralStroke1); align-self:center;';
     return sep;
 }
 
@@ -516,16 +516,16 @@ function createLoadingOverlay() {
     root.style.cssText = `
         position:absolute; top:0; left:0; width:100%; height:100%;
         display:flex; flex-direction:column; align-items:center; justify-content:center;
-        background:rgb(from var(--neutral-fill-layer-rest) r g b / 85%); z-index:100; pointer-events:none;
+        background:rgb(from var(--colorNeutralBackground1) r g b / 85%); z-index:100; pointer-events:none;
         transition: opacity 0.3s;
     `;
     const text = document.createElement('div');
-    text.style.cssText = 'font-size:13px; color:var(--neutral-foreground-hint); margin-bottom:8px;';
+    text.style.cssText = 'font-size:13px; color:var(--colorNeutralForeground3); margin-bottom:8px;';
     text.textContent = 'Loading...';
     const barOuter = document.createElement('div');
-    barOuter.style.cssText = 'width:200px; height:4px; background:var(--neutral-stroke-rest); border-radius:2px; overflow:hidden;';
+    barOuter.style.cssText = 'width:200px; height:4px; background:var(--colorNeutralStroke1); border-radius:2px; overflow:hidden;';
     const barInner = document.createElement('div');
-    barInner.style.cssText = 'width:0%; height:100%; background:var(--accent-fill-rest); transition:width 0.15s;';
+    barInner.style.cssText = 'width:0%; height:100%; background:var(--colorBrandBackground); transition:width 0.15s;';
     barOuter.appendChild(barInner);
     root.append(text, barOuter);
     root.style.display = 'none';
@@ -1015,8 +1015,8 @@ function setupMouseHandlers(state) {
             const vz = buf[2] / state.pixelSize.z + state.dims.z * 0.5;
 
             tooltip.innerHTML =
-                `<span style="color:var(--neutral-foreground-hint)">\u00C5</span> ${posA[0].toFixed(1)}, ${posA[1].toFixed(1)}, ${posA[2].toFixed(1)}<br>` +
-                `<span style="color:var(--neutral-foreground-hint)">voxel</span> ${Math.round(vx)}, ${Math.round(vy)}, ${Math.round(vz)}`;
+                `<span style="color:var(--colorNeutralForeground3)">\u00C5</span> ${posA[0].toFixed(1)}, ${posA[1].toFixed(1)}, ${posA[2].toFixed(1)}<br>` +
+                `<span style="color:var(--colorNeutralForeground3)">voxel</span> ${Math.round(vx)}, ${Math.round(vy)}, ${Math.round(vz)}`;
             tooltip.style.display = 'block';
 
             // Position tooltip, flip if near right/bottom edge
@@ -1176,9 +1176,9 @@ function setupFullscreenListener(state) {
         // Update fullscreen button style (after potential toolbar rebuild)
         const btn = state.toolbar.fullscreenBtn;
         if (btn) {
-            btn.style.background = isFs ? 'var(--accent-fill-rest)' : 'var(--neutral-layer-1)';
-            btn.style.color = isFs ? 'var(--foreground-on-accent-rest)' : 'var(--neutral-foreground-rest)';
-            btn.style.borderColor = isFs ? 'var(--accent-fill-rest)' : 'var(--neutral-stroke-rest)';
+            btn.style.background = isFs ? 'var(--colorBrandBackground)' : 'var(--colorNeutralBackground1)';
+            btn.style.color = isFs ? 'var(--colorNeutralForegroundOnBrand)' : 'var(--colorNeutralForeground1)';
+            btn.style.borderColor = isFs ? 'var(--colorBrandBackground)' : 'var(--colorNeutralStroke1)';
         }
     };
     document.addEventListener('fullscreenchange', state._onFullscreenChange);

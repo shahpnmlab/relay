@@ -18,7 +18,7 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
     private JobEditorService JobEditor { get; set; }
 
     [Inject]
-    private IToastService ToastService { get; set; }
+    private INotificationService ToastService { get; set; }
 
     [Inject]
     private JobSortingService SortingService { get; set; }
@@ -456,7 +456,7 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't redo layout: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't redo layout: " + exc.Message);
         }
     }
 
@@ -475,7 +475,7 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't create factory instance: " + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't create factory instance: " + exc.Message);
         }
     }
 
@@ -563,11 +563,11 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
             var newJob = await DataManager.CreateJob(Session.User, Session.View, template.TypeGuid, template, Session.Folder);
             await JobEditor.SetJob(newJob);
 
-            ToastService.ShowSuccess($"{newJob.QualifiedName} created!");
+            _ = ToastService.ShowSuccessToastAsync($"{newJob.QualifiedName} created!");
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't create job:\n" + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't create job:\n" + exc.Message);
         }
     }
 
@@ -593,11 +593,11 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
 
             await JobEditor.SetJob(newJob);
 
-            ToastService.ShowSuccess($"{newJob.QualifiedName} created!");
+            _ = ToastService.ShowSuccessToastAsync($"{newJob.QualifiedName} created!");
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't create job:\n" + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't create job:\n" + exc.Message);
         }
     }
 
@@ -617,7 +617,7 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't connect job:\n" + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't connect job:\n" + exc.Message);
         }
     }
 
@@ -629,7 +629,7 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
         }
         catch (Exception exc)
         {
-            ToastService.ShowError("Couldn't create folder:\n" + exc.Message);
+            _ = ToastService.ShowErrorToastAsync("Couldn't create folder:\n" + exc.Message);
         }
     }
 
@@ -668,7 +668,7 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
         }
         catch (Exception exc)
         {
-            ToastService.ShowError($"Couldn't move item: {exc.Message}");
+            _ = ToastService.ShowErrorToastAsync($"Couldn't move item: {exc.Message}");
         }
     }
 

@@ -1,0 +1,11 @@
+@using Microsoft.FluentUI.AspNetCore.Components
+
+<FluentDialogBody>
+    <div>Migration dialog content</div>
+    <FluentButton OnClick="@(() => Dialog.CloseAsync("Accepted"))">Accept</FluentButton>
+    <FluentButton OnClick="@(() => Dialog.CancelAsync())">Cancel</FluentButton>
+</FluentDialogBody>
+
+@code {
+    [CascadingParameter] public IDialogInstance Dialog { get; set; } = default!;
+}

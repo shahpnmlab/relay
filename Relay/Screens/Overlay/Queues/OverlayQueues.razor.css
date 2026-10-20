@@ -13,8 +13,8 @@
     height: 20px;
     background: linear-gradient(
             to bottom,
-            rgb(from var(--neutral-fill-layer-rest) r g b / 0%) 0%,
-            rgb(from var(--neutral-fill-layer-rest) r g b / 100%) 100%
+            rgb(from var(--colorNeutralBackground1) r g b / 0%) 0%,
+            rgb(from var(--colorNeutralBackground1) r g b / 100%) 100%
     );
     position: absolute;
     bottom: 0px;
@@ -25,8 +25,8 @@
     height: 100%;
     background: linear-gradient(
             to right,
-            rgb(from var(--neutral-fill-layer-rest) r g b / 0%) 0%,
-            rgb(from var(--neutral-fill-layer-rest) r g b / 100%) 100%
+            rgb(from var(--colorNeutralBackground1) r g b / 0%) 0%,
+            rgb(from var(--colorNeutralBackground1) r g b / 100%) 100%
     );
     position: absolute;
     top: 28px;
@@ -39,8 +39,8 @@
     height: 24px;
     background: linear-gradient(
             to right,
-            rgb(from var(--neutral-fill-layer-rest) r g b / 0%) 0%,
-            rgb(from var(--neutral-fill-layer-rest) r g b / 100%) 50%
+            rgb(from var(--colorNeutralBackground1) r g b / 0%) 0%,
+            rgb(from var(--colorNeutralBackground1) r g b / 100%) 50%
     );
     position: absolute;
     top: 4px;

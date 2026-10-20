@@ -4,8 +4,8 @@ const instances = new Map();
 
 function createSpinner() {
     const el = document.createElement('div');
-    el.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--neutral-layer-1,#1e1e1e);';
-    el.innerHTML = '<div style="width:24px;height:24px;border:3px solid transparent;border-top-color:var(--accent-fill-rest,#60cdff);border-radius:50%;animation:slice-spin 0.8s linear infinite;"></div>';
+    el.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--colorNeutralBackground1,#1e1e1e);';
+    el.innerHTML = '<div style="width:24px;height:24px;border:3px solid transparent;border-top-color:var(--colorBrandBackground,#60cdff);border-radius:50%;animation:slice-spin 0.8s linear infinite;"></div>';
     if (!document.getElementById('slice-preview-keyframes')) {
         const style = document.createElement('style');
         style.id = 'slice-preview-keyframes';

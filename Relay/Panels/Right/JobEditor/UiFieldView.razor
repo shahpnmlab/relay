@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Refund.DataModel
 @using Refund.UIFields
-@using Typography = Microsoft.FluentUI.AspNetCore.Components.Typography
+
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
 
@@ -16,7 +16,7 @@
         {
             <div style="font-weight: 500;
                 @(!Equals(GetValue, GetDefaultValue) ?
-                      "color: var(--accent-fill-rest);" :
+                      "color: var(--colorBrandForeground1);" :
                       "")">
                 @(!string.IsNullOrWhiteSpace(CustomLabel) ? CustomLabel : _uiField.FullLabel)
             </div>
@@ -31,9 +31,9 @@
     <div style="margin-right: -6px; justify-self: end;">
         @if (!IsDisabled && !Equals(GetValue, GetDefaultValue))
         {
-            <FluentButton BackgroundColor="transparent" Color="transparent"
+            <FluentButton IconOnly="true" Appearance="ButtonAppearance.Transparent"
                           Title="Reset to default"
-                          Style="height: 16px;"
+                          Style="height: 16px; min-height: 16px; min-width: 16px; width: 16px; padding: 0;"
                           OnClick="@(async (_) => await HandleValueChanged(GetDefaultValue))">
                 <FluentIcon Value="@(new Icons.Filled.Size16.Backspace())" />
             </FluentButton>
@@ -69,10 +69,8 @@
     @if (!string.IsNullOrWhiteSpace(_uiField.HelpText))
     {
         <FluentTooltip Anchor="@UniqueId.ToString()"
-                       AutoUpdateMode="AutoUpdateMode.Auto"
-                       UseTooltipService="true"
                        MaxWidth="300px"
-                       Position="TooltipPosition.Start">
+                       Positioning="Positioning.AboveStart">
             @_uiField.HelpText
         </FluentTooltip>
     }

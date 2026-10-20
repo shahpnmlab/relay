@@ -29,7 +29,7 @@ public partial class MenuActionService
                     ? (instances.Count() > 1 ? $"Run {instances.Count()} instances" : "Run instance")
                     : (instances.Count() > 1 ? $"Run remaining in {instances.Count()} instances" : "Run remaining"),
                 NeedsConfirmation = false,
-                Appearance = Appearance.Accent,
+                Appearance = ButtonAppearance.Primary,
                 TextColor = null,
                 BorderColor = null,
                 IconSmall = new Icons.Regular.Size16.Play(),
@@ -48,7 +48,7 @@ public partial class MenuActionService
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't run {instance.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't run {instance.QualifiedName}: {exc.Message}");
                         }
                     });
             };
@@ -107,11 +107,11 @@ public partial class MenuActionService
                             try
                             {
                                 await _dataManager.AbortFactoryInstance(_session.User, instance);
-                                _toastService.ShowSuccess($"{instance.QualifiedName} aborted");
+                                _ = _toastService.ShowSuccessToastAsync($"{instance.QualifiedName} aborted");
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't abort {instance.QualifiedName}: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't abort {instance.QualifiedName}: {exc.Message}");
                             }
                         });
                 };
@@ -161,7 +161,7 @@ public partial class MenuActionService
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't set color on {instance.QualifiedName}: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't set color on {instance.QualifiedName}: {exc.Message}");
                             }
                         }
                     }
@@ -181,7 +181,7 @@ public partial class MenuActionService
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't remove color from {instance.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't remove color from {instance.QualifiedName}: {exc.Message}");
                         }
                     }
                 }
@@ -217,11 +217,11 @@ public partial class MenuActionService
                         try
                         {
                             await _dataManager.CloneFactoryInstance(_session.User, _session.View, instance);
-                            _toastService.ShowSuccess($"{instance.QualifiedName} cloned");
+                            _ = _toastService.ShowSuccessToastAsync($"{instance.QualifiedName} cloned");
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't clone {instance.QualifiedName}: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't clone {instance.QualifiedName}: {exc.Message}");
                         }
                     });
                 };
@@ -267,11 +267,11 @@ public partial class MenuActionService
                                 await _dataManager.AddFactoryInstanceToView(_session.User, view, instance);
                                 if (targetFolder != null)
                                     await _dataManager.MoveFactoryInstanceToFolder(_session.User, view, instance, targetFolder);
-                                _toastService.ShowSuccess($"{instance.QualifiedName} added to {view.QualifiedName}");
+                                _ = _toastService.ShowSuccessToastAsync($"{instance.QualifiedName} added to {view.QualifiedName}");
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't add {instance.QualifiedName} to {view.QualifiedName}: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't add {instance.QualifiedName} to {view.QualifiedName}: {exc.Message}");
                             }
                     };
 
@@ -316,7 +316,7 @@ public partial class MenuActionService
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't move {instance.QualifiedName}: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't move {instance.QualifiedName}: {exc.Message}");
                             }
                     };
 
@@ -364,11 +364,11 @@ public partial class MenuActionService
                                     if (targetFolder != null)
                                         await _dataManager.MoveFactoryInstanceToFolder(_session.User, view, instance, targetFolder);
                                     await _dataManager.RemoveFactoryInstanceFromView(_session.User, currentView, instance);
-                                    _toastService.ShowSuccess($"{instance.QualifiedName} moved to {view.QualifiedName}");
+                                    _ = _toastService.ShowSuccessToastAsync($"{instance.QualifiedName} moved to {view.QualifiedName}");
                                 }
                                 catch (Exception exc)
                                 {
-                                    _toastService.ShowError($"Couldn't move {instance.QualifiedName} to {view.QualifiedName}: {exc.Message}");
+                                    _ = _toastService.ShowErrorToastAsync($"Couldn't move {instance.QualifiedName} to {view.QualifiedName}: {exc.Message}");
                                 }
                         });
                     };
@@ -415,11 +415,11 @@ public partial class MenuActionService
                             try
                             {
                                 await _dataManager.ClearFailedFactoryInstance(_session.User, instance);
-                                _toastService.ShowSuccess($"{instance.QualifiedName} cleared (failed)");
+                                _ = _toastService.ShowSuccessToastAsync($"{instance.QualifiedName} cleared (failed)");
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't clear failed in {instance.QualifiedName}: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't clear failed in {instance.QualifiedName}: {exc.Message}");
                             }
                         });
                 };
@@ -464,11 +464,11 @@ public partial class MenuActionService
                                 try
                                 {
                                     await _dataManager.ClearFactoryInstance(_session.User, instance);
-                                    _toastService.ShowSuccess($"{instance.QualifiedName} cleared");
+                                    _ = _toastService.ShowSuccessToastAsync($"{instance.QualifiedName} cleared");
                                 }
                                 catch (Exception exc)
                                 {
-                                    _toastService.ShowError($"Couldn't clear {instance.QualifiedName}: {exc.Message}");
+                                    _ = _toastService.ShowErrorToastAsync($"Couldn't clear {instance.QualifiedName}: {exc.Message}");
                                 }
                             });
                     };
@@ -504,7 +504,7 @@ public partial class MenuActionService
                         try
                         {
                             var folderId = await _dataManager.ConvertFactoryInstanceToFolder(_session.User, _session.View, instance);
-                            _toastService.ShowSuccess($"{instance.QualifiedName} converted to folder");
+                            _ = _toastService.ShowSuccessToastAsync($"{instance.QualifiedName} converted to folder");
 
                             await _session.NavigateToAsync(new NavigationRequest
                             {
@@ -516,7 +516,7 @@ public partial class MenuActionService
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't convert {instance.QualifiedName} to folder: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't convert {instance.QualifiedName} to folder: {exc.Message}");
                         }
                     });
                 };
@@ -563,12 +563,12 @@ public partial class MenuActionService
                                     await _factoryEditor.SetInstance(null);
 
                                 await _dataManager.DeleteFactoryInstance(_session.User, instance.Space, instance);
-                                _toastService.ShowSuccess($"{instance.QualifiedName} deleted");
+                                _ = _toastService.ShowSuccessToastAsync($"{instance.QualifiedName} deleted");
                             }
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Error occurred while deleting factory instances: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Error occurred while deleting factory instances: {exc.Message}");
                         }
 
                         await _selectionService.Clear();
@@ -625,11 +625,11 @@ public partial class MenuActionService
                     try
                     {
                         await _dataManager.CloneFactoryDefinition(_session.User, _session.Space, first);
-                        _toastService.ShowSuccess($"{first.QualifiedName} cloned");
+                        _ = _toastService.ShowSuccessToastAsync($"{first.QualifiedName} cloned");
                     }
                     catch (Exception exc)
                     {
-                        _toastService.ShowError($"Couldn't clone {first.QualifiedName}: {exc.Message}");
+                        _ = _toastService.ShowErrorToastAsync($"Couldn't clone {first.QualifiedName}: {exc.Message}");
                     }
                 });
             };
@@ -674,13 +674,13 @@ public partial class MenuActionService
                             foreach (var def in defList)
                                 await _dataManager.DeleteFactoryDefinition(_session.User, _session.Space, def);
 
-                            _toastService.ShowSuccess(isSingle
+                            _ = _toastService.ShowSuccessToastAsync(isSingle
                                 ? $"{first.QualifiedName} deleted"
                                 : $"{defList.Count} definitions deleted");
                         }
                         catch (Exception exc)
                         {
-                            _toastService.ShowError($"Couldn't delete: {exc.Message}");
+                            _ = _toastService.ShowErrorToastAsync($"Couldn't delete: {exc.Message}");
                         }
 
                         await _selectionService.Clear();
@@ -745,11 +745,11 @@ public partial class MenuActionService
                             try
                             {
                                 await _dataManager.AbortJob(_session.User, job);
-                                _toastService.ShowSuccess($"{job.QualifiedName} aborted");
+                                _ = _toastService.ShowSuccessToastAsync($"{job.QualifiedName} aborted");
                             }
                             catch (Exception exc)
                             {
-                                _toastService.ShowError($"Couldn't abort {job.QualifiedName}: {exc.Message}");
+                                _ = _toastService.ShowErrorToastAsync($"Couldn't abort {job.QualifiedName}: {exc.Message}");
                             }
                     };
                 }

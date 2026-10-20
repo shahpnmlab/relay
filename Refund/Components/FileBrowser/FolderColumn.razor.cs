@@ -97,22 +97,22 @@ public partial class FolderColumn : ComponentBase
     /// <summary>
     /// Icon for unselected folders.
     /// </summary>
-    private static readonly Icon IconFolder = new Icons.Filled.Size16.Folder().WithColor(Color.Accent);
+    private static readonly Icon IconFolder = new Icons.Filled.Size16.Folder().WithColor(Color.Primary);
     
     /// <summary>
     /// Icon for unselected files.
     /// </summary>
-    private static readonly Icon IconFile = new Icons.Regular.Size16.Document().WithColor(Color.Accent);
+    private static readonly Icon IconFile = new Icons.Regular.Size16.Document().WithColor(Color.Primary);
     
     /// <summary>
     /// Icon for selected folders.
     /// </summary>
-    private static readonly Icon IconFolderSelected = new Icons.Filled.Size16.Folder().WithColor(Color.Fill);
+    private static readonly Icon IconFolderSelected = new Icons.Filled.Size16.Folder().WithColor("var(--colorNeutralForegroundOnBrand)");
     
     /// <summary>
     /// Icon for selected files.
     /// </summary>
-    private static readonly Icon IconFileSelected = new Icons.Filled.Size16.Document().WithColor(Color.Fill);
+    private static readonly Icon IconFileSelected = new Icons.Filled.Size16.Document().WithColor("var(--colorNeutralForegroundOnBrand)");
 
     /// <summary>
     /// List of folders in the current directory.

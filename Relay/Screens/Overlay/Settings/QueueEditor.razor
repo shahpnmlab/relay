@@ -38,13 +38,12 @@
                      @onclick="() => SelectQueue(queue)">
                     <span class="queue-name">@queue.Alias</span>
                     <ConfirmButton Id="@("delete-queue-" + queue.Id)" Class="delete-button"
-                                   Position="ConfirmationPosition.Right"
-                                   BackgroundColor="transparent"
+                                   Appearance="ButtonAppearance.Transparent"
                                    IconEnd="@(isSelected ? 
-                                                  new Icons.Regular.Size20.Delete().WithColor("var(--foreground-on-accent-rest)") : 
+                                                  new Icons.Regular.Size20.Delete().WithColor("var(--colorNeutralForegroundOnBrand)") :
                                                   new Icons.Regular.Size20.Delete())"
                                    Disabled="@(!queue.IsEmpty)"
-                                   Style="@(isSelected ? "color: var(--foreground-on-accent-rest);" : "")"
+                                   Style="@(isSelected ? "color: var(--colorNeutralForegroundOnBrand);" : "")"
                                    OnClick="@(() => DeleteQueue(queue))"/>
                     
                     @if (!queue.IsEmpty)
@@ -71,14 +70,7 @@
                     {
                         var variable = _variable;
 
-                        <FluentBadge Style="font-family: monospace; font-size: 10px;"
-                                     Appearance="Appearance.Neutral"
-                                     Circular="true"
-                                     OnClick="() => InsertSubmissionScriptVariable(variable)">
-                            <span class="@(ScriptContains(variable) ? "inuse" : "")">
-                                {{ @variable }}
-                            </span>
-                        </FluentBadge>
+                        <InsertionChip Highlighted="@ScriptContains(variable)" OnClick="() => InsertSubmissionScriptVariable(variable)">{{ @variable }}</InsertionChip>
                     }
                 </div>
 
@@ -89,14 +81,7 @@
                     {
                         var module = _module;
 
-                        <FluentBadge Style="font-family: monospace; font-size: 10px;"
-                                     Appearance="Appearance.Neutral"
-                                     Circular="true"
-                                     OnClick="() => InsertSubmissionScriptModule(module)">
-                            <span class="@(ScriptContains(module) ? "inuse" : "")">
-                                {{ @module }} {{ /@module }}
-                            </span>
-                        </FluentBadge>
+                        <InsertionChip Highlighted="@ScriptContains(module)" OnClick="() => InsertSubmissionScriptModule(module)">{{ @module }} {{ /@module }}</InsertionChip>
                     }
                 </div>
                 
@@ -110,17 +95,17 @@
             <div class="settings-area">
                 <FluentTabs Style="margin-top: -8px;">
                     
-                    <FluentTab Label="Settings">
+                    <FluentTab Header="Settings">
                         <div class="settings-form">
                             <div class="settings-field">
                                 <span>Queue name</span>
-                                <FluentTextField Value="@_selectedQueue.Alias"
+                                <FluentTextInput Value="@_selectedQueue.Alias"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.Alias)))"/>
                             </div>
 
                             <div class="settings-field">
                                 <span>Queue type</span>
-                                <FluentSelect Items="@QueueTypes"
+                                <FluentSelect TOption="JobQueueType" TValue="string" OptionValue="@(i => i.ToString())" Items="@QueueTypes"
                                               Value="@_selectedQueue.QueueType.ToString()"
                                               ValueChanged="@(value => HandleFieldChanged(Enum.Parse<JobQueueType>(value), nameof(ClusterQueue.QueueType)))"/>
                             </div>
@@ -135,7 +120,7 @@
                                     own parsing patterns in the Advanced settings tab.
                                 </div>
 
-                                <FluentSelect Items="@Schedulers"
+                                <FluentSelect TOption="ClusterScheduler" TValue="string" OptionValue="@(i => i.ToString())" Items="@Schedulers"
                                               Value="@_selectedQueue.SchedulerType.ToString()"
                                               ValueChanged="@(value => HandleFieldChanged(Enum.Parse<ClusterScheduler>(value), nameof(ClusterQueue.SchedulerType)))"/>
                             </div>
@@ -152,16 +137,11 @@
                                     {
                                         var variable = _variable;
 
-                                        <FluentBadge Style="font-family: monospace; font-size: 10px;"
-                                                     Appearance="Appearance.Neutral"
-                                                     Circular="true"
-                                                     OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.SendCommmandTemplate))">
-                                            {{ @variable }}
-                                        </FluentBadge>
+                                        <InsertionChip OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.SendCommmandTemplate))">{{ @variable }}</InsertionChip>
                                     }
                                 </div>
                                 
-                                <FluentTextField Value="@_selectedQueue.SendCommmandTemplate"
+                                <FluentTextInput Value="@_selectedQueue.SendCommmandTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.SendCommmandTemplate)))" />
                             </div>
 
@@ -175,16 +155,11 @@
                                     {
                                         var variable = _variable;
 
-                                        <FluentBadge Style="font-family: monospace; font-size: 10px;"
-                                                     Appearance="Appearance.Neutral"
-                                                     Circular="true"
-                                                     OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.SubmitJobTemplate))">
-                                            {{ @variable }}
-                                        </FluentBadge>
+                                        <InsertionChip OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.SubmitJobTemplate))">{{ @variable }}</InsertionChip>
                                     }
                                 </div>
                                 
-                                <FluentTextField Value="@_selectedQueue.SubmitJobTemplate"
+                                <FluentTextInput Value="@_selectedQueue.SubmitJobTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.SubmitJobTemplate)))" />
                             </div>
 
@@ -198,16 +173,11 @@
                                     {
                                         var variable = _variable;
 
-                                        <FluentBadge Style="font-family: monospace; font-size: 10px;"
-                                                     Appearance="Appearance.Neutral"
-                                                     Circular="true"
-                                                     OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.StatusJobTemplate))">
-                                            {{ @variable }}
-                                        </FluentBadge>
+                                        <InsertionChip OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.StatusJobTemplate))">{{ @variable }}</InsertionChip>
                                     }
                                 </div>
                                 
-                                <FluentTextField Value="@_selectedQueue.StatusJobTemplate"
+                                <FluentTextInput Value="@_selectedQueue.StatusJobTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.StatusJobTemplate)))" />
                             </div>
 
@@ -222,16 +192,11 @@
                                     {
                                         var variable = _variable;
 
-                                        <FluentBadge Style="font-family: monospace; font-size: 10px;"
-                                                     Appearance="Appearance.Neutral"
-                                                     Circular="true"
-                                                     OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.TerminalStatusJobTemplate))">
-                                            {{ @variable }}
-                                        </FluentBadge>
+                                        <InsertionChip OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.TerminalStatusJobTemplate))">{{ @variable }}</InsertionChip>
                                     }
                                 </div>
 
-                                <FluentTextField Value="@_selectedQueue.TerminalStatusJobTemplate"
+                                <FluentTextInput Value="@_selectedQueue.TerminalStatusJobTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.TerminalStatusJobTemplate)))" />
                             </div>
 
@@ -245,16 +210,11 @@
                                     {
                                         var variable = _variable;
 
-                                        <FluentBadge Style="font-family: monospace; font-size: 10px;"
-                                                     Appearance="Appearance.Neutral"
-                                                     Circular="true"
-                                                     OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.AbortJobTemplate))">
-                                            {{ @variable }}
-                                        </FluentBadge>
+                                        <InsertionChip OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.AbortJobTemplate))">{{ @variable }}</InsertionChip>
                                     }
                                 </div>
                                 
-                                <FluentTextField Value="@_selectedQueue.AbortJobTemplate"
+                                <FluentTextInput Value="@_selectedQueue.AbortJobTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.AbortJobTemplate)))" />
                             </div>
 
@@ -273,7 +233,7 @@
                                     </span>
                                 </div>
 
-                                <FluentTextField Value="@_selectedQueue.ListJobsTemplate"
+                                <FluentTextInput Value="@_selectedQueue.ListJobsTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.ListJobsTemplate)))" />
                             </div>
 
@@ -289,16 +249,11 @@
                                     {
                                         var variable = _variable;
 
-                                        <FluentBadge Style="font-family: monospace; font-size: 10px;"
-                                                     Appearance="Appearance.Neutral"
-                                                     Circular="true"
-                                                     OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.CancelManyJobsTemplate))">
-                                            {{ @variable }}
-                                        </FluentBadge>
+                                        <InsertionChip OnClick="() => InsertSettingVariable(variable, nameof(_selectedQueue.CancelManyJobsTemplate))">{{ @variable }}</InsertionChip>
                                     }
                                 </div>
 
-                                <FluentTextField Value="@_selectedQueue.CancelManyJobsTemplate"
+                                <FluentTextInput Value="@_selectedQueue.CancelManyJobsTemplate"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.CancelManyJobsTemplate)))" />
                             </div>
                             }
@@ -317,21 +272,21 @@
 
                                 <div class="settings-field">
                                     <span>CPU cores</span>
-                                    <FluentNumberField Value="@_selectedQueue.ManagedCores"
+                                    <FluentNumberInput Value="@_selectedQueue.ManagedCores"
                                                        ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.ManagedCores)))"
                                                        TValue="int" Min="1" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Memory (GB)</span>
-                                    <FluentNumberField Value="@_selectedQueue.ManagedMemoryGb"
+                                    <FluentNumberInput Value="@_selectedQueue.ManagedMemoryGb"
                                                        ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.ManagedMemoryGb)))"
                                                        TValue="int" Min="1" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>GPUs</span>
-                                    <FluentNumberField Value="@_selectedQueue.ManagedGpus"
+                                    <FluentNumberInput Value="@_selectedQueue.ManagedGpus"
                                                        ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.ManagedGpus)))"
                                                        TValue="int" Min="0" />
                                 </div>
@@ -339,9 +294,9 @@
                         </div>
                     </FluentTab>
                     
-                    <FluentTab Label="Custom variables">
+                    <FluentTab Header="Custom variables">
                         <div class="custom-variables-header">
-                            <FluentButton Appearance="Appearance.Accent" 
+                            <FluentButton Appearance="ButtonAppearance.Primary"
                                           OnClick="AddCustomVariable">
                                 Add Variable
                             </FluentButton>
@@ -360,15 +315,15 @@
                                 var variable = _variable;
 
                                 <div class="custom-variable-row">
-                                    <FluentTextField Value="@variable.Key"
+                                    <FluentTextInput Value="@variable.Key"
                                                      ValueChanged="@(newValue => HandleCustomVariableKeyChanged(variable.Key, newValue))"/>
-                                    <FluentTextField Value="@variable.Value.description"
+                                    <FluentTextInput Value="@variable.Value.description"
                                                      ValueChanged="@(newValue => HandleCustomVariableDescriptionChanged(variable.Key, newValue))"/>
-                                    <FluentTextField Value="@variable.Value.defaultValue"
+                                    <FluentTextInput Value="@variable.Value.defaultValue"
                                                      ValueChanged="@(newValue => HandleCustomVariableValueChanged(variable.Key, newValue))"/>
 
-                                    <ConfirmButton Position="ConfirmationPosition.Left"
-                                                   BackgroundColor="transparent"
+                                    <ConfirmButton
+                                                   Appearance="ButtonAppearance.Transparent"
                                                    IconEnd="@(new Icons.Regular.Size20.Delete())"
                                                    OnClick="@(() => DeleteCustomVariable(variable.Key))"/>
                                 </div>
@@ -376,17 +331,17 @@
                         </div>
                     </FluentTab>
 
-                    <FluentTab Label="Advanced settings">
+                    <FluentTab Header="Advanced settings">
                         <div class="settings-form">
                             <div class="settings-field">
                                 <span>Custom shell</span>
-                                <FluentTextField Value="@_selectedQueue.CustomShell"
+                                <FluentTextInput Value="@_selectedQueue.CustomShell"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.CustomShell)))" />
                             </div>
 
                             <div class="settings-field">
                                 <span>Custom shell arguments</span>
-                                <FluentTextField Value="@_selectedQueue.CustomShellArguments"
+                                <FluentTextInput Value="@_selectedQueue.CustomShellArguments"
                                                  ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.CustomShellArguments)))" />
                             </div>
 
@@ -400,37 +355,37 @@
                                         <span style="font-family: monospace;">accepted as (\w+)</span>.
                                     </div>
 
-                                    <FluentTextField Value="@_selectedQueue.JobIdParseRegex"
+                                    <FluentTextInput Value="@_selectedQueue.JobIdParseRegex"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobIdParseRegex)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Pending)</span>
-                                    <FluentTextField Value="@_selectedQueue.JobStatusParseTemplatePending"
+                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplatePending"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplatePending)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Running)</span>
-                                    <FluentTextField Value="@_selectedQueue.JobStatusParseTemplateRunning"
+                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplateRunning"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplateRunning)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Failed)</span>
-                                    <FluentTextField Value="@_selectedQueue.JobStatusParseTemplateFailed"
+                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplateFailed"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplateFailed)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Succeeded)</span>
-                                    <FluentTextField Value="@_selectedQueue.JobStatusParseTemplateSucceeded"
+                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplateSucceeded"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplateSucceeded)))" />
                                 </div>
 
                                 <div class="settings-field">
                                     <span>Job status parsing template (Canceled)</span>
-                                    <FluentTextField Value="@_selectedQueue.JobStatusParseTemplateCanceled"
+                                    <FluentTextInput Value="@_selectedQueue.JobStatusParseTemplateCanceled"
                                                      ValueChanged="@(value => HandleFieldChanged(value, nameof(ClusterQueue.JobStatusParseTemplateCanceled)))" />
                                 </div>
                             }

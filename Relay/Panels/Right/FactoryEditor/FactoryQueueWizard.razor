@@ -27,7 +27,7 @@
 
                     @if (compatibleQueues.Any())
                     {
-                        <FluentSelect Items="@compatibleQueues"
+                        <FluentSelect TOption="ReadOnlyJobQueue" TValue="string" Items="@compatibleQueues"
                                       Value="@(_assignments.GetValueOrDefault(jobId)?.ToString() ?? "")"
                                       ValueChanged="@(value => HandleQueueChanged(jobId, value))"
                                       OptionText="@(q => q.Alias)"
@@ -56,7 +56,7 @@
                       OnClick="OnClose">
             Cancel
         </FluentButton>
-        <FluentButton Appearance="Appearance.Accent"
+        <FluentButton Appearance="ButtonAppearance.Primary"
                       Style="width: 100%;"
                       Disabled="@(!CanConfirm)"
                       IconStart="@(new Icons.Filled.Size20.Play())"

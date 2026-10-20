@@ -42,7 +42,7 @@
             height: @(DiagramMode ? DiagramHeight : VisualProvider.GetHeight(Job.CardSquareCount.Y))px;
             position: relative;
             opacity: @(fadeOut ? "0.5" : "1");
-            @(Job.ColorTag != null ? $"background-color: color-mix(in srgb, {Job.ColorTag} 40%, var(--neutral-fill-layer-rest));" : "")"
+            @(Job.ColorTag != null ? $"background-color: color-mix(in srgb, {Job.ColorTag} 40%, var(--colorNeutralBackground1));" : "")"
      @onmouseover="@(OnMouseOver)"
      @onmouseleave="@(OnMouseLeave)"
      @onmouseup="@HandleMouseUp"
@@ -167,8 +167,8 @@
                         <div style="padding: 0.15rem 0.5rem;
                                     border-radius: 14px;
                                     text-align: center;
-                                    background-color: @(isEditing ? "var(--accent-fill-rest)" : "transparent");
-                                    color: @(isEditing ? "var(--neutral-fill-layer-rest)" : "inherit");">
+                                    background-color: @(isEditing ? "var(--colorBrandBackground)" : "transparent");
+                                    color: @(isEditing ? "var(--colorNeutralBackground1)" : "inherit");">
                             <span>@(Job.Status == JobStatus.Building ? "Building" : "Open job to interact")</span>
                         </div>
                     }
@@ -342,7 +342,7 @@
         <div @onclick:stopPropagation="true"
              @ondblclick:stopPropagation="true"
              @onmouseup:stopPropagation="true">
-            <RelayMenu Anchor="@CardDomId" Trigger="MouseButton.Right"
+            <RelayMenu Anchor="@CardDomId" ContextMenu="true"
                         OpenChanged="HandleContextMenu">
                 <span class="menu-context-title" title="@_contextMenuHeader">
                     @_contextMenuHeader
@@ -360,7 +360,7 @@
     @if (_isDragging && _dragCount > 1)
     {
         <div style="position: absolute; top: 4px; right: 4px;
-                    background: var(--accent-fill-rest); color: white;
+                    background: var(--colorBrandBackground); color: white;
                     border-radius: 10px; padding: 2px 8px;
                     font-size: 11px; font-weight: 600; pointer-events: none;">
             +@(_dragCount - 1) more

@@ -185,11 +185,12 @@ public sealed class JobLinePreviewTests
                 services.AddLogging();
                 services.AddFluentUIComponents();
                 services.AddSingleton(harness.Manager);
-                services.AddSingleton(new RelaySession(null!, null!, null!, harness.Manager));
+                services.AddSingleton(new RelaySession(null!, null!, null!, harness.Manager, null!));
                 services.AddSingleton<IJobPreviewRenderer>(harness.Renderer);
                 services.AddSingleton<IJSRuntime, NoJsRuntime>();
                 services.AddSingleton<IComponentActivator>(harness._activator);
                 harness._services = services.BuildServiceProvider();
+                harness._activator.Services = harness._services;
                 harness._htmlRenderer = new HtmlRenderer(harness._services, harness._services.GetRequiredService<ILoggerFactory>());
                 return harness;
             }
@@ -299,12 +300,13 @@ public sealed class JobLinePreviewTests
 
     private sealed class RecordingActivator : IComponentActivator
     {
+        public IServiceProvider Services { get; set; } = null!;
         public LineHost? Host { get; private set; }
         public JobLine? Line { get; private set; }
 
         public IComponent CreateInstance(Type componentType)
         {
-            var component = (IComponent)Activator.CreateInstance(componentType)!;
+            var component = (IComponent)ActivatorUtilities.CreateInstance(Services, componentType);
             if (component is LineHost host) Host = host;
             if (component is JobLine line) Line = line;
             return component;

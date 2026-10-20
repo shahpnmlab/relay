@@ -7,19 +7,19 @@
         <div class="handle-buttons">
             
             <div class="button-wrapper">
-                <FluentCounterBadge Dot="@(Service.HasNewLogs && !_showingLogs)" Color="Color.Accent" BackgroundColor="Color.Accent">
+                <FluentCounterBadge Dot="@(Service.HasNewLogs && !_showingLogs)" Color="BadgeColor.Brand"><AnchorContent>
                     <FluentButton Id="buttonStdout" 
                                   IconStart="@(new Icons.Regular.Size24.DocumentText())"
                                   Appearance="@(_showingLogs ?
-                                                    Appearance.Accent :
+                                                    ButtonAppearance.Primary :
                                                     null)"
                                   BackgroundColor="@(_showingLogs ?
                                                          null :
                                                          "transparent")"
                                   OnClick="@(_ => TogglePanel(LogSection.Output))" />
-                </FluentCounterBadge>
+                </AnchorContent></FluentCounterBadge>
                 <FluentTooltip Anchor="buttonStdout" 
-                               Position="TooltipPosition.Right">
+                               Positioning="Positioning.After">
                     Show output log
                 </FluentTooltip>
             </div>
@@ -27,19 +27,19 @@
             @if (!string.IsNullOrEmpty(Service?.CurrentStaging))
             {
                 <div class="button-wrapper">
-                    <FluentCounterBadge Dot="@(Service.HasNewStaging && !_showingStaging)" Color="Color.Accent" BackgroundColor="Color.Accent">
+                    <FluentCounterBadge Dot="@(Service.HasNewStaging && !_showingStaging)" Color="BadgeColor.Brand"><AnchorContent>
                         <FluentButton Id="buttonStaging"
                                       IconStart="@(new Icons.Regular.Size24.HeartPulse())"
                                       Appearance="@(_showingStaging ?
-                                                        Appearance.Accent :
+                                                        ButtonAppearance.Primary :
                                                         null)"
                                       BackgroundColor="@(_showingStaging ?
                                                              null :
                                                              "transparent")"
                                       OnClick="@(_ => TogglePanel(LogSection.Staging))"/>
-                    </FluentCounterBadge>
+                    </AnchorContent></FluentCounterBadge>
                     <FluentTooltip Anchor="buttonStaging"
-                                   Position="TooltipPosition.Right">
+                                   Positioning="Positioning.After">
                         Show lifecycle log
                     </FluentTooltip>
                 </div>
@@ -48,7 +48,7 @@
             @if (!string.IsNullOrEmpty(Service?.CurrentErrors))
             {
                 <div class="button-wrapper">
-                    <FluentCounterBadge Dot="@(Service.HasNewErrors && !_showingErrors)" Color="Color.Error" BackgroundColor="Color.Error">
+                    <FluentCounterBadge Dot="@(Service.HasNewErrors && !_showingErrors)" Color="BadgeColor.Danger"><AnchorContent>
                         <FluentButton Id="buttonStderr" 
                                       IconStart="@(new Icons.Regular.Size24.Warning().WithColor(_showingErrors ? 
                                                                                                     "white" : 
@@ -57,8 +57,8 @@
                                                              "var(--error)" :
                                                              "transparent")"
                                       OnClick="@(_ => TogglePanel(LogSection.Errors))"/>
-                        </FluentCounterBadge>
-                    <FluentTooltip Anchor="buttonStderr" Position="TooltipPosition.Right">
+                        </AnchorContent></FluentCounterBadge>
+                    <FluentTooltip Anchor="buttonStderr" Positioning="Positioning.After">
                         Show error log
                     </FluentTooltip>
                 </div>
