@@ -2,9 +2,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: white;
+    background: var(--colorNeutralBackground1);
+    color: var(--colorNeutralForeground1);
     height: 32px;
-    border: #efefef 1px solid;
+    border: var(--colorNeutralStroke1) 1px solid;
     border-left: 0px;
     padding-left: 4px;
     padding-right: 4px;

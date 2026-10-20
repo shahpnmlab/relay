@@ -219,3 +219,15 @@ fluent-textarea.borderless::part(root) {
 fluent-button:not([appearance="primary"]):not([disabled]):not([style^="color:"]):not([style*=";color:"]):not([style*="; color:"]) > svg[style*="fill: currentColor"] {
     fill: var(--colorBrandForeground1) !important;
 }
+
+/* V5 wraps sliders in an inline-grid FluentField, which otherwise shrink-wraps
+   to the native slider's minimum width. Preserve explicitly sized field styles. */
+fluent-field:has(> fluent-slider:not([orientation="vertical"])) {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Step controls snapping, not visual tick marks in Relay's v4 baseline. */
+fluent-slider::part(track-container)::after {
+    display: none;
+}

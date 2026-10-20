@@ -234,3 +234,15 @@ integration is intentional. The default-icon selector still depends on Fluent's
 inline fill/style serialization to preserve explicitly colored icons and buttons;
 that vendor coupling is confined to the compatibility stylesheet. A broader icon
 or button abstraction would be more invasive than this migration cleanup.
+
+Horizontal slider fields explicitly fill their container: v5's inline-grid field
+wrapper otherwise shrink-wraps an unsized slider to its native minimum width,
+leaving full-width application labels misaligned. Explicit field widths and
+vertical sliders are preserved. The exported track part suppresses v5's automatic
+per-step tick marks without removing Step or changing snapping/keyboard behavior.
+This shared rule covers both tilt viewers and the M logo parameter slider.
+
+`ViewerToolbar` replaces the removed v4 toolbar surface for micrograph and legacy
+tomogram controls, sharing explicit layout, neutral background, border and text
+colors. Their particle/brush/coordinate fields use theme surfaces rather than
+hard-coded white backgrounds.

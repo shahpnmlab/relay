@@ -20,9 +20,8 @@
                               Max="@(Math.Max(0, _tiltCount - 1))"
                               Step="1"
                               Value="@_currentTiltIndex"
-                              ValueChanged="HandleTiltIndexChanged">
-</FluentSlider>
-<div class="slider-labels">
+                              ValueChanged="HandleTiltIndexChanged" />
+                <div class="slider-labels">
                     <span>
                         @_tiltAngles.First().ToString("F1") °
                     </span>

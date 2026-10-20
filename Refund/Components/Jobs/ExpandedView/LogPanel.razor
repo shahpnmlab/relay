@@ -7,7 +7,7 @@
         <div class="handle-buttons">
             
             <div class="button-wrapper">
-                <FluentCounterBadge Dot="@(Service.HasNewLogs && !_showingLogs)" Color="BadgeColor.Brand"><AnchorContent>
+                <FluentCounterBadge ShowEmpty="false" Dot="@(Service.HasNewLogs && !_showingLogs)" Color="BadgeColor.Brand"><AnchorContent>
                     <FluentButton Id="buttonStdout" 
                                   IconStart="@(new Icons.Regular.Size24.DocumentText())"
                                   Appearance="@(_showingLogs ?
@@ -27,7 +27,7 @@
             @if (!string.IsNullOrEmpty(Service?.CurrentStaging))
             {
                 <div class="button-wrapper">
-                    <FluentCounterBadge Dot="@(Service.HasNewStaging && !_showingStaging)" Color="BadgeColor.Brand"><AnchorContent>
+                    <FluentCounterBadge ShowEmpty="false" Dot="@(Service.HasNewStaging && !_showingStaging)" Color="BadgeColor.Brand"><AnchorContent>
                         <FluentButton Id="buttonStaging"
                                       IconStart="@(new Icons.Regular.Size24.HeartPulse())"
                                       Appearance="@(_showingStaging ?
@@ -48,7 +48,7 @@
             @if (!string.IsNullOrEmpty(Service?.CurrentErrors))
             {
                 <div class="button-wrapper">
-                    <FluentCounterBadge Dot="@(Service.HasNewErrors && !_showingErrors)" Color="BadgeColor.Danger"><AnchorContent>
+                    <FluentCounterBadge ShowEmpty="false" Dot="@(Service.HasNewErrors && !_showingErrors)" Color="BadgeColor.Danger"><AnchorContent>
                         <FluentButton Id="buttonStderr" 
                                       IconStart="@(new Icons.Regular.Size24.Warning().WithColor(_showingErrors ? 
                                                                                                     "white" : 

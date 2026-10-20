@@ -8,24 +8,24 @@
             display: flex; flex-direction: column; overflow: hidden;">
 
     <!-- Controls toolbar -->
-    <FluentStack style="border-radius: 4px; padding: 4px; flex-shrink: 0; height: 52px; background: white; margin-bottom: 10px;">
+    <ViewerToolbar Style="margin-bottom: 10px;">
         <div style="display:flex;flex-direction:column;">
             <span class="menu-header">Coordinates</span>
             <div style="display: flex; gap: 4px; align-items: center;">
-                <div style="display: flex; justify-content: flex-end; align-items: center; background: white;
-                            min-width: 50px; height: 32px; border: #efefef 1px solid; padding: 0 4px; border-radius: 4px;">
+                <div style="display: flex; justify-content: flex-end; align-items: center; background: var(--colorNeutralBackground1);
+                            min-width: 50px; height: 32px; border: var(--colorNeutralStroke1) 1px solid; padding: 0 4px; border-radius: 4px;">
                     <SlimTextField Value="@ViewPoint.X"
                                    OnValueChange="@((v) => OnViewPointXChanged((int)v))"
                                    Min="0" Max="@(volDims.X - 1)" DebounceInterval="50" />
                 </div>
-                <div style="display: flex; justify-content: flex-end; align-items: center; background: white;
-                            min-width: 50px; height: 32px; border: #efefef 1px solid; padding: 0 4px; border-radius: 4px;">
+                <div style="display: flex; justify-content: flex-end; align-items: center; background: var(--colorNeutralBackground1);
+                            min-width: 50px; height: 32px; border: var(--colorNeutralStroke1) 1px solid; padding: 0 4px; border-radius: 4px;">
                     <SlimTextField Value="@ViewPoint.Y"
                                    OnValueChange="@((v) => OnViewPointYChanged((int)v))"
                                    Min="0" Max="@(volDims.Y - 1)" DebounceInterval="50" />
                 </div>
-                <div style="display: flex; justify-content: flex-end; align-items: center; background: white;
-                            min-width: 50px; height: 32px; border: #efefef 1px solid; padding: 0 4px; border-radius: 4px;">
+                <div style="display: flex; justify-content: flex-end; align-items: center; background: var(--colorNeutralBackground1);
+                            min-width: 50px; height: 32px; border: var(--colorNeutralStroke1) 1px solid; padding: 0 4px; border-radius: 4px;">
                     <SlimTextField Value="@ViewPoint.Z"
                                    OnValueChange="@((v) => OnViewPointZChanged((int)v))"
                                    Min="0" Max="@(volDims.Z - 1)" DebounceInterval="50" />
@@ -56,7 +56,7 @@
                                   OnParticleSettingsChanged="OnParticleSettingsChanged" />
             </div>
         }
-    </FluentStack>
+    </ViewerToolbar>
 
     <div style="display: flex; flex-direction: row; position: relative;
             justify-content: center; align-items: flex-end; column-gap: 10px;

@@ -14,6 +14,12 @@ html, body {
     user-select: none;
 }
 
+/* Fluent v5 globally assigns cursor:move to draggable divs. Cards retain
+   their normal hover cursor; HTML drag-and-drop behavior is unchanged. */
+.card-common[draggable="true"] {
+    cursor: default;
+}
+
 .card-common:hover {
     z-index: 1;
 }

@@ -1082,12 +1082,12 @@ function injectSliderStyles(container) {
         }
         .tvjs-slider:focus { outline: none; }
 
-        /* ── base thumb ── */
+        /* A foreground token keeps the thumb visible against either theme. */
         .tvjs-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: ${th}px; height: ${th}px;
             border-radius: 50%;
-            background: var(--colorNeutralBackground5);
+            background: var(--colorNeutralForeground3);
             border: none;
             cursor: pointer;
             transition: background 0.15s;
@@ -1096,7 +1096,7 @@ function injectSliderStyles(container) {
         .tvjs-slider::-moz-range-thumb {
             width: ${th}px; height: ${th}px;
             border-radius: 50%;
-            background: var(--colorNeutralBackground5);
+            background: var(--colorNeutralForeground3);
             border: none;
             cursor: pointer;
         }
