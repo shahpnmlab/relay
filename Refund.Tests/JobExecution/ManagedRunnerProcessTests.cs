@@ -41,7 +41,7 @@ public sealed class ManagedRunnerProcessTests
             Assert.Equal(BackendObservationKind.Failed, observation.Kind);
             Assert.Contains("code 7", observation.Detail);
             Assert.True(File.Exists(marker));
-            Assert.Equal("2,5\n", await File.ReadAllTextAsync(stdout));
+            Assert.Equal("2,5", await File.ReadAllTextAsync(stdout));
         }
         finally
         {

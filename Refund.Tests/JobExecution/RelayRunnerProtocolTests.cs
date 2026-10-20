@@ -7,6 +7,68 @@ namespace Refund.Tests.JobExecution;
 
 public sealed class RelayRunnerProtocolTests
 {
+    [Theory]
+    [InlineData("10%\r20%\r100%\n")]
+    [InlineData("first\r\nsecond\nthird\r\n")]
+    [InlineData("unfinished output")]
+    [InlineData("progress: αβγ\rprogress: 完了\n")]
+    public async Task OutputCapturePreservesProgressUpdatesAndLineEndings(string output)
+    {
+        string directory = CreateDirectory();
+        try
+        {
+            string script = Path.Combine(directory, "payload.sh");
+            string stdout = Path.Combine(directory, "stdout.txt");
+            string stderr = Path.Combine(directory, "stderr.txt");
+            await File.WriteAllTextAsync(script,
+                $"printf '%s' '{output}'\nprintf '%s' '{output}' >&2\n");
+
+            await using var protocol = await RunnerSession.StartAsync(
+                Options(script, directory, stdout, stderr));
+            RunnerProtocol.ParseReadySignal(await protocol.Ready.ReadLineAsync());
+            await protocol.Control.WriteLineAsync(RunnerProtocol.GoSignal);
+
+            Assert.Equal(0, await protocol.Result.WaitAsync(TimeSpan.FromSeconds(5)));
+            Assert.Equal(output, await File.ReadAllTextAsync(stdout));
+            Assert.Equal(output, await File.ReadAllTextAsync(stderr));
+        }
+        finally
+        {
+            Directory.Delete(directory, true);
+        }
+    }
+
+    [Fact]
+    public async Task ProgressWithoutANewlineIsVisibleWhilePayloadIsRunning()
+    {
+        string directory = CreateDirectory();
+        try
+        {
+            string script = Path.Combine(directory, "payload.sh");
+            string stdout = Path.Combine(directory, "stdout.txt");
+            string stderr = Path.Combine(directory, "stderr.txt");
+            string finish = Path.Combine(directory, "finish");
+            await File.WriteAllTextAsync(script,
+                $"printf '10%%\\r20%%'\nprintf 'working' >&2\n" +
+                $"while [ ! -f '{finish}' ]; do sleep 0.01; done\n");
+
+            await using var protocol = await RunnerSession.StartAsync(
+                Options(script, directory, stdout, stderr));
+            RunnerProtocol.ParseReadySignal(await protocol.Ready.ReadLineAsync());
+            await protocol.Control.WriteLineAsync(RunnerProtocol.GoSignal);
+
+            await WaitUntilAsync(() => File.ReadAllText(stdout) == "10%\r20%" &&
+                                       File.ReadAllText(stderr) == "working");
+            Assert.False(protocol.Result.IsCompleted);
+            await File.WriteAllTextAsync(finish, "");
+            Assert.Equal(0, await protocol.Result.WaitAsync(TimeSpan.FromSeconds(5)));
+        }
+        finally
+        {
+            Directory.Delete(directory, true);
+        }
+    }
+
     [Fact]
     public async Task PayloadStartsOnlyAfterGoAndReturnsItsExitCode()
     {

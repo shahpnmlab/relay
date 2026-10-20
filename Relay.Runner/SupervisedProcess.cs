@@ -188,14 +188,19 @@ internal sealed class SupervisedProcess : IDisposable
 
         try
         {
-            while (await reader.ReadLineAsync() is { } line)
+            // Progress bars overwrite the current line with bare carriage returns.
+            // Reading/writing lines would turn those updates into separate log lines
+            // and delay output that has no line terminator yet.
+            var buffer = new char[4096];
+            int count;
+            while ((count = await reader.ReadAsync(buffer.AsMemory())) > 0)
             {
                 if (writer == null)
                     continue;
 
                 try
                 {
-                    await writer.WriteLineAsync(line);
+                    await writer.WriteAsync(buffer.AsMemory(0, count));
                 }
                 catch (Exception exception)
                 {
