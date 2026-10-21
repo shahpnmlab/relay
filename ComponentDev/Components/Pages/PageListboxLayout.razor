@@ -1,0 +1,26 @@
+@page "/listbox-layout"
+@using Refund.Components
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+
+<PageTitle>Listbox layout checks</PageTitle>
+<h1>Listbox layout checks</h1>
+<p>Check both menus at narrow widths. Long labels should truncate inside a row, and short labels should align at the start.</p>
+<div style="display: flex; gap: 32px; align-items: start; flex-wrap: wrap;">
+    <div style="width: 200px;" id="projects">
+        <ListboxButton TValue="string" ButtonLabel="P2: EMPIAR-10491 five-series tutorial"
+                       ListWidth="200" Options="@_projects" HrefSelector="@(value => "#" + value)"
+                       OnOptionSelected="@(value => _selected = value)" />
+    </div>
+    <div style="width: 150px;" id="queues">
+        <ListboxButton TValue="string" ButtonLabel="Run" ListWidth="150" IsFiltered="false"
+                       ButtonAppearance="ButtonAppearance.Primary" ButtonIconStart="@(new Icons.Filled.Size20.Play())"
+                       Options="@_queues" OnOptionSelected="@(value => _selected = value)" />
+    </div>
+</div>
+<output id="selection">@_selected</output>
+
+@code {
+    private string _selected = "";
+    private readonly (string Value, string Text)[] _projects = [("P2", "P2: EMPIAR-10491 five-series tutorial"), ("P1", "P1: Firefox UI check")];
+    private readonly (string Value, string Text)[] _queues = [("Q1", "Q1: Local V100"), ("Q2", "Q2: A queue with a long descriptive label")];
+}

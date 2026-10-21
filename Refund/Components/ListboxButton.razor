@@ -40,9 +40,10 @@
                                Width="100%"
                                ValueChanged="@(v => OnListValueChanged(v))">
                     <OptionTemplate Context="item">
+                        <span slot="checked-indicator" hidden></span>
                         @if (HrefSelector != null)
                         {
-                            <a href="@HrefSelector(item.Value)"
+                            <a class="option-content" href="@HrefSelector(item.Value)"
                                style="text-decoration: none; color: inherit; display: block;"
                                @onclick:preventDefault
                                @onclick:stopPropagation
@@ -59,7 +60,7 @@
                         }
                         else
                         {
-                            <div @onclick="@(() => OnListValueChanged(item.Value))" @onclick:stopPropagation>
+                            <div class="option-content" @onclick="@(() => OnListValueChanged(item.Value))" @onclick:stopPropagation>
                                 @if (OptionTemplate != null)
                                 {
                                     @OptionTemplate(item)

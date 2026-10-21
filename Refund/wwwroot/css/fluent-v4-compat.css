@@ -195,9 +195,26 @@ fluent-textarea.borderless::part(root) {
 }
 
 .filtered-list-container fluent-option {
+    display: grid;
+    width: 100%;
+    min-width: 0;
     min-height: 24px;
-    padding: 2px 0;
+    padding: 2px 8px;
+    grid-template-columns: auto auto minmax(0, 1fr);
+    column-gap: 0;
     text-align: start;
+}
+
+/* V5's content track otherwise uses the label's unbroken intrinsic width.
+   Keep action/navigation labels inside the row so their ellipsis can work. */
+.filtered-list-container fluent-option::part(content) {
+    min-width: 0;
+    overflow: hidden;
+    line-height: var(--lineHeightBase300);
+}
+
+.filtered-list-container fluent-option::part(description) {
+    display: none;
 }
 
 .filtered-list-container .fluent-listbox,

@@ -44,6 +44,12 @@ preserving sibling coordinates, rejected updates, resets, and switching entities
 Numeric arithmetic tests also cover decimal precision, large integers, bounds,
 partial input, scientific notation, and localized number formats.
 
+For a visual check of navigation and action listboxes, open ComponentDev's
+`/listbox-layout` page. It contains a 200px filtered project selector and a 150px
+queue menu. Check start alignment, vertical centering, ellipsis for long labels,
+filtering, and selection. These menus omit the selection-marker slot; ordinary
+Fluent selection inputs retain their checkmarks.
+
 ## Firefox tooltip fallback
 
 Relay and ComponentDev register a Fluent 5.0.1 workaround before Blazor.

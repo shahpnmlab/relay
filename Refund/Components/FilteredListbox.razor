@@ -24,9 +24,11 @@
                        Autofocus="false"
                        Style="border-radius: 0;">
             <OptionTemplate Context="item">
+                @* These rows navigate or invoke an action; they do not display a checked selection. *@
+                <span slot="checked-indicator" hidden></span>
                 @if (HrefSelector != null)
                 {
-                    <a href="@HrefSelector(item.Value)"
+                    <a class="option-content" href="@HrefSelector(item.Value)"
                        style="text-decoration: none; color: inherit; display: block;"
                        @onclick:preventDefault
                        @onclick:stopPropagation
@@ -43,7 +45,7 @@
                 }
                 else
                 {
-                    <div @onclick="@(() => OnValueChanged(item.Value))" @onclick:stopPropagation>
+                    <div class="option-content" @onclick="@(() => OnValueChanged(item.Value))" @onclick:stopPropagation>
                         @if (OptionTemplate != null)
                         {
                             @OptionTemplate(item)

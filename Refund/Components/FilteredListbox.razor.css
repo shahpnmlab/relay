@@ -1,8 +1,12 @@
-.option-span{
+.option-content {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.option-span {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
 }
