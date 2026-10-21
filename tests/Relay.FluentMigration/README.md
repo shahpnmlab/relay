@@ -46,14 +46,15 @@ partial input, scientific notation, and localized number formats.
 
 ## Firefox tooltip fallback
 
-Relay and ComponentDev load a bundled CSS anchor positioning polyfill and a
-Fluent 5.0.1 workaround before Blazor. Browsers with native CSS anchors retain
-Fluent's implementation. Other browsers supply the polyfill hook used by Fluent
-and replace its unbounded `showTooltip` promise recursion with one positioning
-attempt. Failed positioning suppresses that tooltip; hiding or disconnecting
-also cancels a delayed show. The tests cover successful positioning, failure,
-missing anchors, rapid requests, and cancellation. Verify an actual Firefox
-session by repeatedly opening job editors and hovering/focusing field labels.
+Relay and ComponentDev register a Fluent 5.0.1 workaround before Blazor.
+Browsers with native CSS anchors retain Fluent's implementation. Other browsers
+bypass its unbounded `showTooltip` promise recursion and generated CSS, using
+Relay's shared popover placement policy and the actual DOM anchor instead.
+Positioning follows scroll and resize while visible. Failed asset loading
+suppresses the tooltip; hiding or removal cancels delayed shows and cleans up
+observers. Tests cover placement, loading failure, numeric GUID anchors, rapid
+requests, scrolling, and cancellation. Verify an actual Firefox session by
+repeatedly opening job editors and hovering/focusing field labels.
 
 The job views await binding callbacks and retain a whole local draft while a
 commit is pending. Superseded queued assignments are skipped. Field keys follow
