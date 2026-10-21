@@ -232,6 +232,12 @@ fluent-textarea.borderless::part(root) {
     min-inline-size: 0;
 }
 
+/* Firefox includes an inline-grid field's baseline descent in the popup's
+   line box, adding empty space below the rows and shifting their text up. */
+.filtered-list-container fluent-field {
+    display: grid;
+}
+
 /* Restore v4's default accent icons, while preserving explicit icon/button colors. */
 fluent-button:not([appearance="primary"]):not([disabled]):not([style^="color:"]):not([style*=";color:"]):not([style*="; color:"]) > svg[style*="fill: currentColor"] {
     fill: var(--colorBrandForeground1) !important;
