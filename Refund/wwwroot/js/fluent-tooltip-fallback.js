@@ -6,9 +6,15 @@
 
     // The function-only polyfill is bundled locally and loaded before Blazor.
     // Fluent invokes it for each tooltip's generated positioning stylesheet.
-    window.CSS_ANCHOR_POLYFILL = options => window.CssAnchorPositioning.default({
-        ...options, excludeInlineStyles: true
-    });
+    window.CSS_ANCHOR_POLYFILL = options => {
+        // Fluent writes #<anchor-id> selectors without escaping. GUID anchors
+        // frequently begin with a digit, which makes querySelectorAll throw.
+        for (const sheet of options.elements ?? []) {
+            sheet.textContent = sheet.textContent.replace(/#([^\s{}]+)(\s*\{)/g,
+                (_, id, suffix) => `#${CSS.escape(id)}${suffix}`);
+        }
+        return window.CssAnchorPositioning.default({ ...options, excludeInlineStyles: true });
+    };
 
     customElements.whenDefined('fluent-tooltip').then(() => {
         const prototype = customElements.get('fluent-tooltip').prototype;

@@ -30,7 +30,7 @@ async function fixture({ native = false, position } = {}) {
     }
     const originalShow = Tooltip.prototype.showTooltip;
     const context = {
-        CSS: { supports: () => native },
+        CSS: { supports: () => native, escape: id => `escaped-${id}` },
         window: { CssAnchorPositioning: { default: options => options } },
         customElements: { whenDefined: async () => {}, get: () => Tooltip },
         setTimeout: callback => { timers.set(++id, callback); return id; },
@@ -44,6 +44,15 @@ async function fixture({ native = false, position } = {}) {
 }
 
 async function flush() { for (let i = 0; i < 12; i++) await Promise.resolve(); }
+
+test('polyfill receives escaped anchor selectors and only scans its generated stylesheets', async () => {
+    const f = await fixture();
+    const sheet = { textContent: '#4dcf9080-b84c { anchor-name: --a; }\n#tooltip-1 { left: anchor(left); }' };
+    const options = f.context.window.CSS_ANCHOR_POLYFILL({ elements: [sheet] });
+    assert.equal(sheet.textContent, '#escaped-4dcf9080-b84c { anchor-name: --a; }\n#escaped-tooltip-1 { left: anchor(left); }');
+    assert.equal(options.excludeInlineStyles, true);
+    assert.equal(options.elements[0], sheet);
+});
 
 test('missing positioning readiness ends after one attempt and leaves the event loop usable', async () => {
     const f = await fixture();

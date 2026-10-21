@@ -4,3 +4,4 @@ Registry archive integrity: sha512-sk+1BpF5V+CfFm0CUbyTRxtwsUjcuP6Nz5tOzC6Bh500g
 
 Used by Fluent UI v5 tooltip positioning in browsers without CSS anchors.
 The bundle includes @floating-ui/dom, css-tree, and nanoid (MIT licensed).
+The source map reference is removed because the map is not distributed here.
