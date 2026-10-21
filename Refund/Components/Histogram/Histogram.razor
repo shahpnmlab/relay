@@ -37,6 +37,14 @@
     }
     
     <div class="histogram-chart">
+        <div class="histogram-scale" role="group" aria-label="Vertical axis scale">
+            <button type="button" class="histogram-scale-option" aria-pressed="@((!UseLogarithmicY).ToString().ToLowerInvariant())"
+                    title="Linear vertical scale" disabled="@IsDisabled" @onclick="() => SetScaleAsync(false)">lin</button>
+            <span aria-hidden="true">|</span>
+            <button type="button" class="histogram-scale-option" aria-pressed="@(UseLogarithmicY.ToString().ToLowerInvariant())"
+                    title="Logarithmic vertical scale" disabled="@IsDisabled" @onclick="() => SetScaleAsync(true)">log</button>
+        </div>
+
         <!-- Range selection overlay if enabled (placed first to be behind bars) -->
         @if (RangeSelectionEnabled)
         {

@@ -26,7 +26,7 @@ public partial class Histogram : IAsyncDisposable
     /// <summary>
     /// Whether to scale bin heights by log(1 + count), keeping empty bins at zero.
     /// </summary>
-    [Parameter] public bool LogarithmicY { get; set; } = true;
+    [Parameter] public bool LogarithmicY { get; set; } = false;
 
     /// <summary>
     /// Minimum rendered bin width in CSS pixels; adjacent bins are summed to meet it.
@@ -127,6 +127,8 @@ public partial class Histogram : IAsyncDisposable
 
     private string MinRangeFormatted => FormatValue(MinRange);
     private string MaxRangeFormatted => FormatValue(MaxRange);
+    private bool? _logarithmicYOverride;
+    private bool UseLogarithmicY => _logarithmicYOverride ?? LogarithmicY;
     
     #endregion
 
@@ -156,6 +158,11 @@ public partial class Histogram : IAsyncDisposable
 
     protected override async Task OnParametersSetAsync()
     {
+        if (LogarithmicY != _previousLogarithmicY)
+        {
+            _logarithmicYOverride = null;
+        }
+
         // Check if bin sizes changed
         bool binsChanged = false;
         bool secondaryBinsChanged = false;
@@ -280,7 +287,7 @@ public partial class Histogram : IAsyncDisposable
         return new
         {
             binSizes = BinSizes,
-            logarithmicY = LogarithmicY,
+            logarithmicY = UseLogarithmicY,
             minBinWidth = MinBinWidth,
             secondaryBinSizes = SecondaryBinSizes,
             minRange = MinRange,
@@ -321,6 +328,14 @@ public partial class Histogram : IAsyncDisposable
     #endregion
 
     #region Helpers
+
+    private async Task SetScaleAsync(bool logarithmic)
+    {
+        if (IsDisabled || UseLogarithmicY == logarithmic) return;
+
+        _logarithmicYOverride = logarithmic;
+        await UpdateHistogramAsync();
+    }
 
     // Value change handlers for number inputs
     private async Task OnRangeStartChanged(decimal value)
