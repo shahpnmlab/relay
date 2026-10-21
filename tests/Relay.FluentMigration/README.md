@@ -14,6 +14,7 @@ Side-callout positioning tests run without a browser:
 
 ```sh
 node --test tests/Relay.FluentMigration/popover-positioning.test.mjs
+node --test tests/Relay.FluentMigration/tooltip-fallback.test.mjs
 ```
 
 The harness starts ComponentDev on port 5131 and a TCP proxy on port 5132. The
@@ -42,6 +43,17 @@ standalone text inputs and textareas, int2/int3 step buttons while focused,
 preserving sibling coordinates, rejected updates, resets, and switching entities.
 Numeric arithmetic tests also cover decimal precision, large integers, bounds,
 partial input, scientific notation, and localized number formats.
+
+## Firefox tooltip fallback
+
+Relay and ComponentDev load a bundled CSS anchor positioning polyfill and a
+Fluent 5.0.1 workaround before Blazor. Browsers with native CSS anchors retain
+Fluent's implementation. Other browsers supply the polyfill hook used by Fluent
+and replace its unbounded `showTooltip` promise recursion with one positioning
+attempt. Failed positioning suppresses that tooltip; hiding or disconnecting
+also cancels a delayed show. The tests cover successful positioning, failure,
+missing anchors, rapid requests, and cancellation. Verify an actual Firefox
+session by repeatedly opening job editors and hovering/focusing field labels.
 
 The job views await binding callbacks and retain a whole local draft while a
 commit is pending. Superseded queued assignments are skipped. Field keys follow
