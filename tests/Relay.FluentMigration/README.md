@@ -50,6 +50,13 @@ queue menu. Check start alignment, vertical centering, ellipsis for long labels,
 filtering, and selection. These menus omit the selection-marker slot; ordinary
 Fluent selection inputs retain their checkmarks.
 
+For job parameter accordion hit areas, open `/accordion-interaction`. Editing a
+field and clicking the gutter beside it or the space between fields must blur
+the field without collapsing the section. Header text, chevrons, Enter, and
+Space must still toggle it; field buttons and checkboxes must still work.
+The shared native capture guard rejects only clicks retargeted to the job
+accordion host outside its header, before Fluent's item listener runs.
+
 ## Firefox tooltip fallback
 
 Relay and ComponentDev register a Fluent 5.0.1 workaround before Blazor.

@@ -1,0 +1,31 @@
+@page "/accordion-interaction"
+@using Refund.Components
+
+<PageTitle>Job accordion interaction checks</PageTitle>
+<h1>Job accordion interaction checks</h1>
+<p>Click beside and between fields to blur them. Only section headers should toggle sections.</p>
+<div class="job-parameter-display" style="width: 320px;">
+    <FluentAccordion Style="row-gap: 1rem;">
+        <FluentAccordionItem Id="parameters" Class="transparent" Header="Parameters" Expanded="true"
+                             ExpandedChanged="@(value => _expanded = value)">
+            <FluentStack Orientation="Orientation.Vertical" VerticalGap="16" Style="width: 100%;">
+                <RelayTextInput Id="output-name" Label="Output name" @bind-Value="_name" />
+                <FluentNumberInput TValue="int" Id="box-size" Label="Box size" @bind-Value="_boxSize" />
+                <FluentCheckbox Label="Normalize" @bind-Value="_normalize" />
+                <FluentButton OnClick="@(() => _clicks++)">Field action</FluentButton>
+            </FluentStack>
+        </FluentAccordionItem>
+        <FluentAccordionItem Id="favorites" Class="transparent" Header="Favorites" Expanded="true">
+            <RelayTextInput Label="Favorite parameter" Value="Example" />
+        </FluentAccordionItem>
+    </FluentAccordion>
+</div>
+<output id="accordion-state">Expanded: @_expanded; Name: @_name; Box: @_boxSize; Normalize: @_normalize; Actions: @_clicks</output>
+
+@code {
+    private bool _expanded = true;
+    private string _name = "Particles";
+    private int _boxSize = 64;
+    private bool _normalize;
+    private int _clicks;
+}
