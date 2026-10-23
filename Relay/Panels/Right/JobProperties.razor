@@ -34,8 +34,11 @@
             }
         </div>
 
-        <FluentTabs Style="height: 100%; padding: 0;">
-            <FluentTab Header="Details" Style="padding: 0.5rem 0; height: 100%;">
+        @* FluentTabs retains child content fragments; replace them when the job changes. *@
+        <FluentTabs @key="job" ActiveTabId="@_activeTabId"
+                    ActiveTabIdChanged="@((string id) => HandleActiveTabChanged(job, id))"
+                    Style="height: 100%; padding: 0;">
+            <FluentTab Id="job-details" Header="Details" Style="padding: 0.5rem 0; height: 100%;">
                 <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 0.5rem; height: 100%;">
                     <div style="width: 100%; height: 100%;">
                         <div class="property-panel">
@@ -197,7 +200,7 @@
 
             @if (job.Status != JobStatus.Building)
             {
-                <FluentTab Header="Parameters" Style="padding: 0.5rem 0; height: 100%;">
+                <FluentTab Id="job-parameters" Header="Parameters" Style="padding: 0.5rem 0; height: 100%;">
                     <div style="height: 100%; overflow-y: auto;">
                         <JobPortDisplay Job="@job"
                                         IsDisabled="true"
@@ -215,7 +218,7 @@
 
             @if (_iterationsWithResults.Any())
             {
-                <FluentTab Header="Results">
+                <FluentTab Id="job-results" Header="Results">
                     <div style="padding: 0.5rem 0; height: 100%;"
                          class="property-panel">
                         <div class="property-item">

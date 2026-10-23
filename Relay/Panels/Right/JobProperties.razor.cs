@@ -67,6 +67,15 @@ public partial class JobProperties : ComponentBase, IDisposable
     /// Whether the timeline is expanded to show all events or collapsed to hide events before the most recent clearing.
     /// </summary>
     private bool _timelineExpanded = false;
+
+    private string _activeTabId = "job-details";
+
+    private void HandleActiveTabChanged(ReadOnlyJob job, string id)
+    {
+        // Disposing the previous job's tabs also raises selection callbacks.
+        if (Jobs?.FirstOrDefault() == job && !string.IsNullOrEmpty(id))
+            _activeTabId = id;
+    }
     
     /// <summary>
     /// List of output ports that have downloadable results for the current iteration.
@@ -119,6 +128,11 @@ public partial class JobProperties : ComponentBase, IDisposable
         _timelineExpanded = false;
 
         UpdateResults();
+
+        // Keep the selected tab across jobs only when that tab is available on the new job.
+        if ((_activeTabId == "job-parameters" && Jobs?.FirstOrDefault()?.Status == JobStatus.Building) ||
+            (_activeTabId == "job-results" && !_iterationsWithResults.Any()))
+            _activeTabId = "job-details";
         
         // Set up new subscriptions for job updates
         if (Jobs != null && Jobs.Any())
