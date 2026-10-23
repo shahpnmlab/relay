@@ -33,6 +33,11 @@ public class DataSetFs : Resource
     #region EER
 
     public int EerFrames { get; set; } = 40;
+
+    public EerGroupingMode EerGrouping { get; set; } = EerGroupingMode.NumberOfGroups;
+
+    /// <summary>Desired exposure per EER group in e-/Å², matching WarpTools --eer_groupexposure.</summary>
+    public decimal EerGroupExposure { get; set; } = 1m;
     
     #endregion
 
@@ -118,7 +123,18 @@ public class DataSetFs : Resource
         result.Import.BinTimes = (decimal)Math.Log2((double)BinFactor);
         result.Import.DosePerAngstromFrame = -OverallExposure;
 
-        result.Import.EERGroupFrames = -EerFrames;
+        if (EerGrouping == EerGroupingMode.GroupExposure)
+        {
+            if (EerGroupExposure <= 0)
+                throw new ArgumentOutOfRangeException(nameof(EerGroupExposure), "EER exposure per group must be positive.");
+
+            // WarpTools converts --eer_groupexposure to a group count, stored negative in Warp options.
+            result.Import.EERGroupFrames = -checked((int)Math.Ceiling(OverallExposure / EerGroupExposure));
+        }
+        else
+        {
+            result.Import.EERGroupFrames = -EerFrames;
+        }
         
         result.Import.CorrectGain = !string.IsNullOrWhiteSpace(GainPath);
         result.Import.GainPath = GainPath ?? "";
@@ -131,4 +147,10 @@ public class DataSetFs : Resource
 
         return result;
     }
+}
+
+public enum EerGroupingMode
+{
+    NumberOfGroups,
+    GroupExposure
 }

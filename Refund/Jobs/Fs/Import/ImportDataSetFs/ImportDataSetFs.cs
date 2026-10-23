@@ -59,10 +59,25 @@ public class ImportDataSetFs : Job, ILocalJob
     #region EER
     
     [UiFieldGroup("EER", 1)]
+    [UiEnum("", "Grouping mode", typeof(EerGroupingMode),
+            helpText: "Group EER frames by number of groups (--eer_ngroups) or exposure per group (--eer_groupexposure).")]
+    [RelayProperty]
+    public EerGroupingMode EerGrouping { get; set; } = EerGroupingMode.NumberOfGroups;
+
     [UiInt("", "Number of groups", min: 1, max: 1000, stepSize: 1,
-            helpText: "Only if importing EER files: number of groups to combine raw EER frames into, i.e. number of 'virtual' frames in resulting stack.")]
+            helpText: "Only if importing EER files: number of groups to combine raw EER frames into, i.e. number of 'virtual' frames in resulting stack.",
+            ConditionalOnField = nameof(EerGrouping),
+            ConditionalOnValue = EerGroupingMode.NumberOfGroups)]
     [RelayProperty]
     public int EerFrames { get; set; } = 40;
+
+    [UiDecimal("", "Exposure per group", min: 0.001, max: 100000, stepSize: 0.1,
+               helpText: "Only if importing EER files: desired exposure per group. The number of groups is the overall exposure divided by this value, rounded up, matching --eer_groupexposure.",
+               Unit = "e-/Å²",
+               ConditionalOnField = nameof(EerGrouping),
+               ConditionalOnValue = EerGroupingMode.GroupExposure)]
+    [RelayProperty]
+    public decimal EerGroupExposure { get; set; } = 1m;
     
     #endregion
 
@@ -187,6 +202,8 @@ public class ImportDataSetFs : Job, ILocalJob
             GainTranspose = GainTranspose,
             
             EerFrames = EerFrames,
+            EerGrouping = EerGrouping,
+            EerGroupExposure = EerGroupExposure,
             
             PixelSize = PixelSize,
             BinFactor = BinFactor,
