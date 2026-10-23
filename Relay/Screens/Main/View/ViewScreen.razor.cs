@@ -187,10 +187,10 @@ public partial class ViewScreen : ListingScreenLogic<IViewItem>
                        .ThenByDescending(i => i.Alias, StringComparer.OrdinalIgnoreCase)
                        .ThenByDescending(i => i.Id),
             JobSortCriterion.Color => SortingService.IsAscending
-                ? items.OrderBy(i => GetColorTag(i) == null ? 1 : 0)
+                ? items.OrderBy(i => string.IsNullOrWhiteSpace(GetColorTag(i)) ? 1 : 0)
                        .ThenBy(GetColorTag, StringComparer.OrdinalIgnoreCase)
                        .ThenBy(i => i.Id)
-                : items.OrderBy(i => GetColorTag(i) == null ? 1 : 0)
+                : items.OrderBy(i => string.IsNullOrWhiteSpace(GetColorTag(i)) ? 1 : 0)
                        .ThenByDescending(GetColorTag, StringComparer.OrdinalIgnoreCase)
                        .ThenByDescending(i => i.Id),
             _ => items.OrderBy(i => i.Id)
